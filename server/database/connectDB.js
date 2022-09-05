@@ -1,4 +1,4 @@
-const {default:mongoose} = require("mongoose");
+const {mongoose} = require("mongoose");
 
 const connectDB = ()=>{
     mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.aytwlpc.mongodb.net/?retryWrites=true&w=majority`)
