@@ -7,46 +7,54 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
+const saltRounds = 10; // For Bcrypt
 
 // Create a User using: POST "/api/auth/signup". No login required
 router.post('/signup', [
     body('name', 'Enter a valid name and length must be more thean 3').isLength({ min: 3 }),
     body('email', 'Enter a valid email').isEmail(),
     body('password', 'Password cannot be blank').exists(),
-    body('number', 'Mobile number length must be 10').isLength({min: 10, max:10})
-
+    body('cpassword', 'cPassword cannot be blank').exists(),
+    body('number', 'Mobile number length must be 10').isLength({ min: 10, max: 10 })
 ], async (req, res) => {
-    const errors = validationResult(req);
+
+    const errors = validationResult(req); // Errors in given user's information
+
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ error: errors.array() });
     }
     try {
-        const { name, email, password, number } = req.body;
-        let success = false;
-        const salt = bcrypt.genSaltSync(10);
-        const secPass = bcrypt.hashSync(password, salt);
+        const { name, email, password, cpassword, number } = req.body;
         let user = await User.findOne({ email });
+
+        // checking if the user already exists or not
         if (user) {
-            return res.status(400).json({ errors: errors.array() })
+            return res.status(400).send({ result: "User already exists" })
         }
-        user = await User.create({
-            name,
-            email,
-            password: secPass,
-            number
-        })
-        const data = {
-            user: {
-                id: user.id
+        else {
+            // if not then we hash the password and store it.
+            if (password === cpassword) {
+                bcrypt.hash(password, saltRounds)
+                    .then((hash) => {
+                        const user = User.create({
+                            name, email, password: hash, number
+                        })
+                        res.status(200).send({ result: "Registered succesfully" });
+
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        res.status(500).send({ error: "Internal Server Error" });
+                    })
+            }
+            else {
+                return res.status(400).json({ error: "Password and Confirm Password must be same" });
             }
         }
-        const authToken = jwt.sign(data, JWT_SECRET);
-        success = true;
-        res.json({ success, authToken });
     }
     catch (err) {
         console.log(err.msg);
-        res.status(500).send("Internal server error occured");
+        res.status(500).send({ result: "Internal server error occured" });
     }
 
 }
@@ -56,32 +64,34 @@ router.post('/login', [
     body('email', 'Enter a valid email').isEmail(),
     body('password', 'Password cannot be blank').exists()
 ], async (req, res) => {
-    const errors = validationResult(req);
+    const errors = validationResult(req); // Errors in given user's information 
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ error: errors.array() });
     }
 
     const { email, password } = req.body;
     try {
-        let success = false;
-        let user = await User.findOne({ email });
+        let user = await User.findOne({ email }); // Finding User
         if (!user) {
             return res.status(400).json({ error: 'Please try to login with correct credentials' });
         }
 
+        // If user found
         const passwordCompare = await bcrypt.compare(password, user.password);
         if (!passwordCompare) {
-            return res.status(400).json({ success, error: "Please try to login with correct credentials" });
+            return res.status(400).json({ error: "Please try to login with correct credentials" });
         }
 
         const data = {
             user: {
-                id: user.id
+                id: user._id
             }
         }
-        success = true;
+
+        // Creating the authToken and sending the cookies.
         const authToken = jwt.sign(data, JWT_SECRET);
-        res.json({ success, authToken });
+        res.cookie("jwt", authToken);
+        res.status(200).send({ result: "Login Successful" });
     }
     catch (err) {
         console.log(err.msg);
