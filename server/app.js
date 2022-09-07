@@ -17,6 +17,8 @@ connectDB();
 
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/admin/auth', require('./routes/adminAuth'));
+app.use('/admin', require('./routes/postData'));
+app.use('/admin', require('./routes/getData'));
 app.get("/", (req,res)=>{
     res.send("This is the home route.")
 })

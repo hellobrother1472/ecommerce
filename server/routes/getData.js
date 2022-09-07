@@ -1,28 +1,30 @@
 const express = require('express');
-const User = require('../database/models/User');
 const router = express.Router();
-
 const app = express();
+const Product = require('../database/models/Product');
 
-app.get("/productData",(req,res)=>{
+router.get('/getProduct/:id', async (req, res) => {
+    try{
+        let productId = req.params.id;
 
+        let product = await Product.findById(productId);
+        res.json({product});
+    }
+    catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
 })
 
+router.get('/getAllProduct', async (req, res) => {
+    try{
+        let products = await Product.find();
+        res.json({products});
+    }
+    catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+})
 
-// add pictures in product model
-// product description
-// get productData 
-// get categoryData 
-
-// admin panel route and authentication(/admin/login)
-// for postData admin middleware  
-// add data and remove product and category
-
-
-// email and mobile notification on checkout
-// Forgot password feature
-// reset password routes
-// order history feature (add data after buy)
-// addToCart (data saved in local storage)
-
-module.exports = router;
+router.get('/')
