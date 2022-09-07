@@ -11,11 +11,12 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json());
-app.use('/api/auth', require('./routes/authRoutes'));
 app.use(cookieParser());
 
 connectDB();
 
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/admin/auth', require('./routes/adminAuth'));
 app.get("/", (req,res)=>{
     res.send("This is the home route.")
 })

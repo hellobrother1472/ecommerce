@@ -1,7 +1,5 @@
-var express = require('express');
 const jwt = require('jsonwebtoken');
 const User = require("../database/models/User")
-const app = express();
 
 const authentication = async (req, res, next) => {
     try {
@@ -20,7 +18,7 @@ const authentication = async (req, res, next) => {
         next();
     } catch (error) {
         console.log(error);
-        res.status(404).send(error.message);
+        res.status(404).send({error:error.message});
     }
 
     try {
