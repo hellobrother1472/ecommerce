@@ -27,4 +27,4 @@ router.get('/getAllProduct', async (req, res) => {
     }
 })
 
-router.get('/')
+module.exports = router;
