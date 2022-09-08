@@ -1,18 +1,38 @@
 const express = require('express');
 const router = express.Router();
+const { body, validationResult } = require('express-validator');
 const adminAuth = require('../middlewares/adminAuthentication');
 const app = express();
 const Product = require('../database/models/Product');
 
-router.post("/addProduct",adminAuth, async (req,res)=>{
-    try{
-        let {name, description, price, categoryName} = req.body;
+router.post("/addProduct", [
+    body('name', 'Enter a valid name and length must be more thean 3').isLength({ min: 3 }),
+    body('description', 'Descriptio cannot be blank').exists(),
+    body('price', 'Price cannot be blank').exists(),
+    body('categoryName', 'CategoryName cannot be blank').exists(),
+    adminAuth
+], async (req, res) => {
+    const errors = validationResult(req); // Errors in given product information
 
-        let product = await Product.create({
-            name, description, price, categoryName
-        });
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ error: errors.array() });
+    }
+    
+    try {
+        let { name, description, price, categoryName } = req.body;
+        const isProduct = await Product.findOne({ name });
 
-        res.json({product, message: "Product has been added successfully"});
+        if (isProduct) {
+            res.status(404).send({ error: "Product already exists" });
+        }
+        else {
+            let product = await Product.create({
+                admin: req.admin._id, name, description, price, categoryName
+            });
+
+            res.json({ product, message: "Product has been added successfully" });
+        }
+
     }
     catch (error) {
         console.error(error.message);
@@ -21,28 +41,28 @@ router.post("/addProduct",adminAuth, async (req,res)=>{
 })
 
 router.post('/updateProduct/:id', adminAuth, async (req, res) => {
-    try{
-        let {name, description, price, categoryName} = req.body;
+    try {
+        let { name, description, price, categoryName } = req.body;
         const newProduct = {};
-        if(name){
+        if (name) {
             newProduct.name = name;
         }
-        if(description){
+        if (description) {
             newProduct.description = description;
         }
-        if(price){
+        if (price) {
             newProduct.price = price;
         }
-        if(categoryName){
+        if (categoryName) {
             newProduct.categoryName = categoryName;
         }
 
         let product = await Product.findById(req.params.id);
-        if(!product){
+        if (!product) {
             return res.status(404).send("Product is not found!");
         }
 
-        if(product.admin.toString() !== req.admin.id){
+        if (product.admin.toString() !== req.admin.id) {
             return res.status(401).send("Not Allowed");
         }
         product = await Product.findByIdAndUpdate(req.params.id, { $set: newProduct }, { new: true })
@@ -55,9 +75,9 @@ router.post('/updateProduct/:id', adminAuth, async (req, res) => {
 })
 
 router.post('/deleteProduct/:id', adminAuth, async (req, res) => {
-    try{
+    try {
         const product = await Product.findByIdAndDelete(req.params.id);
-        res.json({message: "Product has been deleted successfully", product});
+        res.json({ message: "Product has been deleted successfully", product });
     }
     catch (error) {
         console.error(error.message);
@@ -66,13 +86,13 @@ router.post('/deleteProduct/:id', adminAuth, async (req, res) => {
 })
 
 // add pictures in product model
-// product description
-// get productData 
-// get categoryData 
+// product description (Done)
+// get productData (Done)
+// get categoryData (Done)
 
-// admin panel route and authentication(/admin/login)
-// for postData admin middleware  
-// add data and remove product and category
+// admin panel route and authentication(/admin/login) (Done)
+// for postData admin middleware   (Done)
+// add data and remove product and category (Done)
 
 
 // email and mobile notification on checkout

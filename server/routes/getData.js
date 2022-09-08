@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const app = express();
 const Product = require('../database/models/Product');
 
 router.get('/getProduct/:id', async (req, res) => {
