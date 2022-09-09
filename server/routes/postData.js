@@ -3,6 +3,7 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const adminAuth = require('../middlewares/adminAuthentication');
 const app = express();
+const multer = require('multer');
 const Product = require('../database/models/Product');
 
 router.post("/addProduct", [
@@ -83,6 +84,40 @@ router.post('/deleteProduct/:id', adminAuth, async (req, res) => {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
     }
+})
+
+const multerStorage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, 'public/images')
+    },
+    filename: function(req, file, cb){
+        cb(null, `user-${Date.now()}.jpeg`)
+    }
+});
+
+const filter = function(req, file, cb){
+    if(file.mimetype.startsWith('image')){
+        cb(null, true);
+    }
+    else{
+        cb(new Error('Not an Image! Please upload an image'), false);
+    }
+}
+
+const upload = multer({
+    storage: multerStorage,
+    fileFilter: filter
+})
+
+const updateProductImage = (req, res) => {
+    res.json({
+        message: 'file uploaded successfully'
+    });
+}
+
+router.post('/productImage', upload.single('photo') , updateProductImage);
+router.get('/productImage', (req, res) => {
+    res.sendFile(__dirname + '/multer.html');
 })
 
 // add pictures in product model

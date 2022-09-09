@@ -25,7 +25,11 @@ const productSchema = mongoose.Schema({
     categoryName:{
         type:String,
         required:true
-    }
+    },
+    productImageImage:{
+        type:String,
+        default:'../product.jpg'
+    },
     
 })  
 
