@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { BsFillCartFill } from "react-icons/bs";
-
+import Cart from "./Cart";
+// import { useDispatch } from "react-redux/es/exports";
+// import { cartIncrement,cartDecrement } from "../states/actions/cartActions";
+  
 const Navbar = () => {
   const [search, setSearch] = useState(false);
   const [categoryDropdown, setCategoryDropdown] = useState(false);
@@ -28,6 +30,7 @@ const Navbar = () => {
     });
   };
 
+  // const dispatch = useDispatch();
   return (
     <div className="flex justify-between p-3">
       {/* This is for logo */}
@@ -51,15 +54,15 @@ const Navbar = () => {
               <svg
                 width="6"
                 height="3"
-                class="ml-2 overflow-visible inline"
+                className="ml-2 overflow-visible inline"
                 aria-hidden="true"
               >
                 <path
                   d="M0 0L3 3L6 0"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
                 ></path>
               </svg>
             </div>
@@ -111,8 +114,8 @@ const Navbar = () => {
           >
             <BsSearch />
           </li>
-          <li className="transition duration-200 my-1 hover:text-red-600 hover:cursor-pointer hover:scale-110">
-            <BsFillCartFill />
+          <li className="my-1">
+            <Cart/>
           </li>
         </ul>
       </div>
