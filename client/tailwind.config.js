@@ -32,7 +32,11 @@ module.exports = {
       // Small to medium 
       
     },
-    extend: {},
+    extend: {
+      colors: {
+        'royal-blue': '#002c3e',
+      },
+    },
   },
   plugins: [],
 }

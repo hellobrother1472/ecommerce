@@ -30,7 +30,7 @@ const FooterOne = () => {
         {/* Second */}
         <div className="space-y-7 p-2 px-3 w-2/12 mdm:w-full">
           <div>
-            <h1 className="text-xl font-bold  mdm:text-center">MENU</h1>
+            <h1 className="text-xl font-bold  sm:text-center">MENU</h1>
           </div>
           <div>
             <ul className="space-y-2">
@@ -46,7 +46,7 @@ const FooterOne = () => {
         {/* Third */}
         <div className="space-y-7 p-2 px-3 w-2/12 mdm:w-full">
           <div>
-            <h1 className="text-xl font-bold  mdm:text-center">ACCOUNT</h1>
+            <h1 className="text-xl font-bold  sm:text-center">ACCOUNT</h1>
           </div>
           <div>
             <ul className="space-y-2">
