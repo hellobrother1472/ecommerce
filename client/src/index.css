@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body{
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat','sans-serif';
 }
 
 .slick-prev:before,.slick-next:before{

@@ -30,6 +30,9 @@ module.exports = {
       'smtmd': { 'min': '640px', 'max': '767px' },
       // 'smtmd': { 'min': '639px', 'max': '639px' } . Mtlb uss beech kaisa karega vo define kiya
       // Small to medium 
+      'mdtlg': { 'min': '830px', 'max': '1024px' },
+      // 'smtmd': { 'min': '639px', 'max': '639px' } . Mtlb uss beech kaisa karega vo define kiya
+      // Small to medium 
       
     },
     extend: {
@@ -38,12 +41,12 @@ module.exports = {
       },
       keyframes: {
         fadeIn: {
-          '0%': { transform: 'translateX(-140%)' },
-          '100%': { transform: 'translateX(0%)' },
-        }
+          '0%': { transform: 'translateY(-60%)' },
+          '100%': { transform: 'translateY(0%)' },
+        },
       },
       animation: {
-        'fade-in': 'fadeIn 1s linear 1',
+        'fade-in': 'fadeIn 0.5s linear 1',
       }
     },
   },

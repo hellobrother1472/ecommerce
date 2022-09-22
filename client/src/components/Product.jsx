@@ -20,9 +20,9 @@ const Product = () => {
               products.map((product, i) => (
                 <div className='product w-1/3 p-8 md:px-20' key={i} >
                   <div className='product-image'>
-                    <img src={product.img} alt='product' className='w-full h-72 md:w-72' />
+                    <img src={product.img} alt='product' className='w-full h-72 md:w-72 rounded-md' />
                   </div>
-                  <div className='product-desc flex items-center gap-20 smm:gap-10'>
+                  <div className='product-desc pt-6 flex items-center gap-20 smm:gap-10'>
                     <h1 className='text-xl smm:text-sm font-semibold'>{product.h1}</h1>
                     <p className='flex smm:text-sm'><AiFillStar /> <AiFillStar /> <AiFillStar /> <AiFillStar /> <AiFillStar /> </p>
 

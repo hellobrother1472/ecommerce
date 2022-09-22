@@ -7,8 +7,8 @@ import ShopUs from './components/ShopUs'
 import Arrivals from './components/Arrivals'
 import Offer from './components/Offer'
 import Product from './components/Product'
-import SignIn from './components/SignIn'
-import SignUp from './components/SignUp'
+// import SignIn from './components/SignIn'
+// import SignUp from './components/SignUp'
 
 const App = () => {
   return (
