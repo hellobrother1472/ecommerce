@@ -36,6 +36,15 @@ module.exports = {
       colors: {
         'royal-blue': '#002c3e',
       },
+      keyframes: {
+        fadeIn: {
+          '0%': { transform: 'translateX(-140%)' },
+          '100%': { transform: 'translateX(0%)' },
+        }
+      },
+      animation: {
+        'fade-in': 'fadeIn 1s linear 1',
+      }
     },
   },
   plugins: [],

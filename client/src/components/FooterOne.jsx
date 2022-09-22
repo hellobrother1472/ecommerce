@@ -2,7 +2,7 @@ import React from "react";
 
 const FooterOne = () => {
   return (
-    <div className="p-12 px-24 lgm:px-16 smm:px-12">
+    <div className="md:px-12">
       {/* Second box */}
       <div className="flex p-3 space-x-3 mdm:block mdm:space-y-4 mdm:space-x-0">
         {/* First */}
@@ -30,7 +30,7 @@ const FooterOne = () => {
         {/* Second */}
         <div className="space-y-7 p-2 px-3 w-2/12 mdm:w-full">
           <div>
-            <h1 className="text-xl font-bold  sm:text-center">MENU</h1>
+            <h1 className="text-xl font-bold  text-center">MENU</h1>
           </div>
           <div>
             <ul className="space-y-2">
@@ -46,7 +46,7 @@ const FooterOne = () => {
         {/* Third */}
         <div className="space-y-7 p-2 px-3 w-2/12 mdm:w-full">
           <div>
-            <h1 className="text-xl font-bold  sm:text-center">ACCOUNT</h1>
+            <h1 className="text-xl font-bold  text-center">ACCOUNT</h1>
           </div>
           <div>
             <ul className="space-y-2">
@@ -62,7 +62,7 @@ const FooterOne = () => {
         {/* Fourth */}
         <div className="space-y-7 p-2 px-5 w-4/12 mdm:w-full">
           <div>
-            <h1 className="text-xl font-bold  mdm:text-center">NEWSLETTER</h1>
+            <h1 className="text-xl font-bold  text-center">NEWSLETTER</h1>
           </div>
           <div className="space-y-10">
             <h1 className=" mdm:text-center">Subscribe by our newsletter and get update protidin.</h1>
