@@ -3,7 +3,7 @@ import React from "react";
 const SignUp = () => {
   return (
     <div className="my-10">
-      <div className="w-1/3 mx-auto">
+      <div className="mx-auto mdm:w-3/4 mdtlg:w-1/2 lg:w-[30%]">
         {/* Logo */}
         <div className="logo">
           <h1 className="font-extrabold text-5xl text-center">Logo</h1>
@@ -23,8 +23,8 @@ const SignUp = () => {
           </div>
 
           {/* Form */}
-          <div className="p-5">
-            <form className="flex flex-col p-4 space-y-6 items-center">
+          <div className="p-5 vsmm:px-2">
+            <form className="flex flex-col p-4 space-y-7 items-center smm:p-0">
               <input
                 type="text"
                 className="w-full h-8 p-2 py-5 border border-black rounded-md focus:outline-none focus:ring ring-red-400 ring-offset"

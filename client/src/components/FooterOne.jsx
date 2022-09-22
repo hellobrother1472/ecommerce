@@ -4,7 +4,7 @@ const FooterOne = () => {
   return (
     <div className="md:px-12">
       {/* Second box */}
-      <div className="flex p-3 space-x-3 mdm:block mdm:space-y-4 mdm:space-x-0">
+      <div className="flex p-3 py-5 space-x-3 mdm:block mdm:space-y-4 mdm:space-x-0">
         {/* First */}
         <div className="space-y-6 p-2 px-3 w-4/12 mdm:w-full">
           <div>

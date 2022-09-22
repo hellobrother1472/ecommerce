@@ -70,7 +70,7 @@ const Navbar = () => {
             <div
               className={
                 categoryDropdown
-                  ? "absolute z-10 mt-3 bg-red-400 w-48 rounded"
+                  ? "absolute z-10 mt-5 bg-red-400 w-48 rounded"
                   : "hidden"
               }
             >
