@@ -40,8 +40,8 @@ const Navbar = () => {
 
       {/* This is for navbar options */}
       {/* More adjust it when we add login functionality */}
-      <div className="options self-center mt-2 mdm:hidden">
-        <ul className="flex space-x-10 px-5 py-3 lgm:space-x-6">
+      <div className="options self-center mt-0 mdm:hidden">
+        <ul className="flex space-x-10 px-5 py-2 lgm:space-x-6">
           <li className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110">
             Home
           </li>

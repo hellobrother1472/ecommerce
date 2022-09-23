@@ -1,5 +1,5 @@
 import React from 'react';
-import arrival from '../arrival-bg.png';
+import arrival from '../images/arrival-bg.png';
 
 const Arrivals = () => {
   return (
