@@ -41,12 +41,17 @@ module.exports = {
       },
       keyframes: {
         fadeIn: {
-          '0%': { transform: 'translateY(-60%)' },
-          '100%': { transform: 'translateY(0%)' },
+          '0%': { transform: 'translateX(-140%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
+        fadeOut: {
+          '0%': { transform: 'translateX(140%)' },
+          '100%': { transform: 'translateX(0%)' },
         },
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s linear 1',
+        'fade-in': 'fadeIn 0.7s linear 1',
+        'fade-out': 'fadeOut 0.7s linear 1',
       }
     },
   },
