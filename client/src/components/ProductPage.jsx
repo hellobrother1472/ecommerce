@@ -28,12 +28,17 @@ const ProductPage = () => {
     }
 
     return (
-        <div className='flex flex-wrap lg:gap-20 px-4 py-8 mdm:justify-center mdm:items-center'>
-            <div className='w-3/4 flex flex-wrap mx-auto justify-between'>
-                <div className='product-img flex justify-start items-start mdtlg:w-2/3 h-[83vh]'>
+        <div className='px-4 py-8'>
+            <div className='w-5/6 flex flex-wrap mx-auto justify-between mdm:w-full lgt:w-full mdtlg:w-full mdm:items-center mdm:px-0 mdm:justify-center mdm:space-y-10 smm:px-4 lgm:pr-0'>
+
+
+                <div className='product-img flex justify-start items-start mdtlg:w-1/2 h-[82vh]'>
                     <img src='https://technext.github.io/hexashop/assets/images/men-03.jpg' alt='Product' className='h-full' />
                 </div>
-                <div className='product-info flex flex-col mdtlg:items-start items-center mdtlg:w-1/3 w-1/3'>
+
+
+            
+                <div className='product-info flex flex-col mdtlg:items-start items-start mdtlg:w-1/3 w-[65vh] mdm:w-full lgt:w-[50vh]  mdm:items-center'>
                     <h1 className='text-2xl'>ASHTAR</h1>
                     <h2 className='text-gray-400'>Product Id: 3839643964</h2>
                     <div className='flex smm:flex-col gap-4 items-center smm:text-sm mt-6 cursor-pointer justify-center'>
@@ -50,7 +55,7 @@ const ProductPage = () => {
                         <p className=''>Special Offer 20% off on Category</p>
                     </div>
                     <div className='color flex flex-wrap flex-col mt-6 cursor-pointer gap-1'>
-                        <h2 className='text-gray-500 text-center'>COLOR: <span className='text-black'>Red</span></h2>
+                        <h2 className='text-gray-500'>COLOR: <span className='text-black'>Red</span></h2>
                         <div className='color-box flex gap-3 items-center'>
                             <p className='bg-red-500 border-gray-400 hover:border-black border h-5 w-5 rounded-full'></p>
                             <p className='bg-blue-500 border-gray-400 hover:border-black border h-5 w-5 rounded-full'></p>
@@ -59,9 +64,9 @@ const ProductPage = () => {
                             <p className='bg-black border-gray-400 hover:border-black border h-5 w-5 rounded-full'></p>
                         </div>
                     </div>
-                    <div className='color flex flex-wrap flex-col mt-6 cursor-pointer gap-1 px-4 w-72 md:w-full md:px-0 items-center'>
+                    <div className='size flex flex-wrap flex-col mt-6 cursor-pointer gap-1 px-4 w-72 md:w-full md:px-0'>
                         <h2 className='text-gray-500'>SIZE: <span className='text-black'>Large</span></h2>
-                        <div className='color-box flex flex-wrap gap-1 items-center text-sm md:text-base'>
+                        <div className='size-box flex flex-wrap gap-1 items-center text-sm md:text-base'>
                             <div className='border border-gray-400 hover:border-black h-6 w-10 flex justify-center items-center'>
                                 <p>S</p>
                             </div>
