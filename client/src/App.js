@@ -19,23 +19,22 @@ import ProductPage from './components/ProductPage'
 const App = () => {
   return (
     <div>
-      {/* <Navbar/> */}
+      <Navbar/>
       {/* <Carousel />
       <ShopUs />
       <Arrivals />
       <Product />
       <Offer />
       <FooterOne/>
-
       <FooterTwo/> */}
       {/* <SignUp/> */}
       {/* <SignIn/> */}
-      <AdminNav/>
-      <AdminPanel/>
+      {/* <AdminNav /> */}
+      {/* <AdminPanel /> */}
       {/* <EditProductPage/> */}
       {/* <AddProductPage/> */}
 
-      <FooterTwo/>  */}
+      {/* <FooterTwo /> */}
       <ProductPage />
       {/* <SignUp/>
       <SignIn/> */}

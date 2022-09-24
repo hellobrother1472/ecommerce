@@ -33,6 +33,9 @@ module.exports = {
       'mdtlg': { 'min': '830px', 'max': '1024px' },
       // 'smtmd': { 'min': '639px', 'max': '639px' } . Mtlb uss beech kaisa karega vo define kiya
       // Small to medium 
+      'lgt': { 'min': '1025px', 'max': '1270px' },
+      // 'smtmd': { 'min': '639px', 'max': '639px' } . Mtlb uss beech kaisa karega vo define kiya
+      // Small to medium 
       
     },
     extend: {
