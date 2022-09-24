@@ -1,5 +1,7 @@
 import React from 'react';
 import {BsTruck} from 'react-icons/bs';
+import {GiRibbonMedal} from 'react-icons/gi';
+import {TbDiscount} from 'react-icons/tb';
 
 const ShopUs = () => {
     return (
@@ -15,13 +17,13 @@ const ShopUs = () => {
                     <p>variations of passages of Lorem Ipsum available</p>
                 </div>
                 <div className='w-full md:w-1/4 box bg-royal-blue text-white px-11 py-12 flex flex-col items-center rounded-md gap-2'>
-                    <BsTruck className='text-5xl' />
-                    <h2 className='font-semibold text-2xl'>Fast Delivery</h2>
+                    <TbDiscount className='text-5xl' />
+                    <h2 className='font-semibold text-2xl'>Free Shipping</h2>
                     <p>variations of passages of Lorem Ipsum available</p>
                 </div>
                 <div className='w-full md:w-1/4 box bg-royal-blue text-white px-11 py-12 flex flex-col items-center rounded-md gap-2'>
-                    <BsTruck className='text-5xl' />
-                    <h2 className='font-semibold text-2xl'>Fast Delivery</h2>
+                    <GiRibbonMedal className='text-5xl' />
+                    <h2 className='font-semibold text-2xl'>Best Quality</h2>
                     <p>variations of passages of Lorem Ipsum available</p>
                 </div>
             </div>

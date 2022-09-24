@@ -9,6 +9,7 @@ import Offer from './components/Offer'
 import Product from './components/Product'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
+import ProductPage from './components/ProductPage'
 
 const App = () => {
   return (
@@ -20,9 +21,10 @@ const App = () => {
       <Product />
       <Offer />
       <FooterOne/>
-      <FooterTwo/> */}
-      {/* <SignUp/> */}
-      <SignIn/>
+      <FooterTwo/>  */}
+      <ProductPage />
+      {/* <SignUp/>
+      <SignIn/> */}
     </div>
   )
 }
