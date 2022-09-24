@@ -32,8 +32,8 @@ const ProductPage = () => {
             <div className='w-5/6 flex flex-wrap mx-auto justify-between mdm:w-full lgt:w-full mdtlg:w-full mdm:items-center mdm:px-0 mdm:justify-center mdm:space-y-10 smm:px-4 lgm:pr-0'>
 
 
-                <div className='product-img flex justify-start items-start mdtlg:w-1/2 h-[82vh]'>
-                    <img src='https://technext.github.io/hexashop/assets/images/men-03.jpg' alt='Product' className='h-full' />
+                <div className='product-img flex justify-start items-start mdtlg:w-1/2 h-[82vh] shadow-2xl shadow-red-400 hover:shadow-red-600'>
+                    <img src='https://technext.github.io/hexashop/assets/images/men-03.jpg' alt='Product' className='h-full  rounded-lg' />
                 </div>
 
 

@@ -33,7 +33,6 @@ const App = () => {
       {/* <AdminPanel /> */}
       {/* <EditProductPage/> */}
       {/* <AddProductPage/> */}
-
       {/* <FooterTwo /> */}
       <ProductPage />
       {/* <SignUp/>
