@@ -32,7 +32,7 @@ const Navbar = () => {
 
   // const dispatch = useDispatch();
   return (
-    <div className="flex justify-between p-3">
+    <div className="flex justify-between p-3 shadow-lg">
       {/* This is for logo */}
       <div className="logo self-center ml-8 mdm:ml-3">
         <h1 className="text-4xl font-extrabold">Logo</h1>

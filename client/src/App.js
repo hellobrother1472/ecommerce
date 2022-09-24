@@ -13,6 +13,8 @@ import AdminNav from './components/Admin/AdminNav'
 import AdminPanel from './components/Admin/AllProducts'
 import EditProductPage from './components/Admin/EditProductPage'
 import AddProductPage from './components/Admin/AddProductPage'
+import ProductPage from './components/ProductPage'
+
 
 const App = () => {
   return (
@@ -24,6 +26,7 @@ const App = () => {
       <Product />
       <Offer />
       <FooterOne/>
+
       <FooterTwo/> */}
       {/* <SignUp/> */}
       {/* <SignIn/> */}
@@ -31,6 +34,11 @@ const App = () => {
       <AdminPanel/>
       {/* <EditProductPage/> */}
       {/* <AddProductPage/> */}
+
+      <FooterTwo/>  */}
+      <ProductPage />
+      {/* <SignUp/>
+      <SignIn/> */}
     </div>
   )
 }
