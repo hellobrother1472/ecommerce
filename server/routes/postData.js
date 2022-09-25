@@ -188,14 +188,6 @@ router.get('/productImage', (req, res) => {
 })
 
 // add pictures in product model
-// product description (Done)
-// get productData (Done)
-// get categoryData (Done)
-
-// admin panel route and authentication(/admin/login) (Done)
-// for postData admin middleware   (Done)
-// add data and remove product and category (Done)
-
 
 // email and mobile notification on checkout
 // Forgot password feature
