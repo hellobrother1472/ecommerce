@@ -2,21 +2,21 @@ import React from "react";
 
 const AdminNav = () => {
   return (
-    <div className="flex justify-between p-3 px-6 items-center bg-red-200">
+    <div className="flex justify-between p-3 px-6 items-center bg-gradient-to-r from-black to-blue-900 shadow-lg">
 
       <div className="">
-        <h1 className="text-2xl p-1">Admin Panel</h1>
+        <h1 className="text-2xl font-semibold text-white p-1">Admin Panel</h1>
       </div>
 
       <div>
         <ul className="flex space-x-5 items-center">
-          <li className="p-2 cursor-pointer hover:text-red-500 hover:scale-110 transition delay-75">
+          <li className="p-2 text-white cursor-pointer hover:text-red-500 hover:scale-110 transition delay-75">
             Add Admin
           </li>
-          <li className="p-2 cursor-pointer hover:text-red-500 hover:scale-110 transition delay-75">
+          <li className="p-2 text-white cursor-pointer hover:text-red-500 hover:scale-110 transition delay-75">
             Add Product
           </li>
-          <li className="p-2 cursor-pointer hover:text-red-500 hover:scale-110 transition delay-75">
+          <li className="p-2 text-white cursor-pointer hover:text-red-500 hover:scale-110 transition delay-75">
             Show Products
           </li>
           <li className="p-1">

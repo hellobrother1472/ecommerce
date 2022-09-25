@@ -14,12 +14,14 @@ import AdminPanel from './components/Admin/AllProducts'
 import EditProductPage from './components/Admin/EditProductPage'
 import AddProductPage from './components/Admin/AddProductPage'
 import ProductPage from './components/ProductPage'
+import AdminLogin from './components/Admin/AdminLogin'
+import AddAdmin from './components/Admin/AddAdmin'
 
 
 const App = () => {
   return (
     <div>
-      <Navbar/>
+      {/* <Navbar/> */}
       {/* <Carousel />
       <ShopUs />
       <Arrivals />
@@ -29,14 +31,14 @@ const App = () => {
       <FooterTwo/> */}
       {/* <SignUp/> */}
       {/* <SignIn/> */}
+      {/* <ProductPage /> */}
+
       {/* <AdminNav /> */}
       {/* <AdminPanel /> */}
       {/* <EditProductPage/> */}
       {/* <AddProductPage/> */}
-      {/* <FooterTwo /> */}
-      <ProductPage />
-      {/* <SignUp/>
-      <SignIn/> */}
+      {/* <AdminLogin/> */}
+      {/* <AddAdmin/> */}
     </div>
   )
 }
