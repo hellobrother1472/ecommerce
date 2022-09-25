@@ -9,11 +9,11 @@ const AddProductPage = () => {
         <form className="w-5/6 space-y-4 items-center justify-center">
           <div className="flex">
             <h1 className="inline font-semibold w-40 p-2">Name:</h1>
-            <input type="text" className="p-2 w-full border border-gray-400 rounded-lg outline-none" id="name" />
+            <input type="text" className="p-2 w-full border border-gray-400 rounded-lg outline-none" id="name"  placeholder="Required"/>
           </div>
           <div className="flex">
             <h1 className="inline font-semibold w-40 p-2">Description:</h1>
-            <textarea type="text" className="p-2 h-40 w-full border border-gray-400 rounded-lg outline-none" id="description" />
+            <textarea type="text" className="p-2 h-40 w-full border border-gray-400 rounded-lg outline-none" id="description"  placeholder="Required"/>
           </div>
           <div className="flex">
             <h1 className="inline font-semibold w-40 p-2">Specification:</h1>
@@ -21,11 +21,11 @@ const AddProductPage = () => {
           </div>
           <div className="flex">
             <h1 className="inline font-semibold w-40 p-2">Price:</h1>
-            <input type="number" min={1} className="p-2 w-full border border-gray-400 rounded-lg outline-none" id="price" />
+            <input type="number" min={1} className="p-2 w-full border border-gray-400 rounded-lg outline-none" id="price" placeholder="Required" />
           </div>
           <div className="flex">
             <h1 className="inline font-semibold w-40 p-2">Category Name:</h1>
-            <input type="text" className="p-2 w-full border border-gray-400 rounded-lg outline-none" id="categoryName" />
+            <input type="text" className="p-2 w-full border border-gray-400 rounded-lg outline-none" id="categoryName"  placeholder="Required"/>
           </div>
           <div className="flex">
             <h1 className="inline font-semibold w-40 p-2">Product Image:</h1>
@@ -33,7 +33,7 @@ const AddProductPage = () => {
             <button className="bg-green-400 p-2 rounded-md hover:bg-green-500">Submit Image</button> 
           </div>
           <div className="text-center">
-            <button className="bg-green-400 p-4 w-1/2 rounded-full hover:bg-green-500">Submit Form</button>
+            <button className="bg-green-400 p-4 w-1/2 rounded-full hover:bg-green-500">Submit</button>
           </div>
         </form>
       </div>
