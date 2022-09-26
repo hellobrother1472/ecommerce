@@ -30,19 +30,10 @@ const upload = multer({
     fileFilter: filter
 })
 
-router.post("/addProduct",upload.single('productImage'), [
-    body('name', 'Enter a valid name and length must be more thean 3').isLength({ min: 3 }),
-    body('description', 'Description cannot be blank').exists(),
-    body('price', 'Price cannot be blank').exists(),
-    body('categoryName', 'CategoryName cannot be blank').exists(),
-    adminAuth
+router.post("/addProduct",[   
+    adminAuth,
+    upload.single('productImage')
 ], async (req, res) => {
-    const errors = validationResult(req); // Errors in given product information
-
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ error: errors.array() });
-    }
-
     try {
         let { name, description, price, categoryName } = req.body;
         const isProduct = await Product.findOne({ name });

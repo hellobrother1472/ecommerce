@@ -40,8 +40,9 @@ const AddProductPage = () => {
     formData.append('price', price);
     formData.append('categoryName', categoryName);
 
-    const response = await fetch('http://localhost:5000/admin/addProduct', {
+    const response = await fetch('/admin/addProduct', {
       method: 'POST',
+      credentials: 'include',
       body: formData
     })
 

@@ -25,19 +25,19 @@ router.post('/login', [
             const { email, password, secret } = req.body;
             const admin = await Admin.findOne({ email });
             if (!admin) {
-                res.status(400).send({ error: "Admin does'nt exists" });
+                return res.status(400).send({ error: "Admin does'nt exists" });
             }
-
+            
             // comparing the password and secret
             const passwordCompare = await bcrypt.compare(password, admin.password);
             const secretCompare = await bcrypt.compare(secret, admin.secret);
 
             if (!passwordCompare) {
-                res.status(400).send({ error: "Admin does'nt exists" });
+                return res.status(400).send({ error: "Admin does'nt exists" });
             }
             // if password is authenticated then authenticate secret
             if (!secretCompare) {
-                res.status(400).send({ error: "Admin does'nt exists" });
+                return res.status(400).send({ error: "Admin does'nt exists" });
             }
 
             // after both authentication
