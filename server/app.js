@@ -6,10 +6,15 @@ const cors = require('cors');
 require('dotenv').config();
 const connectDB = require("./database/connectDB");
 
+const corsOptions = {
+    origin: true, //included origin as true
+    credentials: true, //included credentials as true
+}
+
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 

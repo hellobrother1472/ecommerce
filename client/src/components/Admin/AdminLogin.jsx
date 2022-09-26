@@ -18,14 +18,14 @@ const AdminLogin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:5000/api/admin/auth/login', {
+    const response = await fetch('/api/admin/auth/login', {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-type': 'application/json'
       },
       body: JSON.stringify({ email: admin.email,password: admin.password, secret: admin.secret})
     })
-  
     const data = await response.json();
     console.log(data);
   }
