@@ -7,7 +7,30 @@ const multer = require('multer');
 const Product = require('../database/models/Product');
 const Category = require('../database/models/Category');
 
-router.post("/addProduct", [
+const multerStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/images')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now()+file.originalname)
+    }
+});
+
+const filter = function (req, file, cb) {
+    if (file.mimetype ==='image/jpeg' || file.mimetype ==='image/jpg' || file.mimetype ==='image/png') {
+        cb(null, true);
+    }
+    else {
+        cb(new Error('Not an Image! Please upload an image'), false);
+    }
+}
+
+const upload = multer({
+    storage: multerStorage,
+    fileFilter: filter
+})
+
+router.post("/addProduct",upload.single('productImage'), [
     body('name', 'Enter a valid name and length must be more thean 3').isLength({ min: 3 }),
     body('description', 'Description cannot be blank').exists(),
     body('price', 'Price cannot be blank').exists(),
@@ -29,7 +52,7 @@ router.post("/addProduct", [
         }
         else {
             let product = await Product.create({
-                admin: req.admin._id, name, description, price, categoryName
+                admin: req.admin._id, name, description, price, categoryName, productImage: req.file.path
             });
 
             // Getting the name and finding the category.
@@ -153,39 +176,18 @@ router.post('/deleteProduct/:id', adminAuth, async (req, res) => {
     }
 })
 
-const multerStorage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/images')
-    },
-    filename: function (req, file, cb) {
-        cb(null, `user-${Date.now()}.jpeg`)
-    }
-});
 
-const filter = function (req, file, cb) {
-    if (file.mimetype.startsWith('image')) {
-        cb(null, true);
-    }
-    else {
-        cb(new Error('Not an Image! Please upload an image'), false);
-    }
-}
 
-const upload = multer({
-    storage: multerStorage,
-    fileFilter: filter
-})
+// const updateProductImage = (req, res) => {
+//     res.json({
+//         message: 'file uploaded successfully'
+//     });
+// }
 
-const updateProductImage = (req, res) => {
-    res.json({
-        message: 'file uploaded successfully'
-    });
-}
-
-router.post('/productImage', upload.single('photo'), updateProductImage);
-router.get('/productImage', (req, res) => {
-    res.sendFile(__dirname + '/multer.html');
-})
+// router.post('/productImage', upload.single('photo'), updateProductImage);
+// router.get('/productImage', (req, res) => {
+//     res.sendFile(__dirname + '/multer.html');
+// })
 
 // add pictures in product model
 

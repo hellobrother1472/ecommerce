@@ -2,8 +2,34 @@ import React from "react";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUserSecret } from "react-icons/fa";
+import { useState } from "react";
 
 const AdminLogin = () => {
+  const [admin, setAdmin] = useState({
+    email: '',
+    password: '',
+    secret: ''
+  })
+
+  const handleChange = (e) => {
+    setAdmin({...admin, [e.target.name]: e.target.value})
+  }
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch('http://localhost:5000/api/admin/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({ email: admin.email,password: admin.password, secret: admin.secret})
+    })
+  
+    const data = await response.json();
+    console.log(data);
+  }
+
   return (
     <div
       className="mt-0 0 h-[100vh] pt-14 bg-cover"
@@ -22,13 +48,13 @@ const AdminLogin = () => {
           <div className="mx-auto rounded-lg h-1 bg-red-500 w-1/2"></div>
           {/* Form */}
           <div className="p-5 vsmm:px-2">
-            <form className="flex flex-col p-4 space-y-7 items-center smm:p-0" autoComplete="off">
+            <form className="flex flex-col p-4 space-y-7 items-center smm:p-0" autoComplete="off" onSubmit={handleSubmit}>
               <div className="flex items-center w-full p-2 space-x-5 border shadow-md border-black border-opacity-30 rounded-3xl smm:space-x-2 bg-white">
                 <MdEmail className="text-red-500" />
                 <input
                   type="email"
                   className="w-full focus:outline-none"
-                  placeholder="Email"
+                  placeholder="Email" name="email" value={admin.email} onChange={handleChange}
                 />
               </div>
               <div className="flex items-center w-full p-2 space-x-5 border shadow-md border-black border-opacity-30 rounded-3xl smm:space-x-2  bg-white">
@@ -36,7 +62,7 @@ const AdminLogin = () => {
                 <input
                   type="password"
                   className="w-full focus:outline-none"
-                  placeholder="Password"
+                  placeholder="Password" name="password" value={admin.password} onChange={handleChange}
                 />
               </div>
               <div className="flex items-center w-full p-2 space-x-5 border shadow-md border-black border-opacity-30 rounded-3xl smm:space-x-2  bg-white">
@@ -44,7 +70,7 @@ const AdminLogin = () => {
                 <input
                   type="password"
                   className="w-full focus:outline-none"
-                  placeholder="Admin's Secret Code"
+                  placeholder="Admin's Secret Code" name='secret' value={admin.secret} onChange={handleChange}
                 />
               </div>
               <button

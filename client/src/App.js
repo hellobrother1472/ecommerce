@@ -37,7 +37,7 @@ const App = () => {
       {/* <AdminPanel /> */}
       {/* <EditProductPage/> */}
       {/* <AddProductPage/> */}
-      {/* <AdminLogin/> */}
+      <AdminLogin/>
       {/* <AddAdmin/> */}
     </div>
   )
