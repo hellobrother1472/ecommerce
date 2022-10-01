@@ -1,8 +1,37 @@
-import React from "react";
+import React,{useState} from "react";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
 
 const SignIn = () => {
+
+  const [login,setLogin] = useState({email:"",password:""});
+  const handleChange = (e)=>{
+    const event = e.target.id;
+    const value = e.target.value;
+    setLogin({...login,[event]:value});
+  }
+  const handleClick = async(e)=>{
+    e.preventDefault();
+    const response = await fetch('/api/auth/login',{
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({email:login.email,password:login.password})
+    })
+
+    const data = await response.json();
+    console.log(data);
+    if(response.status === 200){
+      console.log("succesfully loggedin");
+    
+    }
+    else{
+      console.log(data.result);
+    }
+
+  }
   return (
     <div
       className="mt-0 0 h-[91vh] pt-14 bg-cover"
@@ -38,6 +67,9 @@ const SignIn = () => {
                   type="email"
                   className="w-full focus:outline-none"
                   placeholder="Email"
+                  id="email"
+                  value={login.email}
+                  onChange = {handleChange}
                 />
               </div>
               <div className="flex items-center w-full p-2 space-x-5 border shadow-md border-black border-opacity-30 rounded-3xl smm:space-x-2 ">
@@ -46,11 +78,15 @@ const SignIn = () => {
                   type="password"
                   className="w-full focus:outline-none"
                   placeholder="Password"
+                  id="password"
+                  value={login.password}
+                  onChange = {handleChange}
                 />
               </div>
               <button
                 className="bg-red-500 rounded-md h-12 w-2/3 text-xl text-white hover:bg-red-600 font-bold drop-shadow-lg hover:drop-shadow-2xl"
                 type="submit"
+                onClick={handleClick}
               >
                 Sign In
               </button>

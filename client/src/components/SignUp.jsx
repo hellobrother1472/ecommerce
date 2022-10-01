@@ -1,13 +1,46 @@
-import React from "react";
+import React,{useState} from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
 import { BsFillTelephoneFill } from "react-icons/bs";
+// import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux/es/exports";
 
 const SignUp = () => {
+  // const navigate = useNavigate();
+  const myState = useSelector((state)=>{return state.userLoginReducer;})
+  const [  formData,setFormData] = useState({name:"",email:"",number:"",password:"",confirmPassword:""});
+  console.log(myState);
+  const handleChange = (e)=>{
+    const event = e.target.id;
+    const value = e.target.value;
+    setFormData({...formData,[event]:value});
+  }
+  const handleClick = async(e)=>{
+    e.preventDefault();
+    const response = await fetch('/api/auth/signup',{
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({name:formData.name,email:formData.email,number:formData.number,password:formData.password,cpassword:formData.confirmPassword})
+    })
+
+    const data = await response.json();
+    console.log(data);
+    if(response.status === 200){
+      console.log("succesfully loggedin");
+      
+      
+    }
+    else{
+      console.log(data.result);
+    }
+
+  }
   return (
     <div
-      className="h-[91vh] pt-2 bg-cover bg-top"
+      className="h-[90.8vh] pt-2 bg-cover bg-top"
       style={{
         backgroundImage: `url("https://img.freepik.com/premium-photo/fashion-industry-clothing-design-new-apparel-collection-selection-bright-clothes-hanging-rack_279525-6727.jpg?w=1060")`,
       }}
@@ -41,6 +74,9 @@ const SignUp = () => {
                   type="text"
                   className="w-full focus:outline-none"
                   placeholder="Name"
+                  onChange={handleChange}
+                  id="name"
+                  value={formData.name} 
                 />
               </div>
               <div className="flex items-center w-full p-2 space-x-5 border shadow-md border-black border-opacity-30 rounded-3xl smm:space-x-2 ">
@@ -49,6 +85,9 @@ const SignUp = () => {
                   type="email"
                   className="w-full focus:outline-none"
                   placeholder="Email"
+                  onChange={handleChange}
+                  id="email"
+                  value={formData.email}
                 />
               </div>
               <div className="flex items-center w-full p-2 space-x-5 border shadow-md border-black border-opacity-30 rounded-3xl smm:space-x-2 ">
@@ -57,6 +96,9 @@ const SignUp = () => {
                   type="phone"
                   className="w-full focus:outline-none"
                   placeholder="Number"
+                  onChange={handleChange}
+                  id="number"
+                  value={formData.number}
                 />
               </div>
               <div className="flex items-center w-full p-2 space-x-5 border shadow-md border-black border-opacity-30 rounded-3xl smm:space-x-2 ">
@@ -65,6 +107,9 @@ const SignUp = () => {
                   type="password"
                   className="w-full focus:outline-none"
                   placeholder="Password"
+                  onChange={handleChange}
+                  id="password"
+                  value={formData.password}
                 />
               </div>
               <div className="flex items-center w-full p-2 space-x-5 border shadow-md border-black border-opacity-30 rounded-3xl smm:space-x-2 ">
@@ -73,11 +118,15 @@ const SignUp = () => {
                   type="password"
                   className="w-full focus:outline-none"
                   placeholder="Confirm Password"
+                  onChange={handleChange}
+                  id="confirmPassword"
+                  value={formData.confirmPassword}
                 />
               </div>
               <button
                 className="bg-red-500 rounded-md h-12 w-2/3 text-xl text-white hover:bg-red-600 font-bold drop-shadow-lg hover:drop-shadow-2xl"
                 type="submit"
+                onClick={handleClick}
               >
                 Sign Up
               </button>
