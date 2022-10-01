@@ -23,7 +23,6 @@ const SignIn = () => {
 
     const data = await response.json();
     console.log(data);
-    console.log(myState);
     if(response.status === 200){
       console.log("succesfully loggedin");
     
