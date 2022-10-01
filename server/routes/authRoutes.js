@@ -24,7 +24,7 @@ router.post('/signup', [
         return res.status(400).json({ error: errors.array() });
     }
     try {
-        const { name, email, password, cpassword, number } = req.body;
+        const { name, email, number , password, cpassword,} = req.body;
         let user = await User.findOne({ email });
 
         // checking if the user already exists or not

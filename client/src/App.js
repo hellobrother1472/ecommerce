@@ -21,7 +21,7 @@ import AddAdmin from './components/Admin/AddAdmin'
 const App = () => {
   return (
     <div>
-      {/* <Navbar/> */}
+      <Navbar/>
       {/* <Carousel />
       <ShopUs />
       <Arrivals />
@@ -30,14 +30,14 @@ const App = () => {
       <FooterOne/>
       <FooterTwo/> */}
       {/* <SignUp/> */}
-      {/* <SignIn/> */}
+      <SignIn/>
       {/* <ProductPage /> */}
 
       {/* <AdminNav /> */}
       {/* <AdminPanel /> */}
       {/* <EditProductPage/> */}
-      <AddProductPage/>
-      <AdminLogin/>
+      {/* <AddProductPage/> */}
+      {/* <AdminLogin/> */}
       {/* <AddAdmin/> */}
     </div>
   )
