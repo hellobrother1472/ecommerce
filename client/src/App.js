@@ -16,13 +16,13 @@ import AddProductPage from './components/Admin/AddProductPage'
 import ProductPage from './components/ProductPage'
 import AdminLogin from './components/Admin/AdminLogin'
 import AddAdmin from './components/Admin/AddAdmin'
-
+import { Router, Route} from 'react-router-dom'
 
 const App = () => {
   return (
     <div>
-      <Navbar/>
-      {/* <Carousel />
+      {/* <Navbar/>
+      <Carousel />
       <ShopUs />
       <Arrivals />
       <Product />
@@ -30,7 +30,7 @@ const App = () => {
       <FooterOne/>
       <FooterTwo/> */}
       {/* <SignUp/> */}
-      <SignIn/>
+      {/* <SignIn/> */}
       {/* <ProductPage /> */}
 
       {/* <AdminNav /> */}
