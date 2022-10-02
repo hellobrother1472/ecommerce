@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import Cart from "./Cart";
+import { Link } from "react-router-dom";
 // import { useDispatch } from "react-redux/es/exports";
 // import { cartIncrement,cartDecrement } from "../states/actions/cartActions";
   
@@ -43,7 +44,7 @@ const Navbar = () => {
       <div className="options self-center mt-0 mdm:hidden">
         <ul className="flex space-x-10 px-5 py-2 lgm:space-x-6">
           <li className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110">
-            Home
+          <Link to={"/"}>Home</Link>
           </li>
           <li>
             <div
@@ -88,10 +89,10 @@ const Navbar = () => {
             </div>
           </li>
           <li className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110">
-            SignUp
+            <Link to={"/signup"}>SignUp</Link>
           </li>
           <li className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110">
-            SignIn
+          <Link to={"/signin"}>SignIn</Link>
           </li>
           <li className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110">
             Contact

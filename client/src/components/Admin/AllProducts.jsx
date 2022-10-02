@@ -1,12 +1,9 @@
 import React from "react";
 import { products } from "../../data/product";
 import { MdDelete, MdEdit } from "react-icons/md";
+import { Link} from "react-router-dom";
 
 const AllProducts = () => {
-  const editClickHandler = (e) => {
-    e.preventDefault();
-    console.log("Edit is clicked");
-  };
   const deleteClickHandler = (e) => {
     e.preventDefault();
     console.log("Delete is clicked");
@@ -40,13 +37,14 @@ const AllProducts = () => {
                 </div>
 
                 <div className="flex p-2 space-x-8 items-center">
-                  <button
-                    className="flex bg-green-300 px-4 items-center space-x-2 py-1 rounded-full hover:bg-green-400 hover:shadow-md"
-                    onClick={editClickHandler}
-                  >
-                    <MdEdit/>
-                    <h1>Edit</h1>
-                  </button>
+                  <Link to="/admin/editproduct">
+                    <button
+                      className="flex bg-green-300 px-4 items-center space-x-2 py-1 rounded-full hover:bg-green-400 hover:shadow-md"
+                    >
+                      <MdEdit />
+                      <h1>Edit</h1>
+                    </button>
+                  </Link>
                   <button
                     className="flex bg-red-400 px-4 items-center space-x-2 py-1 rounded-full hover:bg-red-500 hover:shadow-md"
                     onClick={deleteClickHandler}
