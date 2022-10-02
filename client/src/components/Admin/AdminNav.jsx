@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 const AdminNav = () => {
   return (
     <div className="flex justify-between p-3 px-6 items-center bg-gradient-to-r from-black to-blue-900 shadow-lg">
@@ -11,13 +11,13 @@ const AdminNav = () => {
       <div>
         <ul className="flex space-x-5 items-center">
           <li className="p-2 text-white cursor-pointer hover:text-red-500 hover:scale-110 transition delay-75">
-            Add Admin
+            <Link to="/admin/addadmin">Add Admin</Link>
           </li>
           <li className="p-2 text-white cursor-pointer hover:text-red-500 hover:scale-110 transition delay-75">
-            Add Product
+          <Link to="/admin/addproduct">Add Product</Link>
           </li>
           <li className="p-2 text-white cursor-pointer hover:text-red-500 hover:scale-110 transition delay-75">
-            Show Products
+          <Link to="/admin">Show Products</Link>
           </li>
           <li className="p-1">
             <input
