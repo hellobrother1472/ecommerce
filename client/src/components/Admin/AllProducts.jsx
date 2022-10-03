@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { products } from "../../data/product";
 import { MdDelete, MdEdit } from "react-icons/md";
-import { Link} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AllProducts = () => {
+  const navigate = useNavigate();
+  const verifyAdmin = async () => {
+    try {
+      const res = await fetch("/api/admin/auth/verifyAdmin", {
+        method: "GET",
+        credentials: "include",
+      });
+      if (res.status !== 200) {
+        navigate("/adminlogin");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    verifyAdmin();
+  }, []);
+
   const deleteClickHandler = (e) => {
     e.preventDefault();
     console.log("Delete is clicked");
@@ -38,9 +57,7 @@ const AllProducts = () => {
 
                 <div className="flex p-2 space-x-8 items-center">
                   <Link to="/admin/editproduct">
-                    <button
-                      className="flex bg-green-300 px-4 items-center space-x-2 py-1 rounded-full hover:bg-green-400 hover:shadow-md"
-                    >
+                    <button className="flex bg-green-300 px-4 items-center space-x-2 py-1 rounded-full hover:bg-green-400 hover:shadow-md">
                       <MdEdit />
                       <h1>Edit</h1>
                     </button>

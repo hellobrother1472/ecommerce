@@ -2,14 +2,34 @@ import React from "react";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUserSecret } from "react-icons/fa";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
+  const navigate = useNavigate();
   const [admin, setAdmin] = useState({
     email: '',
     password: '',
     secret: ''
   })
+
+  const verifyAcess = async () => {
+    try {
+      const res = await fetch("/api/admin/auth/acessAuth", {
+        method: "GET",
+        credentials: "include",
+      });
+      if (res.status !== 200) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    verifyAcess();
+  }, []);
 
   const handleChange = (e) => {
     setAdmin({...admin, [e.target.name]: e.target.value})
@@ -27,6 +47,9 @@ const AdminLogin = () => {
       body: JSON.stringify({ email: admin.email,password: admin.password, secret: admin.secret})
     })
     const data = await response.json();
+    if(response.status === 200){
+      navigate("/admin");
+    }
     console.log(data);
   }
 

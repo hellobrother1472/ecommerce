@@ -3,14 +3,11 @@ import { FaUserAlt } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
 import { BsFillTelephoneFill } from "react-icons/bs";
-// import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux/es/exports";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  // const navigate = useNavigate();
-  const myState = useSelector((state)=>{return state.userLoginReducer;})
+  const navigate = useNavigate();
   const [  formData,setFormData] = useState({name:"",email:"",number:"",password:"",confirmPassword:""});
-  console.log(myState);
   const handleChange = (e)=>{
     const event = e.target.id;
     const value = e.target.value;
@@ -27,11 +24,9 @@ const SignUp = () => {
     })
 
     const data = await response.json();
-    console.log(data);
     if(response.status === 200){
-      console.log("succesfully loggedin");
-      
-      
+      console.log("succesfully signed up");     
+      navigate("/signin");
     }
     else{
       console.log(data.result);
