@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const Admin = require("../database/models/Admin");
 const bcrypt = require("bcrypt");
 const adminAuthentication = require("../middlewares/adminAuthentication");
+const adminAcessAuthentication = require("../middlewares/adminAcessAuthentication");
 
 const saltRounds = 10;
 const JWT_ADMIN_SECRET = process.env.JWT_ADMIN_SECRET;
@@ -48,7 +49,7 @@ router.post('/login', [
             }
             // creating the authToken and sending in the cookies
             const authToken = jwt.sign(data, JWT_ADMIN_SECRET);
-            res.cookie("jwt", authToken);
+            res.cookie("adminjwt", authToken);
             res.status(200).send({ result: "Login Successful" });
 
         } catch (error) {
@@ -102,7 +103,10 @@ router.post("/addAdmin", [
     }
 })
 
-router.get("/addAdmin",adminAuthentication,(req,res)=>{
+router.get("/verifyAdmin",adminAuthentication,(req,res)=>{
+    res.status(200).json({result:"Admin verified"});
+})
+router.get("/acessAuth",adminAcessAuthentication,(req,res)=>{
     res.status(200).json({result:"Admin verified"});
 })
 

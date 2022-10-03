@@ -1,37 +1,39 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
-
-  const [login,setLogin] = useState({email:"",password:""});
-  const handleChange = (e)=>{
+  const navigate = useNavigate();
+  const [login, setLogin] = useState({ email: "", password: "" });
+  const handleChange = (e) => {
     const event = e.target.id;
     const value = e.target.value;
-    setLogin({...login,[event]:value});
-  }
-  const handleClick = async(e)=>{
+    setLogin({ ...login, [event]: value });
+  };
+  const handleClick = async (e) => {
     e.preventDefault();
-    const response = await fetch('/api/auth/login',{
-      method: 'POST',
-      credentials: 'include',
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      credentials: "include",
       headers: {
-        'Content-type': 'application/json'
+        "Content-type": "application/json",
       },
-      body: JSON.stringify({email:login.email,password:login.password})
-    })
+      body: JSON.stringify({ email: login.email, password: login.password }),
+    });
 
     const data = await response.json();
-    console.log(data);
-    if(response.status === 200){
+    if (response.status === 200) {
       console.log("succesfully loggedin");
-    
-    }
-    else{
+      if (data.result === "Admin") {
+        navigate("/adminlogin");
+      } else {
+        navigate("/");
+      }
+    } else {
       console.log(data.result);
     }
-
-  }
+  };
   return (
     <div
       className="mt-0 0 h-[91vh] pt-14 bg-cover"
@@ -69,7 +71,7 @@ const SignIn = () => {
                   placeholder="Email"
                   id="email"
                   value={login.email}
-                  onChange = {handleChange}
+                  onChange={handleChange}
                 />
               </div>
               <div className="flex items-center w-full p-2 space-x-5 border shadow-md border-black border-opacity-30 rounded-3xl smm:space-x-2 ">
@@ -80,7 +82,7 @@ const SignIn = () => {
                   placeholder="Password"
                   id="password"
                   value={login.password}
-                  onChange = {handleChange}
+                  onChange={handleChange}
                 />
               </div>
               <button

@@ -91,7 +91,12 @@ router.post('/login', [
         // Creating the authToken and sending the cookies.
         const authToken = jwt.sign(data, JWT_SECRET);
         res.cookie("jwt", authToken);
-        res.status(200).send({ result: "Login Successful" });
+        if(email ===process.env.ADMIN){
+            res.status(200).send({ result: "Admin" });
+        }
+        else{
+            res.status(200).send({ result: "Login Successful" });
+        }
     }
     catch (err) {
         console.log(err.msg);
