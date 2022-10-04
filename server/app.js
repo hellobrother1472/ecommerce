@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const cors = require('cors');
 require('dotenv').config();
 const connectDB = require("./database/connectDB");
+const path = require('path');
 
 const corsOptions = {
     origin: true, //included origin as true
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
 connectDB();
 

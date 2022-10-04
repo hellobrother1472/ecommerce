@@ -11,12 +11,14 @@ const App = () => {
         <Route path="/" element={<User />} exact>
           <Route path="signin" />
           <Route path="signup" />
+          <Route path = 'product/:id' />
         </Route>
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/admin" element={<Admin />} exact>
           <Route path="addadmin" />
           <Route path="addproduct" />
           <Route path="editproduct" />
+          
         </Route>
       </Routes>
       {/* <ProductPage /> */}
