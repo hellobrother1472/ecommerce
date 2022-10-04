@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import youngster from '../images/youngster.png';
 import { AiFillStar, AiFillMinusCircle } from 'react-icons/ai';
 import { TbDiscount } from 'react-icons/tb';
 import { IoMdAddCircle } from 'react-icons/io';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const ProductPage = () => {
     const [qty, setQty] = useState(1);
     const [pin, setPin] = useState(null);
-    const [pincode, setPincode] = useState('')
+    const [pincode, setPincode] = useState('');
+    const [product, setProduct] = useState();
 
     const incQty = () => {
         setQty(qty + 1);
@@ -27,27 +29,42 @@ const ProductPage = () => {
         setPincode(e.target.value);
     }
 
+    let { id } = useParams();
+    console.log(id);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(`http://localhost:5000/admin/getProduct/${id}`);
+
+            const data = await response.json();
+            console.log(data);
+            setProduct(data.product);
+        }
+
+        fetchData();
+    }, [])
+
     return (
         <div className='px-4 py-8'>
-            <div className='w-5/6 flex flex-wrap mx-auto justify-between mdm:w-full lgt:w-full mdtlg:w-full mdm:items-center mdm:px-0 mdm:justify-center mdm:space-y-10 smm:px-4 lgm:pr-0'>
-
-
+            {
+                product && <div className='w-5/6 flex flex-wrap mx-auto justify-between mdm:w-full lgt:w-full mdtlg:w-full mdm:items-center mdm:px-0 mdm:justify-center mdm:space-y-10 smm:px-4 lgm:pr-0'>
                 <div className='product-img flex justify-start items-start mdtlg:w-1/2 h-[82vh] shadow-2xl shadow-gray-400 hover:shadow-gray-600'>
-                    <img src='https://technext.github.io/hexashop/assets/images/men-03.jpg' alt='Product' className='h-full  rounded-lg' />
+                    <img src={`http://localhost:5000/${product.productImage}`} alt='Product' className='h-full  rounded-lg' />
                 </div>
 
 
-            
+
                 <div className='product-info flex flex-col mdtlg:items-start items-start mdtlg:w-1/3 w-[65vh] mdm:w-full lgt:w-[50vh]  mdm:items-center'>
-                    <h1 className='text-2xl'>ASHTAR</h1>
-                    <h2 className='text-gray-400'>Product Id: 3839643964</h2>
+                    <h1 className='text-2xl'>{product.name}</h1>
+                    <h2 className='text-lg text-gray-500'>{product.description}</h2>
+                    <h2 className='text-gray-400'>Product Id: {product._id}</h2>
                     <div className='flex smm:flex-col gap-4 items-center smm:text-sm mt-6 cursor-pointer justify-center'>
                         <p className='flex justify-center items-center'><AiFillStar /> <AiFillStar /> <AiFillStar /> <AiFillStar /> <AiFillStar /> </p>
                         <p className='review text-blue-500 text-center'>820 Reviews(1000) | </p>
                         <p className='text-blue-400 text-center'>Write a Review</p>
                     </div>
                     <div className='flex gap-2 price mt-4 items-center'>
-                        <p className='text-lg text-red-500'>₹1099/-</p>
+                        <p className='text-lg text-red-500'>₹{product.price}/-</p>
                         <p className='line-through text-gray-500'>₹1299/-</p>
                     </div>
                     <div className='offer bg-gray-200 w-fit p-1.5 flex items-center gap-2 smm:text-sm text-lg text-red-500 mt-1'>
@@ -114,6 +131,7 @@ const ProductPage = () => {
 
                 </div>
             </div>
+            }
         </div>
     )
 }

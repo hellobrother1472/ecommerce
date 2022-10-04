@@ -59,12 +59,12 @@ const AddProductPage = () => {
     formData.append("description", description);
     formData.append("price", price);
     formData.append("categoryName", categoryName);
+    const response = await fetch('http://localhost:5000/admin/addProduct', {
+      method: 'POST',
+      credentials: 'include',
+      body: formData
+    })
 
-    const response = await fetch("/admin/addProduct", {
-      method: "POST",
-      credentials: "include",
-      body: formData,
-    });
 
     const data = await response.json();
     console.log(data);
@@ -137,17 +137,7 @@ const AddProductPage = () => {
           </div>
           <div className="flex">
             <h1 className="inline font-semibold w-40 p-2">Product Image:</h1>
-            <input
-              onChange={handleImage}
-              type="file"
-              className="p-2"
-              id="productImage"
-              name="productImage"
-              required
-            />
-            <button className="bg-green-400 p-2 rounded-md hover:bg-green-500">
-              Submit Image
-            </button>
+            <input onChange={handleImage} type="file" className="p-2" id="productImage" name="productImage" required />
           </div>
           <div className="text-center">
             <button

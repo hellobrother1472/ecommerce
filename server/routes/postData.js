@@ -37,13 +37,15 @@ router.post("/addProduct",[
     try {
         let { name, description, price, categoryName } = req.body;
         const isProduct = await Product.findOne({ name });
+        let path = req.file.path;
+        path = path.slice(7);
 
         if (isProduct) {
             res.status(404).send({ error: "Product already exists" });
         }
         else {
             let product = await Product.create({
-                admin: req.admin._id, name, description, price, categoryName, productImage: req.file.path
+                admin: req.admin._id, name, description, price, categoryName, productImage: path
             });
 
             // Getting the name and finding the category.
