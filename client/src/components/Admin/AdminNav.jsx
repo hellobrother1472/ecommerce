@@ -11,6 +11,9 @@ const AdminNav = () => {
       <div>
         <ul className="flex space-x-5 items-center">
           <li className="p-2 text-white cursor-pointer hover:text-red-500 hover:scale-110 transition delay-75">
+            <Link to="/">Home</Link>
+          </li>
+          <li className="p-2 text-white cursor-pointer hover:text-red-500 hover:scale-110 transition delay-75">
             <Link to="/admin/addadmin">Add Admin</Link>
           </li>
           <li className="p-2 text-white cursor-pointer hover:text-red-500 hover:scale-110 transition delay-75">
