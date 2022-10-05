@@ -1,32 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
 const AddProductPage = () => {
-  const navigate = useNavigate();
-  const verifyAdmin = async () => {
-    try {
-      const res = await fetch("/api/admin/auth/verifyAdmin", {
-        method: "GET",
-        credentials: "include",
-      });
-      if (res.status !== 200) {
-        navigate("/adminlogin");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const [name, setName] = useState("");
   const [specification, setSpecification] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [image, setImage] = useState(null);
-
-  useEffect(() => {
-    verifyAdmin();
-  }, []);
 
   const handleImage = (e) => {
     setImage(e.target.files[0]);

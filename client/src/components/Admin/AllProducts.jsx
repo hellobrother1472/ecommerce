@@ -1,26 +1,25 @@
-import React, { useEffect } from "react";
-import { products } from "../../data/product";
+import React, { useState, useEffect } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const AllProducts = () => {
-  const navigate = useNavigate();
-  const verifyAdmin = async () => {
-    try {
-      const res = await fetch("/api/admin/auth/verifyAdmin", {
-        method: "GET",
-        credentials: "include",
-      });
-      if (res.status !== 200) {
-        navigate("/adminlogin");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [products, setProducts] = useState();
 
   useEffect(() => {
-    verifyAdmin();
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/admin/getAllProduct"
+        );
+        const data = await response.json();
+        if (data) {
+          setProducts(data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
   }, []);
 
   const deleteClickHandler = (e) => {
@@ -28,14 +27,17 @@ const AllProducts = () => {
     console.log("Delete is clicked");
   };
   return (
+    
     <div className="py-10 px-8 text-center space-y-7">
-      <div>
+      {products &&
+      <>
+        <div>
         <h1 className="text-4xl font-bold">Product List</h1>
       </div>
 
       <div className="p-4">
         <ul className="space-y-5">
-          {products.map((product, index) => {
+          {products.products.map((product, index) => {
             return (
               <li
                 className="flex justify-between items-center border rounded-lg px-8 shadow-md hover:shadow-lg"
@@ -44,14 +46,14 @@ const AllProducts = () => {
                 <div className="flex items-center p-2 space-x-10">
                   <img
                     className="w-20 h-20 rounded-md"
-                    src={product.img}
+                    src={`http://localhost:5000/${product.productImage}`}
                     alt="img"
                   />
-                  <h1 className="h-fit w-fit text-center px-3 text-[1.2rem] font-[600]">
-                    {product.h1}
+                  <h1 className="h-fit w-80 text-center px-3 text-[1.2rem] font-[600]">
+                    {product.name}
                   </h1>
                   <h2 className="h-fit w-fit text-center px-3">
-                    {product.price}
+                    ₹{product.price}/-
                   </h2>
                 </div>
 
@@ -75,6 +77,8 @@ const AllProducts = () => {
           })}
         </ul>
       </div>
+      </>}
+      
     </div>
   );
 };
