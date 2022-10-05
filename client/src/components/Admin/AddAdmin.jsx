@@ -1,29 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUserSecret } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
 
 const AddAdmin = () => {
-  const navigate = useNavigate();
-  const verifyAdmin = async () => {
-    try {
-      const res = await fetch("/api/admin/auth/verifyAdmin", {
-        method: "GET",
-        credentials: "include",
-      });
-      if (res.status !== 200) {
-        navigate("/adminlogin");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    verifyAdmin();
-  }, []);
   return (
     <div>
       <div
