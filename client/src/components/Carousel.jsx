@@ -3,6 +3,7 @@ import { BsArrowRight } from 'react-icons/bs';
 import { information } from '../data/carousel';
 import { useState, useRef } from 'react';
 import shortid from 'shortid';
+import AnchorLink from "react-anchor-link-smooth-scroll";
 
 const Carousel = () => {
     const [data, setData] = useState(0);
@@ -27,10 +28,10 @@ const Carousel = () => {
                     <h2 className='text-red-600 uppercase font-bold'>{information[data].h2}</h2>
                     <h1 className='smm:text-2xl md:text-4xl font-semibold'>{information[data].h1}</h1>
                     <p className='text-gray-600 smm:text-sm'>{information[data].para}</p>
-                    <div className='transition duration-200 btn flex gap-4 bg-black text-white py-3 w-36 justify-center items-center hover:scale-110'>
-                        <button className='font-semibold'>Shop Now</button>
+                    <AnchorLink href='#allProducts'><div className='transition duration-200 btn flex gap-4 bg-black text-white py-3 w-36 justify-center items-center hover:scale-110'>
+                    <button className='font-semibold'>  Shop Now</button>
                         <BsArrowRight className='font-semibold' />
-                    </div>
+                    </div></AnchorLink>
                 </div>
                 <div className='item-img flex justify-center smm:hidden sm:block md:w-2/6 animate-fade-out' key={shortid.generate()}>
                     <img className='px-4 h-100' src={information[data].image} alt='product' />
