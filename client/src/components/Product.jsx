@@ -21,7 +21,7 @@ const Product = () => {
   }, [])
 
   return (
-    <div className='w-full p-8'>
+    <div className='w-full p-8' id='allProducts'>
       {
        products && products.map((product, i) => (
           <div key = {i} className = 'border-dashed border-b-2 border-gray-400 mb-10'>
