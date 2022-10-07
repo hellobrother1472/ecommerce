@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AllProducts = () => {
   const [products, setProducts] = useState();
+  let navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,12 +21,26 @@ const AllProducts = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [products]);
 
-  const deleteClickHandler = (e) => {
+  const deleteClickHandler = async (e, id) => {
     e.preventDefault();
-    console.log("Delete is clicked");
+    const response = await fetch(`http://localhost:5000/admin/deleteProduct/${id}`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+
+    const data = await response.json();
   };
+
+  const editClickHandler = (e, product) => {
+    e.preventDefault();
+    navigate(`/admin/editproduct/${product._id}`);
+  }
+
   return (
     
     <div className="py-10 px-8 text-center space-y-7">
@@ -59,14 +74,14 @@ const AllProducts = () => {
 
                 <div className="flex p-2 space-x-8 items-center">
                   <Link to="/admin/editproduct">
-                    <button className="flex bg-green-300 px-4 items-center space-x-2 py-1 rounded-full hover:bg-green-400 hover:shadow-md">
+                    <button className="flex bg-green-300 px-4 items-center space-x-2 py-1 rounded-full hover:bg-green-400 hover:shadow-md" onClick={(e) => editClickHandler(e, product)}>
                       <MdEdit />
                       <h1>Edit</h1>
                     </button>
                   </Link>
                   <button
                     className="flex bg-red-400 px-4 items-center space-x-2 py-1 rounded-full hover:bg-red-500 hover:shadow-md"
-                    onClick={deleteClickHandler}
+                    onClick={(e) => deleteClickHandler(e, product._id)}
                   >
                     <MdDelete />
                     <h1>Delete</h1>

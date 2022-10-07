@@ -2,7 +2,7 @@ import React from "react";
 import Carousel from "./Carousel";
 import ShopUs from "./ShopUs";
 import Arrivals from "./Arrivals";
-import Offer from "./Offer";
+import Testimonials from "./Testimonials";
 import Product from "./Product";
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
       <ShopUs />
       <Arrivals />
       <Product />
-      <Offer />
+      <Testimonials />
     </div>
   );
 };
