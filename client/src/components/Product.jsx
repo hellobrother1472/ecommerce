@@ -24,7 +24,7 @@ const Product = () => {
     <div className='w-full p-8' id='allProducts'>
       {
        products && products.map((product, i) => (
-          <div key = {i} className = 'border-dashed border-b-2 border-gray-400 mb-10'>
+          <div key = {i} className = {(i === products.length-1) ? '':'border-dashed border-b-2 border-gray-400 mb-10'}>
             <div className='product-heading flex flex-col justify-center items-center'>
               <h1 className='mdm:text-2xl md:text-4xl font-semibold text-royal-blue'>{product.name}</h1>
               <p className='italic text-gray-500'>Details to details is what makes Hexashop different from the other themes.</p>

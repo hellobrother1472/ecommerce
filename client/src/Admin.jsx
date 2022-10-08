@@ -23,7 +23,6 @@ const Admin = () => {
   };
 
   useEffect(() => {
-    console.log("called");
     verifyAdmin()
   }, []);
 
