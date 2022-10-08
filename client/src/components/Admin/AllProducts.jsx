@@ -21,7 +21,7 @@ const AllProducts = () => {
       }
     };
     fetchData();
-  }, [products]);
+  }, []);
 
   const deleteClickHandler = async (e, id) => {
     e.preventDefault();

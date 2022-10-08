@@ -27,6 +27,17 @@ router.get('/getAllProduct', async (req, res) => {
     }
 })
 
+router.get('/getAllCategoryNames', async (req, res) => {
+    try{
+        let category = await Category.find({}).select('name _id');
+        res.json({category});
+    }
+    catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
 router.get('/getAllCategory', async (req, res) => {
     try{
         let category = await Category.find({}).populate('productIds');

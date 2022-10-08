@@ -7,11 +7,11 @@ import { Routes, Route } from 'react-router-dom'
 const App = () => {
   return (
     <div>
-      <Routes>
-        <Route path="*" element={<User />} exact/>
-        <Route path="/adminlogin" element={<AdminLogin />} />
-        <Route path="/admin/*" element={<Admin />} exact/>          
-      </Routes>
+        <Routes>
+          <Route path="*" element={<User />} exact />
+          <Route path="/adminlogin" element={<AdminLogin />} />
+          <Route path="/admin/*" element={<Admin />} exact />
+        </Routes>
       {/* <ProductPage /> */}
     </div>
   )

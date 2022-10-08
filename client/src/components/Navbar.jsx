@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BsSearch } from "react-icons/bs";
 import Cart from "./Cart";
 import { Link } from "react-router-dom";
 // import { useDispatch } from "react-redux/es/exports";
 // import { cartIncrement,cartDecrement } from "../states/actions/cartActions";
-  
+
 const Navbar = () => {
   const [search, setSearch] = useState(false);
+  const [categories, setCategories] = useState();
   const [categoryDropdown, setCategoryDropdown] = useState(false);
   const [circleDropdown, setCircleDropdown] = useState(false);
   const [sidenav, setSidenav] = useState(false);
@@ -31,6 +32,23 @@ const Navbar = () => {
     });
   };
 
+  const fetchCategory = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/admin/getAllCategoryNames"
+      );
+      const data = await response.json();
+      if (data) {
+        setCategories(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchCategory();
+  }, []);
+
   // const dispatch = useDispatch();
   return (
     <div className="flex justify-between p-3 shadow-lg">
@@ -44,7 +62,7 @@ const Navbar = () => {
       <div className="options self-center mt-0 mdm:hidden">
         <ul className="flex space-x-10 px-5 py-2 lgm:space-x-6">
           <li className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110">
-          <Link to={"/"}>Home</Link>
+            <Link to={"/"}>Home</Link>
           </li>
           <li>
             <div
@@ -75,27 +93,29 @@ const Navbar = () => {
                   : "hidden"
               }
             >
-              <ul className="space-y-2">
-                <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
-                  Option1
-                </li>
-                <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
-                  Option2
-                </li>
-                <li className="mb-1 p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
-                  Option3
-                </li>
-              </ul>
+              {categories && (
+                <>
+                  <ul className="space-y-2">
+                    {categories.category.map((category, index) => {
+                      return (
+                        <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer" key={index}>
+                          {category.name}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </>
+              )}
             </div>
           </li>
           <li className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110">
             <Link to={"/signup"}>SignUp</Link>
           </li>
           <li className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110">
-          <Link to={"/signin"}>SignIn</Link>
+            <Link to={"/signin"}>SignIn</Link>
           </li>
           <li className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110">
-            Contact
+            <Link to= "/contact"> Contact</Link>
           </li>
           <li>
             <input
@@ -116,7 +136,7 @@ const Navbar = () => {
             <BsSearch />
           </li>
           <li className="my-1">
-            <Cart/>
+            <Cart />
           </li>
         </ul>
       </div>
@@ -124,7 +144,10 @@ const Navbar = () => {
       {/* Hidden info which shows itself after login */}
       <div className="info self-center md:hidden">
         <div className="flex mdm:space-x-9">
-          <div onClick={sideNavClick} className="space-y-1 py-2.5 w-5 cursor-pointer md:hidden">
+          <div
+            onClick={sideNavClick}
+            className="space-y-1 py-2.5 w-5 cursor-pointer md:hidden"
+          >
             <div className="p-0.5 bg-slate-500"></div>
             <div className="p-0.5 bg-slate-500"></div>
             <div className="p-0.5 bg-slate-500"></div>
@@ -161,16 +184,37 @@ const Navbar = () => {
         </div>
       </div>
 
-
-      <div className={sidenav?"absolute z-10 h-full w-3/4 bg-slate-500 -m-3" : "hidden"}>
+      <div
+        className={
+          sidenav ? "absolute z-10 h-full w-3/4 bg-slate-500 -m-3" : "hidden"
+        }
+      >
         <div className="float-right p-5 w-full block">
-          <h1 className="float-right cursor-pointer" onClick={sideNavClick}>❌</h1>
+          <h1 className="float-right cursor-pointer" onClick={sideNavClick}>
+            ❌
+          </h1>
         </div>
         <div className="block mt-20">
           <ul className="">
-            <li className="hover:bg-red-300 p-5">Option 1</li>
-            <li className="hover:bg-red-300 p-5">Option 2</li>
-            <li className="hover:bg-red-300 p-5">Option 3</li>
+          <Link to="/"><li className="hover:bg-red-300 p-5 cursor-pointer">Home</li></Link>
+          <Link to="/contact"><li className="hover:bg-red-300 p-5 cursor-pointer">Contact</li></Link>
+            <li className="hover:bg-red-300 p-5 cursor-pointer" onClick={categroryDropdownClick}>Categories</li>
+            {categoryDropdown ? (categories && (
+                    <>
+                      <ul className="space-y-2">
+                        {categories.category.map((category, index) => {
+                          return (
+                            <li
+                              className=" p-1 px-8 py-2 hover:bg-red-300 cursor-pointer"
+                              key={index}
+                            >
+                              {category.name}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </>
+                  )) : <></>}
           </ul>
         </div>
       </div>
