@@ -16,6 +16,7 @@ const AllProducts = () => {
         if (data) {
           setProducts(data);
         }
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -34,6 +35,7 @@ const AllProducts = () => {
     })
 
     const data = await response.json();
+    setProducts(data);
   };
 
   const editClickHandler = (e, product) => {
