@@ -161,7 +161,13 @@ router.post('/deleteProduct/:id', adminAuth, async (req, res) => {
             const updatedCategory = await Category.findByIdAndUpdate(findCategory._id, { $set: { productIds: array } }, { new: true })
         }
 
-        res.json({ message: "Product has been deleted successfully", product });
+        if(findCategory.productIds.length === 0){
+            await Category.findOneAndDelete(catName);
+        }
+
+        const products = await Product.find({});
+
+        res.json({ message: "Product has been deleted successfully", product, products });
     }
     catch (error) {
         console.error(error.message);

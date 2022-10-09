@@ -98,9 +98,11 @@ const Navbar = () => {
                   <ul className="space-y-2">
                     {categories.category.map((category, index) => {
                       return (
+                        <Link to = {`/products/${category._id}`}>
                         <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer" key={index}>
                           {category.name}
                         </li>
+                        </Link>
                       );
                     })}
                   </ul>
