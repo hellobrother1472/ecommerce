@@ -4,6 +4,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -53,9 +54,9 @@ const SignUp = () => {
             <h1 className="font-extrabold text-3xl">Sign Up</h1>
             <h2>
               Already have an account?{" "}
-              <a href="https://google.com" className="text-blue-500">
-                Sign In
-              </a>
+              <Link to="/signin">
+                <span className="text-blue-500"> Sign In </span>
+              </Link>
             </h2>
           </div>
           <div className="mx-auto rounded-lg h-1 bg-red-500 w-1/2"></div>
