@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../states/actions/userLoginActions";
+import { Link } from "react-router-dom";
 
 const SignIn = () => {
+  const dispatchUserLogin = useDispatch();
   const navigate = useNavigate();
   const [login, setLogin] = useState({ email: "", password: "" });
   const handleChange = (e) => {
@@ -28,6 +32,7 @@ const SignIn = () => {
       if (data.result === "Admin") {
         navigate("/adminlogin");
       } else {
+        dispatchUserLogin(userLogin());
         navigate("/");
       }
     } else {
@@ -54,9 +59,9 @@ const SignIn = () => {
             <h1 className="font-extrabold text-3xl">Sign In</h1>
             <h2>
               Don't have an account?{" "}
-              <a href="https://google.com" className="text-blue-500">
-                Sign Up
-              </a>
+              <Link to="/signup">
+                <span className="text-blue-500"> Sign Up </span>
+              </Link>
             </h2>
           </div>
           <div className="mx-auto rounded-lg h-1 bg-red-500 w-1/2"></div>

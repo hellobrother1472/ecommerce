@@ -2,10 +2,15 @@ import React, { useState, useEffect } from "react";
 import { BsSearch } from "react-icons/bs";
 import Cart from "./Cart";
 import { Link } from "react-router-dom";
-// import { useDispatch } from "react-redux/es/exports";
-// import { cartIncrement,cartDecrement } from "../states/actions/cartActions";
+import { useDispatch } from "react-redux/es/exports";
+import { useSelector } from "react-redux/es/exports";
+import { userLogout } from "../states/actions/userLoginActions";
 
 const Navbar = () => {
+  const dispatchUserLogout = useDispatch();
+  const loginStatus = useSelector((state) => {
+    return state.userLoginStatusReducer;
+  });
   const [search, setSearch] = useState(false);
   const [categories, setCategories] = useState();
   const [categoryDropdown, setCategoryDropdown] = useState(false);
@@ -30,6 +35,9 @@ const Navbar = () => {
     setSidenav((prev) => {
       return !prev;
     });
+  };
+  const logoutClickHandler = () => {
+    dispatchUserLogout(userLogout());
   };
 
   const fetchCategory = async () => {
@@ -98,8 +106,10 @@ const Navbar = () => {
                   <ul className="space-y-2">
                     {categories.category.map((category, index) => {
                       return (
-                        <Link to = {`/products/${category._id}`}>
+
+                       <Link to = {`/products/${category._id}`}>
                         <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer" key={index}>
+
                           {category.name}
                         </li>
                         </Link>
@@ -110,14 +120,26 @@ const Navbar = () => {
               )}
             </div>
           </li>
+          {loginStatus === "true" ? (
+            <li
+              onClick={logoutClickHandler}
+              className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110"
+            >
+              <Link to="/signin">Logout</Link>
+            </li>
+          ) : (
+            <>
+              <li className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110">
+                <Link to={"/signup"}>SignUp</Link>
+              </li>
+              <li className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110">
+                <Link to={"/signin"}>SignIn</Link>
+              </li>
+            </>
+          )}
+
           <li className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110">
-            <Link to={"/signup"}>SignUp</Link>
-          </li>
-          <li className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110">
-            <Link to={"/signin"}>SignIn</Link>
-          </li>
-          <li className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110">
-            <Link to= "/contact"> Contact</Link>
+            <Link to="/contact"> Contact</Link>
           </li>
           <li>
             <input
@@ -171,15 +193,23 @@ const Navbar = () => {
               }
             >
               <ul className="space-y-2">
-                <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
-                  Option1
-                </li>
-                <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
-                  Option2
-                </li>
-                <li className="mb-1 p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
-                  Option3
-                </li>
+                {loginStatus === "true" ? (
+                  <li
+                    onClick={logoutClickHandler}
+                    className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer"
+                  >
+                    <Link to="/signin">Logout</Link>
+                  </li>
+                ) : (
+                  <>
+                    <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
+                      <Link to="/signin">Sign In</Link>
+                    </li>
+                    <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
+                      <Link to="/signup">Sign Up</Link>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
           </div>
@@ -198,25 +228,38 @@ const Navbar = () => {
         </div>
         <div className="block mt-20">
           <ul className="">
-          <Link to="/"><li className="hover:bg-red-300 p-5 cursor-pointer">Home</li></Link>
-          <Link to="/contact"><li className="hover:bg-red-300 p-5 cursor-pointer">Contact</li></Link>
-            <li className="hover:bg-red-300 p-5 cursor-pointer" onClick={categroryDropdownClick}>Categories</li>
-            {categoryDropdown ? (categories && (
-                    <>
-                      <ul className="space-y-2">
-                        {categories.category.map((category, index) => {
-                          return (
-                            <li
-                              className=" p-1 px-8 py-2 hover:bg-red-300 cursor-pointer"
-                              key={index}
-                            >
-                              {category.name}
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </>
-                  )) : <></>}
+            <Link to="/">
+              <li className="hover:bg-red-300 p-5 cursor-pointer">Home</li>
+            </Link>
+            <Link to="/contact">
+              <li className="hover:bg-red-300 p-5 cursor-pointer">Contact</li>
+            </Link>
+            <li
+              className="hover:bg-red-300 p-5 cursor-pointer"
+              onClick={categroryDropdownClick}
+            >
+              Categories
+            </li>
+            {categoryDropdown ? (
+              categories && (
+                <>
+                  <ul className="space-y-2">
+                    {categories.category.map((category, index) => {
+                      return (
+                        <li
+                          className=" p-1 px-8 py-2 hover:bg-red-300 cursor-pointer"
+                          key={index}
+                        >
+                          {category.name}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </>
+              )
+            ) : (
+              <></>
+            )}
           </ul>
         </div>
       </div>
