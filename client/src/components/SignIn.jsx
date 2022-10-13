@@ -17,7 +17,7 @@ const SignIn = () => {
   };
   const handleClick = async (e) => {
     e.preventDefault();
-    const response = await fetch("/api/auth/login", {
+    const response = await fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -46,7 +46,7 @@ const SignIn = () => {
         backgroundImage: `url("https://img.freepik.com/premium-photo/fashion-industry-clothing-design-new-apparel-collection-selection-bright-clothes-hanging-rack_279525-6727.jpg?w=1060")`,
       }}
     >
-      <div className="mx-auto mdm:w-3/4 mdtlg:w-1/2 lg:w-[30%]">
+      <div className="mx-auto mdm:w-full mdtlg:w-1/2 lg:w-[30%]">
         {/* Logo */}
         <div className="logo">
           <h1 className="font-extrabold text-5xl text-center">Logo</h1>
