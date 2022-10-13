@@ -9,6 +9,7 @@ import Contact from "./components/Contact";
 import { Routes, Route } from "react-router-dom";
 import ProductPage from "./components/ProductPage";
 import ProductCategory from "./components/ProductCategory";
+import Checkout from "./components/Checkout";
 
 const User = () => {
   return (
@@ -21,6 +22,7 @@ const User = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/products/:id" element={<ProductCategory />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       <FooterOne />
       <FooterTwo />
