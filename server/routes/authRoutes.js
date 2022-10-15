@@ -1,10 +1,11 @@
 const express = require('express');
 const User = require('../database/models/User');
-const { body, validationResult } = require('express-validator');
+const { body, validationResult, cookie } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const authentication = require("../middlewares/authentication");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const saltRounds = 10; // For Bcrypt
@@ -102,6 +103,12 @@ router.post('/login', [
         console.log(err.msg);
         res.status(500).send("Internal server error occured");
     }
+})
+
+router.get("/logout", (req, res) => {
+    res.clearCookie('jwt');
+    console.log("cookies removed");
+    res.status(200).send({ message: 'Succesfully logged out.' });
 })
 
 module.exports = router;

@@ -17,7 +17,7 @@ const authentication = async (req, res, next) => {
         req.user = user;
         next();
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
         res.status(404).send({error:error.message});
     }
 

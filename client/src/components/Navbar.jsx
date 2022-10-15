@@ -36,8 +36,17 @@ const Navbar = () => {
       return !prev;
     });
   };
-  const logoutClickHandler = () => {
+  const logoutClickHandler = async () => {
     dispatchUserLogout(userLogout());
+    try {
+      const res = fetch("http://localhost:5000/api/auth/logout", {
+        method: "GET",
+        credentials: "include",
+      });
+      
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const fetchCategory = async () => {
@@ -106,12 +115,13 @@ const Navbar = () => {
                   <ul className="space-y-2">
                     {categories.category.map((category, index) => {
                       return (
-
-                       <Link to = {`/products/${category._id}`}>
-                        <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer" key={index}>
-
-                          {category.name}
-                        </li>
+                        <Link to={`/products/${category._id}`}>
+                          <li
+                            className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer"
+                            key={index}
+                          >
+                            {category.name}
+                          </li>
                         </Link>
                       );
                     })}
@@ -160,7 +170,9 @@ const Navbar = () => {
             <BsSearch />
           </li>
           <li className="my-1">
-            <Cart />
+            <Link to="/checkout">
+              <Cart />
+            </Link>
           </li>
         </ul>
       </div>
