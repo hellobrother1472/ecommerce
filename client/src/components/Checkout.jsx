@@ -4,8 +4,10 @@ import { MdDelete } from 'react-icons/md';
 import { AiFillMinusCircle } from 'react-icons/ai';
 import { IoMdAddCircle } from 'react-icons/io';
 import { products } from '../data/product';
+import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
+    const navigate = useNavigate();
     const product = products;
     const [qty, setQty] = useState(1);
     const [change, setChange] = useState(false);
@@ -39,15 +41,20 @@ const Checkout = () => {
         setUser({...user, [e.target.id]: e.target.value})
     }
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch('http://localhost:5000/admin/userData', {
-                method: 'GET',
-                credentials: 'include'
-            });
-            const data = await response.json();
-            if(data.found) setUser(data.user);
+    const fetchData = async () => {
+        const response = await fetch('http://localhost:5000/admin/userData', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        const data = await response.json();
+        if(response.status === 404 ){
+            navigate("/signin");
         }
+        if(data.found) setUser(data.user);
+    }
+
+    useEffect(() => {
+        
         fetchData();
     }, [])
 
