@@ -12,9 +12,9 @@ import ProductCategory from "./components/ProductCategory";
 import Checkout from "./components/Checkout";
 import { useDispatch } from "react-redux";
 import { userLogin } from "./states/actions/userLoginActions";
-
+import { cartIncrement } from "./states/actions/cartActions";
 const User = () => {
-  const userLoginDispatch = useDispatch();
+  const dispatch = useDispatch();
   const authenticate = async()=>{
     try {
       const res = await fetch("/api/auth/authenticate",{
@@ -22,15 +22,21 @@ const User = () => {
         credentials: 'include'
       })
       if(res.status === 200){
-        userLoginDispatch(userLogin());
+        dispatch(userLogin());
       }
     } catch (error) {
       console.log(error);
     }
   }
 
+  const setCartCount = ()=>{
+    const cartCount = JSON.parse(localStorage.getItem('cartCount'));
+    dispatch(cartIncrement(cartCount));
+  }
+
   useEffect(()=>{
     authenticate();
+    setCartCount();
   },[])
 
   return (
