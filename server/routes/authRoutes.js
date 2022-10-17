@@ -105,6 +105,10 @@ router.post('/login', [
     }
 })
 
+router.get("/authenticate",authentication,(req,res)=>{
+    res.status(200).send("User Successfully authenticated");
+})
+
 router.get("/logout", (req, res) => {
     res.clearCookie('jwt');
     console.log("cookies removed");
