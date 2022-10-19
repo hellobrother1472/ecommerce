@@ -12,10 +12,13 @@ const Navbar = () => {
     return state.userLoginStatusReducer;
   });
   const [search, setSearch] = useState(false);
+  const [dropdown, setDropDown] = useState(false);
   const [categories, setCategories] = useState();
   const [categoryDropdown, setCategoryDropdown] = useState(false);
   const [circleDropdown, setCircleDropdown] = useState(false);
   const [sidenav, setSidenav] = useState(false);
+  const [value, setValue] = useState('');
+  const [product, setProduct] = useState();
   const searchClick = () => {
     setSearch((prev) => {
       return !prev;
@@ -36,14 +39,26 @@ const Navbar = () => {
       return !prev;
     });
   };
+
+  const fetchProductData = async (req, res) => {
+    const response = await fetch('http://localhost:5000/admin/getAllProduct');
+    const data = await response.json();
+    console.log(data.products);
+    setProduct(data.products);
+  }
+
+  useEffect(() => {
+    fetchProductData();
+  }, [])
+
   const logoutClickHandler = async () => {
     dispatchUserLogout(userLogout());
     try {
-      const res = fetch("http://localhost:5000/api/auth/logout", {
+      const res = await fetch("http://localhost:5000/api/auth/logout", {
         method: "GET",
         credentials: "include",
       });
-      
+
     } catch (error) {
       console.log(error);
     }
@@ -65,6 +80,15 @@ const Navbar = () => {
   useEffect(() => {
     fetchCategory();
   }, []);
+
+  const handleChange = (e) => {
+    setDropDown(true);
+    setValue(e.target.value);
+  }
+
+  const handleDropdown = () => {
+    setDropDown(false);
+  }
 
   // const dispatch = useDispatch();
   return (
@@ -154,14 +178,37 @@ const Navbar = () => {
           <li>
             <input
               type="text"
+              name='value'
               className={
                 search
                   ? "transition duration-700 border rounded-lg px-2 border-black lgm:w-24"
                   : "w-0"
               }
               translate
-              placeholder="Search"
+              placeholder="Search" onChange={handleChange}
             />
+            {
+              dropdown && product && value && <div className="dropdown p-2 shadow-xl mt-2 absolute bg-white w-72 rounded-md" onMouseOut={handleDropdown}>
+                <div className="items cursor-pointer">
+                  {
+                    product.filter((item) => {
+                      let searchTerm = value.toLowerCase();
+                      let fullName = item.name.toLowerCase();
+
+                      return (
+                        searchTerm && fullName.includes(searchTerm) && fullName !== searchTerm
+                      );
+                    })
+                      .map((item, i) => (
+                        <Link to = {`/product/${item._id}`}><div key={i} className={'item flex items-center justify-between p-1 border-b-2 hover:bg-gray-100 rounded-sm duration-100'}>
+                          <h1 className="text-lg smm:text-sm">{item.name}</h1>
+                          <img className="h-10 w-10" src={`http://localhost:5000/${item.productImage}`} alt='product' />
+                        </div></Link>
+                      ))
+                  }
+                </div>
+              </div>
+            }
           </li>
           <li
             className="transition duration-200 my-1 hover:text-red-600 hover:cursor-pointer hover:scale-110"

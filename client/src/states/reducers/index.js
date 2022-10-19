@@ -4,7 +4,8 @@ import { userLoginStatusReducer } from "./userLoginStatusReducer";
 
 const rootReducer = combineReducers({
     cartReducer: cartReducer,
-    userLoginStatusReducer: userLoginStatusReducer
+    userLoginStatusReducer: userLoginStatusReducer,
+    adminAuthStateReducer: adminAuthStateReducer
 })
 
 export default rootReducer;
