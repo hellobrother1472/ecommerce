@@ -25,9 +25,10 @@ const Navbar = () => {
     });
   };
   const categroryDropdownClick = () => {
-    setCategoryDropdown((prev) => {
-      return !prev;
-    });
+    // setCategoryDropdown((prev) => {
+    //   return !prev;
+    // });
+    setCategoryDropdown(true);
   };
   const circleDropdownClick = () => {
     setCircleDropdown((prev) => {
@@ -133,6 +134,8 @@ const Navbar = () => {
                   ? "absolute z-10 mt-5 bg-red-400 w-48 rounded"
                   : "hidden"
               }
+
+              onMouseEnter={() => setCategoryDropdown(true)} onMouseLeave={() => setCategoryDropdown(false)}
             >
               {categories && (
                 <>
@@ -188,7 +191,7 @@ const Navbar = () => {
               placeholder="Search" onChange={handleChange}
             />
             {
-              dropdown && product && value && <div className="dropdown p-2 shadow-xl mt-2 absolute bg-white w-72 rounded-md" onMouseOut={handleDropdown}>
+              dropdown && product && value && <div className="dropdown p-2 shadow-xl mt-2 absolute bg-white w-72 rounded-md" onMouseOver={() => setDropDown(true)} onMouseOut={handleDropdown}>
                 <div className="items cursor-pointer">
                   {
                     product.filter((item) => {
