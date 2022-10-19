@@ -191,7 +191,7 @@ const Navbar = () => {
               placeholder="Search" onChange={handleChange}
             />
             {
-              dropdown && product && value && <div className="dropdown p-2 shadow-xl mt-2 absolute bg-white w-72 rounded-md" onMouseOver={() => setDropDown(true)} onMouseOut={handleDropdown}>
+              dropdown && product && value && <div className="dropdown p-2 shadow-xl mt-2 absolute z-10 bg-white w-72 rounded-md" onMouseOver={() => setDropDown(true)} onMouseOut={handleDropdown}>
                 <div className="items cursor-pointer">
                   {
                     product.filter((item) => {
@@ -202,6 +202,7 @@ const Navbar = () => {
                         searchTerm && fullName.includes(searchTerm) && fullName !== searchTerm
                       );
                     })
+                      .slice(0,7)
                       .map((item, i) => (
                         <Link to = {`/product/${item._id}`}><div key={i} className={'item flex items-center justify-between p-1 border-b-2 hover:bg-gray-100 rounded-sm duration-100'}>
                           <h1 className="text-lg smm:text-sm">{item.name}</h1>
