@@ -14,7 +14,7 @@ const Offer = () => {
   }
 
   return (
-    <div className='w-full bg-gray-200 flex flex-col gap-6 justify-center items-center p-6'>
+    <div id = "testimonial" className='w-full bg-gray-200 flex flex-col gap-6 justify-center items-center p-6'>
         <div className='testimonial-heading'>
           <h1 className='heading-offer mdm:text-2xl md:text-4xl font-semibold text-royal-blue'>Customer's Testimonial</h1>
           <p className='border-b-4 border-red-500 w-20 mx-auto mt-2'></p>

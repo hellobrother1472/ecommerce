@@ -27,6 +27,7 @@ app.use('/api/admin/auth', require('./routes/adminAuth'));
 app.use('/admin', require('./routes/postData'));
 app.use('/admin', require('./routes/getData'));
 app.use('/admin', require('./routes/checkout'));
+app.use('/admin', require('./routes/contact'));
 app.get("/", (req,res)=>{
     res.send("This is the home route.")
 })

@@ -4,8 +4,11 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUserSecret } from "react-icons/fa";
 import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { adminLogin } from "../../states/actions/adminLoginAction";
+import { useDispatch } from "react-redux";
 
 const AdminLogin = () => {
+  const dispatchAdminLogin = useDispatch();
   const navigate = useNavigate();
   const [admin, setAdmin] = useState({
     email: '',
@@ -48,6 +51,7 @@ const AdminLogin = () => {
     })
     const data = await response.json();
     if(response.status === 200){
+      dispatchAdminLogin(adminLogin());
       navigate("/admin");
     }
     console.log(data);

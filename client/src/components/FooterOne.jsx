@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import AnchorLink from "react-anchor-link-smooth-scroll";
 
 const FooterOne = () => {
   return (
@@ -34,11 +36,11 @@ const FooterOne = () => {
           </div>
           <div>
             <ul className="space-y-2">
-              <li className="cursor-pointer text-center">Home</li>
-              <li className="cursor-pointer text-center">About</li>
-              <li className="cursor-pointer text-center">Service</li>
-              <li className="cursor-pointer text-center">Testimonial</li>
-              <li className="cursor-pointer text-center">Contact</li>
+              <Link to = '/'><li className="cursor-pointer text-center">Home</li></Link>
+              <Link to = '/contact'><li className="cursor-pointer text-center mt-2">About</li></Link>
+              <AnchorLink href='#carousel'><li className="cursor-pointer text-center mt-2">Service</li></AnchorLink>
+              <AnchorLink href='#testimonial'><li className="cursor-pointer text-center mt-2">Testimonial</li></AnchorLink>
+              <Link to = '/contact'><li className="cursor-pointer text-center mt-2">Contact</li></Link>
             </ul>
           </div>
         </div>
@@ -46,15 +48,27 @@ const FooterOne = () => {
         {/* Third */}
         <div className="space-y-7 p-2 px-3 w-2/12 mdm:w-full">
           <div>
+            <h1 className="text-xl font-bold  text-center">HELP</h1>
+          </div>
+          <div>
+            <ul className="space-y-2">
+              <li className="cursor-pointer text-center">Payments</li>
+              <li className="cursor-pointer text-center">Shipping</li>
+              <li className="cursor-pointer text-center">Cancelling & Returns</li>
+              <li className="cursor-pointer text-center">FAQ</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="space-y-7 p-2 px-3 w-2/12 mdm:w-full">
+          <div>
             <h1 className="text-xl font-bold  text-center">ACCOUNT</h1>
           </div>
           <div>
             <ul className="space-y-2">
-              <li className="cursor-pointer text-center">Home</li>
-              <li className="cursor-pointer text-center">About</li>
-              <li className="cursor-pointer text-center">Service</li>
-              <li className="cursor-pointer text-center">Testimonial</li>
-              <li className="cursor-pointer text-center">Contact</li>
+              <li className="cursor-pointer text-center">Facebook</li>
+              <li className="cursor-pointer text-center">Instagram</li>
+              <li className="cursor-pointer text-center">LinkedIn</li>
             </ul>
           </div>
         </div>
