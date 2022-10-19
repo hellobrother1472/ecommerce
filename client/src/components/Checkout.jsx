@@ -3,14 +3,20 @@ import { useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 import { AiFillMinusCircle } from 'react-icons/ai';
 import { IoMdAddCircle } from 'react-icons/io';
-import { products } from '../data/product';
 import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
     const navigate = useNavigate();
-    const product = products;
     const [qty, setQty] = useState(1);
     const [change, setChange] = useState(false);
+    const [products, setProducts] = useState();
+    useEffect(() => {
+        if(localStorage.getItem('cartItems')){
+            const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+            console.log(cartItems);
+            setProducts(cartItems);
+        }
+    }, [])
 
     const incQty = () => {
         setQty(qty + 1);
@@ -137,18 +143,19 @@ const Checkout = () => {
                     </div>
                     <div className='product-details mt-1 overflow-auto mdm:h-[50vh] h-[60vh] w-full'>
                         {
-                            product.map((pdt, i) => (
+                            products ? 
+                            products && products.map((pdt, i) => (
                                 <div className='flex justify-between items-center mdm:gap-4 gap-10 mt-6 border-t-2 border-gray-300 p-2 pt-4 mr-8 mdm:mr-2' key={i}>
                                     <div className='product-image'>
-                                        <img src={pdt.img} alt='product' className='h-28 w-28 rounded-lg' />
+                                        <img src={`http://localhost:5000/${pdt.detail.productImage}`} alt='product' className='h-28 w-28 rounded-lg' />
                                     </div>
                                     <div className='pdt-detail'>
-                                        <h1 className='font-semibold text-lg smm:text-sm'>{`${pdt.h1} X ${qty}`}</h1>
+                                        <h1 className='font-semibold text-lg smm:text-sm'>{`${pdt.detail.name} X ${pdt.qty}`}</h1>
                                         <div className='pdt-specs flex gap-4'>
                                             <h3 className='text-gray-400'>Size: <span className='text-black'>XL</span></h3>
                                             <h3 className='text-gray-400'>Color: <span className='text-black'>Red</span></h3>
                                         </div>
-                                        <h1 className='font-semibold text-lg smm:text-sm'>{pdt.price}</h1>
+                                        <h1 className='font-semibold text-lg smm:text-sm'>₹{pdt.detail.price}/-</h1>
                                         <div className='flex flex-col'>
                                             <p className='flex items-center md:justify-start gap-1 text-lg smm:text-sm cursor-pointer'><AiFillMinusCircle className='text-red-500' onClick={decQty} /> {qty} <IoMdAddCircle className='text-red-500' onClick={incQty} /></p>
                                         </div>
@@ -158,6 +165,9 @@ const Checkout = () => {
                                     </div>
                                 </div>
                             ))
+                            : <div className='no-item flex justify-center items-center h-full'>
+                                    <h1 className='text-2xl text-center'>No items are added.</h1>
+                                </div>
                         }
                     </div>
                     <div className='p-2 w-full flex flex-col justify-center'>

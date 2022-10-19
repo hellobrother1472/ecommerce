@@ -25,9 +25,10 @@ const Navbar = () => {
     });
   };
   const categroryDropdownClick = () => {
-    setCategoryDropdown((prev) => {
-      return !prev;
-    });
+    // setCategoryDropdown((prev) => {
+    //   return !prev;
+    // });
+    setCategoryDropdown(true);
   };
   const circleDropdownClick = () => {
     setCircleDropdown((prev) => {
@@ -133,6 +134,8 @@ const Navbar = () => {
                   ? "absolute z-10 mt-5 bg-red-400 w-48 rounded"
                   : "hidden"
               }
+
+              onMouseEnter={() => setCategoryDropdown(true)} onMouseLeave={() => setCategoryDropdown(false)}
             >
               {categories && (
                 <>
