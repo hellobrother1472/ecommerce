@@ -12,6 +12,7 @@ const ProductPage = () => {
     const [pin, setPin] = useState(null);
     const [pincode, setPincode] = useState('');
     const [product, setProduct] = useState();
+    const [cart, setCart] = useState({});
 
     const incQty = () => {
         setQty(qty + 1);
@@ -32,22 +33,53 @@ const ProductPage = () => {
 
     let { id } = useParams();
 
-    const cartHandler = ()=>{
+    useEffect(() => {
+        try{
+            if(localStorage.getItem('cartItems')){
+              setCart(JSON.parse(localStorage.getItem('cartItems')));
+            }
+          }
+          catch(err){
+            console.error(err);
+            localStorage.clear();
+          }
+    }, [])
+
+    // const cartHandler = ()=>{
+    //     dispatch(cartIncrement(qty));
+    //     const item = {};
+    //     const itemKey = {qty:qty, detail : product};
+    //     const productName = product.name.split(" ").join('-');
+    //     item[productName] = itemKey;
+    //     console.log(item);
+    //     const cartItems = localStorage.getItem('cartItems');
+    //     const LScartCount = localStorage.getItem('cartCount'); 
+    //     if (cartItems === null) {
+    //         localStorage.setItem('cartItems',JSON.stringify([item]));
+    //         localStorage.setItem('cartCount',JSON.stringify(qty));
+    //     }
+    //     else{
+    //         let cartProductArray = JSON.parse(cartItems); 
+    //         let cartCount = JSON.parse(LScartCount);
+    //         console.log(cartItems);
+    //         localStorage.setItem('cartItems',JSON.stringify(cartProductArray));
+    //         localStorage.setItem('cartCount',JSON.stringify(cartCount+item.qty));
+    //     }
+    // }
+
+    const cartHandler = () => {
         dispatch(cartIncrement(qty));
-        const item = {qty:qty, detail : product};
-        const cartItems = localStorage.getItem('cartItems');
-        const LScartCount = localStorage.getItem('cartCount'); 
-        if (cartItems === null) {
-            localStorage.setItem('cartItems',JSON.stringify([item]));
-            localStorage.setItem('cartCount',JSON.stringify(qty));
+        let newCart = cart;
+        const productName = product.name.split(" ").join('-');
+
+        if(productName in cart){
+            newCart[productName].qty = cart[productName].qty + qty;
         }
         else{
-            let cartProductArray = JSON.parse(cartItems); 
-            let cartCount = JSON.parse(LScartCount);
-            cartProductArray.push(item);
-            localStorage.setItem('cartItems',JSON.stringify(cartProductArray));
-            localStorage.setItem('cartCount',JSON.stringify(cartCount+item.qty));
+            newCart[productName] = { qty, product};
         }
+        const LScartCount = localStorage.getItem('cartCount'); 
+        localStorage.setItem('cartItems',JSON.stringify(newCart));
     }
 
     useEffect(() => {
@@ -129,8 +161,8 @@ const ProductPage = () => {
                         </div>
                         <div className='flex gap-2 md:gap-4 items-center'>
 
-                            <Link to="/checkout"><button onClick={cartHandler} className="text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded md:text-base text-sm">Buy Now</button></Link>
-                            <button onClick = {cartHandler} className="text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded md:text-base text-sm ">Add to Cart</button>
+                            <Link to="/checkout"><button onClick={() => cartHandler(product.name)} className="text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded md:text-base text-sm">Buy Now</button></Link>
+                            <button onClick = {() => cartHandler(product.name)} className="text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded md:text-base text-sm ">Add to Cart</button>
 
                             <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500">
                                 <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">

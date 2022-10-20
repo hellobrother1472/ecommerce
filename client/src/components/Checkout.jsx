@@ -13,7 +13,6 @@ const Checkout = () => {
     useEffect(() => {
         if(localStorage.getItem('cartItems')){
             const cartItems = JSON.parse(localStorage.getItem('cartItems'));
-            console.log(cartItems);
             setProducts(cartItems);
         }
     }, [])
@@ -141,21 +140,21 @@ const Checkout = () => {
                     <div className='order-heading'>
                         <h1 className='text-royal-blue mdm:text-lg md:text-2xl font-semibold border-b-2 border-gray-300 italic'>Your Order</h1>
                     </div>
-                    <div className='product-details mt-1 overflow-auto mdm:h-[50vh] h-[60vh] w-full'>
-                        {
-                            products ? 
-                            products && products.map((pdt, i) => (
+                    <div className='product-details mt-1 overflow-auto mdm:h-[50vh] max-h-[60vh] w-full'>
+                        {   
+                            products && Object.keys(products).length !== 0 ? 
+                            Object.keys(products).map((pdt, i) => (
                                 <div className='flex justify-between items-center mdm:gap-4 gap-10 mt-6 border-t-2 border-gray-300 p-2 pt-4 mr-8 mdm:mr-2' key={i}>
                                     <div className='product-image'>
-                                        <img src={`http://localhost:5000/${pdt.detail.productImage}`} alt='product' className='h-28 w-28 rounded-lg' />
+                                        <img src={`http://localhost:5000/${products[pdt].product.productImage}`} alt='product' className='h-28 w-28 rounded-lg' />
                                     </div>
                                     <div className='pdt-detail'>
-                                        <h1 className='font-semibold text-lg smm:text-sm'>{`${pdt.detail.name} X ${pdt.qty}`}</h1>
+                                        <h1 className='font-semibold text-lg smm:text-sm'>{`${products[pdt].product.name} X ${products[pdt].qty}`}</h1>
                                         <div className='pdt-specs flex gap-4'>
                                             <h3 className='text-gray-400'>Size: <span className='text-black'>XL</span></h3>
                                             <h3 className='text-gray-400'>Color: <span className='text-black'>Red</span></h3>
                                         </div>
-                                        <h1 className='font-semibold text-lg smm:text-sm'>₹{pdt.detail.price}/-</h1>
+                                        <h1 className='font-semibold text-lg smm:text-sm'>₹{products[pdt].product.price}/-</h1>
                                         <div className='flex flex-col'>
                                             <p className='flex items-center md:justify-start gap-1 text-lg smm:text-sm cursor-pointer'><AiFillMinusCircle className='text-red-500' onClick={decQty} /> {qty} <IoMdAddCircle className='text-red-500' onClick={incQty} /></p>
                                         </div>
