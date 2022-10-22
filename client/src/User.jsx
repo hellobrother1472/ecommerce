@@ -12,7 +12,7 @@ import ProductCategory from "./components/ProductCategory";
 import Checkout from "./components/Checkout";
 import { useDispatch } from "react-redux";
 import { userLogin } from "./states/actions/userLoginActions";
-import { cartIncrement } from "./states/actions/cartActions";
+import { first } from "./states/actions/cartActions";
 
 const User = () => {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const User = () => {
 
   const setCartCount = ()=>{
     const cartCount = JSON.parse(localStorage.getItem('cartCount'));
-    dispatch(cartIncrement(cartCount));
+    dispatch(first(cartCount));
   }
 
   useEffect(()=>{
@@ -41,7 +41,7 @@ const User = () => {
   },[])
 
   return (
-    <div>
+    <>
       <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -54,7 +54,7 @@ const User = () => {
         </Routes>
       <FooterOne />
       <FooterTwo />
-    </div>
+    </>
   );
 };
 

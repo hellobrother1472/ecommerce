@@ -110,4 +110,10 @@ router.get("/acessAuth",adminAcessAuthentication,(req,res)=>{
     res.status(200).json({result:"Admin verified"});
 })
 
+router.get("/adminLogout", (req, res) => {
+    res.clearCookie('adminjwt');
+    console.log("cookies removed");
+    res.status(200).send({ message: 'Admin succesfully logged out.' });
+})
+
 module.exports = router

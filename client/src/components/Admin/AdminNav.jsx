@@ -1,7 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { adminLogout } from "../../states/actions/adminLoginAction";
 const AdminNav = () => {
+  const adminLoginStatusDispatch = useDispatch();
+  const adminLogoutHandler = async()=>{
+    try {
+      const res = await fetch("http://localhost:5000/api/admin/auth/adminLogout",{
+        method: "GET",
+        credentials: "include",
+      })
+      if(res.status === 200){
+        adminLoginStatusDispatch(adminLogout());
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
+
     <div className="flex justify-between p-3 px-6 items-center bg-gradient-to-r from-black to-blue-900 shadow-lg">
 
       <div className="">
@@ -17,10 +34,13 @@ const AdminNav = () => {
             <Link to="/admin/addadmin">Add Admin</Link>
           </li>
           <li className="p-2 text-white cursor-pointer hover:text-red-500 hover:scale-110 transition delay-75">
-          <Link to="/admin/addproduct">Add Product</Link>
+            <Link to="/admin/addproduct">Add Product</Link>
           </li>
           <li className="p-2 text-white cursor-pointer hover:text-red-500 hover:scale-110 transition delay-75">
-          <Link to="/admin">Show Products</Link>
+            <Link to="/admin">Show Products</Link>
+          </li>
+          <li className="p-2 text-white cursor-pointer hover:text-red-500 hover:scale-110 transition delay-75" onClick={adminLogoutHandler}>
+            <Link to="/adminlogin">Logout</Link>
           </li>
           <li className="p-1">
             <input

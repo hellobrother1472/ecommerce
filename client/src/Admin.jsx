@@ -27,7 +27,7 @@ const Admin = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <AdminNav />
       <Routes>
         <Route path="/" element={<AdminPanel />} />
@@ -35,7 +35,7 @@ const Admin = () => {
         <Route path="/addproduct" element={<AddProductPage />} />
         <Route path="/editproduct/:id" element={<EditProductPage />} />
       </Routes>
-    </div>
+    </>
   );
 };
 

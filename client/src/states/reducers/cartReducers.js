@@ -10,6 +10,9 @@ export const cartReducer = (state = initialVal, action)=>{
                 return state;
             }
             return state - action.payload;
+
+        case "first":
+            return action.payload;
     
         default:
             return state;

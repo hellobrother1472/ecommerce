@@ -68,7 +68,7 @@ const EditProductPage = () => {
   }
 
   return (
-    <div>
+    <>
       {
         productDetail && <div className="h-[90vh] p-2">
           <div className="flex flex-col w-1/2 mx-auto space-x-5 items-center space-y-5 p-4">
@@ -184,7 +184,7 @@ const EditProductPage = () => {
           </div>
         </div>
       }
-    </div>
+    </>
   );
 };
 

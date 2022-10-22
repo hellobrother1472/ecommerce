@@ -9,11 +9,9 @@ const adminAcessAuthentication = async (req,res,next)=>{
         const user = await User.findById(decode.user.id);
         if(!user){
             res.status(401).send({ error: "Admin authentication error" })
-            throw new Error("Admin authentication error");
         }
         if(user.email !== process.env.ADMIN){
             res.status(401).send({ error: "Admin Access authentication error" })
-            throw new Error("Admin Access authentication error");
         }
         next();
         

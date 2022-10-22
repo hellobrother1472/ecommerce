@@ -5,7 +5,7 @@ export const adminAuthStateReducer = (state = initialVal, action) => {
         case "adminLogin":
             return "true";
         case "adminLogout":
-            return "true";
+            return "false";
         default:
             return state;
     }

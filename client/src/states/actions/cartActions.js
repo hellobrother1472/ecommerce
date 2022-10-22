@@ -11,3 +11,10 @@ export const cartDecrement = (payload)=>{
         payload : payload
     }
 }
+
+export const first = (payload)=>{ 
+    return {
+        type : "first",
+        payload : payload
+    }
+}

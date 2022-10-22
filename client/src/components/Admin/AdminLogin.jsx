@@ -6,6 +6,7 @@ import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { adminLogin } from "../../states/actions/adminLoginAction";
 import { useDispatch } from "react-redux";
+import background from '../../images/adminBackground.webp';
 
 const AdminLogin = () => {
   const dispatchAdminLogin = useDispatch();
@@ -54,14 +55,13 @@ const AdminLogin = () => {
       dispatchAdminLogin(adminLogin());
       navigate("/admin");
     }
-    console.log(data);
   }
 
   return (
     <div
       className="mt-0 0 h-[100vh] pt-14 bg-cover"
       style={{
-        backgroundImage: `url("http://www.cgpbrasil.com/viverbem/wp-content/plugins/admin-custom-login/images/3d-background.jpg")`,
+        backgroundImage: `url(${background})`,
       }}
     >
       <div className="mx-auto mdm:w-3/4 mdtlg:w-1/2 lg:w-[30%] ">

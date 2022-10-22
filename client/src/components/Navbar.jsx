@@ -25,10 +25,9 @@ const Navbar = () => {
     });
   };
   const categroryDropdownClick = () => {
-    // setCategoryDropdown((prev) => {
-    //   return !prev;
-    // });
-    setCategoryDropdown(true);
+    setCategoryDropdown((prev) => {
+      return !prev;
+    });
   };
   const circleDropdownClick = () => {
     setCircleDropdown((prev) => {
@@ -52,12 +51,14 @@ const Navbar = () => {
   }, [])
 
   const logoutClickHandler = async () => {
-    dispatchUserLogout(userLogout());
     try {
       const res = await fetch("http://localhost:5000/api/auth/logout", {
         method: "GET",
         credentials: "include",
       });
+      if(res.status === 200){
+        dispatchUserLogout(userLogout());
+      }
 
     } catch (error) {
       console.log(error);
