@@ -1,5 +1,5 @@
 import React from 'react';
-import arrival from '../images/arrival-bg.png';
+import arrival from '../images/arrival-bg.webp';
 import AnchorLink from "react-anchor-link-smooth-scroll";
 
 const Arrivals = () => {

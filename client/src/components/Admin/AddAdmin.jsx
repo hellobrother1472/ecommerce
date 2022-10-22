@@ -6,7 +6,6 @@ import { RiAdminFill } from "react-icons/ri";
 
 const AddAdmin = () => {
   return (
-    <div>
       <div
         className="mt-0 0 h-[90.8vh] pt-14 bg-cover"
         style={{
@@ -72,7 +71,6 @@ const AddAdmin = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

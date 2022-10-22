@@ -7,13 +7,13 @@ import Product from "./Product";
 
 const Home = () => {
   return (
-    <div>
+    <>
       <Carousel />
       <ShopUs />
       <Arrivals />
       <Product />
       <Testimonials />
-    </div>
+    </>
   );
 };
 

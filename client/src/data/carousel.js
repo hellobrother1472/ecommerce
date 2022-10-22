@@ -1,5 +1,5 @@
-import youngster from '../images/youngster.png';
-import girl from '../images/girlPhoto.png'
+import youngster from '../images/youngster.webp';
+import girl from '../images/girlPhoto.webp'
 
 export const information = [
     {

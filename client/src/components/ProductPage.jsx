@@ -12,7 +12,6 @@ const ProductPage = () => {
     const [pin, setPin] = useState(null);
     const [pincode, setPincode] = useState('');
     const [product, setProduct] = useState();
-    const [cart, setCart] = useState({});
 
     const incQty = () => {
         setQty(qty + 1);
@@ -33,44 +32,18 @@ const ProductPage = () => {
 
     let { id } = useParams();
 
-    useEffect(() => {
-        try{
-            if(localStorage.getItem('cartItems')){
-              setCart(JSON.parse(localStorage.getItem('cartItems')));
-            }
-          }
-          catch(err){
-            console.error(err);
-            localStorage.clear();
-          }
-    }, [])
-
-    // const cartHandler = ()=>{
-    //     dispatch(cartIncrement(qty));
-    //     const item = {};
-    //     const itemKey = {qty:qty, detail : product};
-    //     const productName = product.name.split(" ").join('-');
-    //     item[productName] = itemKey;
-    //     console.log(item);
-    //     const cartItems = localStorage.getItem('cartItems');
-    //     const LScartCount = localStorage.getItem('cartCount'); 
-    //     if (cartItems === null) {
-    //         localStorage.setItem('cartItems',JSON.stringify([item]));
-    //         localStorage.setItem('cartCount',JSON.stringify(qty));
-    //     }
-    //     else{
-    //         let cartProductArray = JSON.parse(cartItems); 
-    //         let cartCount = JSON.parse(LScartCount);
-    //         console.log(cartItems);
-    //         localStorage.setItem('cartItems',JSON.stringify(cartProductArray));
-    //         localStorage.setItem('cartCount',JSON.stringify(cartCount+item.qty));
-    //     }
-    // }
-
     const cartHandler = () => {
         dispatch(cartIncrement(qty));
+        let cart = JSON.parse(localStorage.getItem('cartItems')) || {};
+        let cartCount = JSON.parse(localStorage.getItem('cartCount')) || 0;
         let newCart = cart;
         const productName = product.name.split(" ").join('-');
+        // if(newCart === null){
+        //     newCart[productName] = { qty, product};
+            
+        // }
+        // else{
+        // }
 
         if(productName in cart){
             newCart[productName].qty = cart[productName].qty + qty;
@@ -78,8 +51,8 @@ const ProductPage = () => {
         else{
             newCart[productName] = { qty, product};
         }
-        const LScartCount = localStorage.getItem('cartCount'); 
         localStorage.setItem('cartItems',JSON.stringify(newCart));
+        localStorage.setItem('cartCount',JSON.stringify(cartCount+qty));
     }
 
     useEffect(() => {
