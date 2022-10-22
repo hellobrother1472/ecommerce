@@ -29,11 +29,11 @@ const Contact = () => {
     })
 
     const data = await response.json();
-    console.log(data);
+    alert(data.message);
   };
 
   return (
-    <div className="bg-gray-300 p-4">
+    <div className="bg-gray-300 p-4 h-[92vh]">
         <div className="container mx-auto my-auto justify-between flex w-10/12 smm:w-full p-2 pt-5">
           {/* This is for the contact details */}
           <div className="contactDetail flex justify-between w-full space-x-6 smm:flex-col smm:space-x-0">
@@ -80,7 +80,7 @@ const Contact = () => {
                 type="text"
                 id="name"
                 placeholder="Your Name"
-                className="placeholder:text-lg w-1/3 border border-gray-300 rounded-md p-3 focus:outline-none mdm:w-full"
+                className="placeholder:text-lg w-1/2 border border-gray-300 rounded-md p-3 focus:outline-none mdm:w-full"
                 value={userData.name}
                 onChange={onChangeHandler}
               />
@@ -88,16 +88,8 @@ const Contact = () => {
                 type="email"
                 id="email"
                 placeholder="Your Email"
-                className="placeholder:text-lg w-1/3 border border-gray-300 rounded-md p-3 focus:outline-none mdm:w-full"
+                className="placeholder:text-lg w-1/2 border border-gray-300 rounded-md p-3 focus:outline-none mdm:w-full"
                 value={userData.email}
-                onChange={onChangeHandler}
-              />
-              <input
-                type="tel"
-                id="phone"
-                placeholder="Phone Number"
-                className="placeholder:text-lg w-1/3 border border-gray-300 rounded-md p-3 focus:outline-none mdm:w-full"
-                value={userData.phone}
                 onChange={onChangeHandler}
               />
             </div>

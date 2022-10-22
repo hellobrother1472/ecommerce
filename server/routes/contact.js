@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const Contact = require('../database/models/Contact');
 const { body, validationResult } = require('express-validator');
+const nodemailer = require("nodemailer");
 
 router.post('/contact', [
     body('name', 'Enter a valid name and length must be more than 3').isLength({ min: 3 }),
     body('email', 'Enter a valid email').isEmail(),
-    body('phone', 'Phone number cannot be blank').exists(),
-    body('phone', 'Mobile number length must be 10').isLength({ min: 10, max: 10 }),
     body('message', 'Message cannot be blank').exists()
 ], async (req, res) => {
     const errors = validationResult(req);
@@ -15,14 +13,34 @@ router.post('/contact', [
     if (!errors.isEmpty()) {
         return res.status(400).json({ error: errors.array() });
     }
-    try{
-        const {name, email, phone, message} = req.body;
+    try {
+        const { name, email, message } = req.body;
 
-        const contact = await Contact.create({
-            name, email, phone, message
-        })
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            port: 465,
+            host: 'smtp.gmail.com',
+            auth: {
+                user: process.env.ACCOUNT,
+                pass: process.env.ACCOUNT_PASS,
+            },
+        });
 
-        res.json({message: "Contact has been sent successfully", contact});
+        const info = await transporter.sendMail({
+            from: `"CombPro App 👻" <${process.env.ACCOUNT}>`,
+            to: "", // list of receivers
+            subject: `Message from ${name} (${email})`,
+            html: `<b>${message}</b>`, // html body
+        }, (err) => {
+            if (err) {
+                console.log(err);
+                res.json({ message: "Internal Server Error." });
+            }
+            else {
+                console.log("Email sent");
+                res.json({ message: "Message has been sent successfully" });
+            }
+        });
     }
     catch (error) {
         console.error(error.message);
