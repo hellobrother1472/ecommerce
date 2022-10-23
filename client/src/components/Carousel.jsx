@@ -21,7 +21,7 @@ const Carousel = () => {
     
 
     return (
-        <div id = 'carousel' className='bg-gray-200 h-[91vh] w-full overflow-hidden smm:p-4 md:p-6 '>
+        <div id = 'carousel' className='bg-gray-200 h-[91vh] w-full overflow-hidden mdm:p-4 md:p-6 '>
             <div className='item flex h-full items-center justify-center smm:gap-4 sm:gap-6 md:gap-8'>
                 <div onClick={() => handleLeft()} className='transition duration-200 w-0.5/6 arrow-left smm:p-1 md:p-2 cursor-pointer flex justify-center items-center smm:h-5 smm:w-5 sm:h-10 sm:w-10 bg-black text-white rounded-full smm:text-sm md:text-2xl hover:scale-110'>&lt;</div>
                 <div ref={ref} className='info flex flex-col gap-4 smm:w-4/6 sm:w-3/6 animate-fade-in' key = {shortid.generate()}>

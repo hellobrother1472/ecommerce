@@ -4,30 +4,51 @@ import { MdDelete } from 'react-icons/md';
 import { AiFillMinusCircle } from 'react-icons/ai';
 import { IoMdAddCircle } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { cartDecrement, cartIncrement } from '../states/actions/cartActions';
 
 const Checkout = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [qty, setQty] = useState(1);
     const [change, setChange] = useState(false);
     const [products, setProducts] = useState();
+    const [total, setTotal] = useState(0);
     useEffect(() => {
         if(localStorage.getItem('cartItems')){
             const cartItems = JSON.parse(localStorage.getItem('cartItems'));
             setProducts(cartItems);
+            let tot = 0;
+            let count = 0;
+            Object.keys(cartItems).map((item) => {
+                tot += cartItems[item].product.price * cartItems[item].qty;
+                count += cartItems[item].qty;
+            })
+            setTotal(tot);
+            localStorage.setItem('cartCount', JSON.stringify(count));
         }
-    }, [])
+    }, [qty])
 
-    const incQty = () => {
+    const incQty = (productName) => {
+        dispatch(cartIncrement(1));
         setQty(qty + 1);
+        let product = products[productName];
+        product.qty++;
+        localStorage.setItem('cartItems', JSON.stringify(products));
     }
 
-    const decQty = () => {
-        if (qty <= 1) {
-            setQty(1);
-        }
-        else {
+    const decQty = (productName) => {
+        let product = products[productName];
+        if(product.qty > 1){
+            product.qty--;
             setQty(qty - 1);
+            dispatch(cartDecrement(1));
         }
+        else{
+            setQty(1);
+            product.qty = product.qty;
+        }
+        localStorage.setItem('cartItems', JSON.stringify(products));
     }
 
     const [user, setUser] = useState({
@@ -145,10 +166,10 @@ const Checkout = () => {
                             products && Object.keys(products).length !== 0 ? 
                             Object.keys(products).map((pdt, i) => (
                                 <div className='flex justify-between items-center mdm:gap-4 gap-10 mt-6 border-t-2 border-gray-300 p-2 pt-4 mr-8 mdm:mr-2' key={i}>
-                                    <div className='product-image'>
+                                    <div className='product-image w-2/5'>
                                         <img src={`http://localhost:5000/${products[pdt].product.productImage}`} alt='product' className='h-28 w-28 rounded-lg' />
                                     </div>
-                                    <div className='pdt-detail'>
+                                    <div className='pdt-detail w-1/2'>
                                         <h1 className='font-semibold text-lg smm:text-sm'>{`${products[pdt].product.name} X ${products[pdt].qty}`}</h1>
                                         <div className='pdt-specs flex gap-4'>
                                             <h3 className='text-gray-400'>Size: <span className='text-black'>XL</span></h3>
@@ -156,10 +177,10 @@ const Checkout = () => {
                                         </div>
                                         <h1 className='font-semibold text-lg smm:text-sm'>₹{products[pdt].product.price}/-</h1>
                                         <div className='flex flex-col'>
-                                            <p className='flex items-center md:justify-start gap-1 text-lg smm:text-sm cursor-pointer'><AiFillMinusCircle className='text-red-500' onClick={decQty} /> {qty} <IoMdAddCircle className='text-red-500' onClick={incQty} /></p>
+                                            <p className='flex items-center md:justify-start gap-1 text-lg smm:text-sm cursor-pointer'><AiFillMinusCircle className='text-red-500' onClick={() => decQty(pdt)} /> {products[pdt].qty} <IoMdAddCircle className='text-red-500' onClick={() => incQty(pdt)} /></p>
                                         </div>
                                     </div>
-                                    <div className='edit-pdt'>
+                                    <div className='edit-pdt w-1/12'>
                                         <div className='cursor-pointer'><MdDelete className='mdm:text-xl text-2xl text-red-500' /></div>
                                     </div>
                                 </div>
@@ -183,7 +204,7 @@ const Checkout = () => {
                         <div className='total flex flex-col justify-center items-center border-t-2 border-gray-300 p-2 pt-4 mr-8 vsmm:mr-2'>
                             <div className='w-full flex justify-between items-center'>
                                 <h2 className='font-semibold text-xl smm:text-sm'>Total</h2>
-                                <h2 className='text-lg smm:text-sm'>₹12000/-</h2>
+                                <h2 className='text-lg smm:text-sm'>₹{total}/-</h2>
                             </div>
                         </div>
                     </div>
