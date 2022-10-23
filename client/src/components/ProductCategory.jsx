@@ -75,8 +75,8 @@ const ProductCategory = () => {
                             <div className='product-detail flex flex-col justify-center items-center mt-3'>
                                 <h3 className='text-xl text-red-500'>{product.name}</h3>
                                 <div className='price flex gap-2 items-center justify-center'>
-                                    <h4>₹{product.price}/-</h4>
-                                    <h4 className='text-gray-500 line-through text-sm'>₹1299/-</h4>
+                                    <h4>₹{product.discountedPrice}/-</h4>
+                                    <h4 className='text-gray-500 line-through text-sm'>₹{product.originalPrice}/-</h4>
                                 </div>
                                 <h4 className='text-gray-500 text-center break-words'>{product.description}</h4>
                             </div>

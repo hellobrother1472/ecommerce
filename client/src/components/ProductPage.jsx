@@ -86,12 +86,12 @@ const ProductPage = () => {
                         <p className='text-blue-400 text-center'>Write a Review</p>
                     </div>
                     <div className='flex gap-2 price mt-4 items-center'>
-                        <p className='text-lg text-red-500'>₹{product.price}/-</p>
-                        <p className='line-through text-gray-500'>₹1299/-</p>
+                        <p className='text-lg text-red-500'>₹{product.discountedPrice}/-</p>
+                        <p className='line-through text-gray-500'>₹{product.originalPrice}/-</p>
                     </div>
                     <div className='offer bg-gray-200 w-fit p-1.5 flex items-center gap-2 smm:text-sm text-lg text-red-500 mt-1'>
                         <TbDiscount />
-                        <p className=''>Special Offer 20% off on Category</p>
+                        <p className=''>Special Offer {Math.round(((product.originalPrice - product.discountedPrice) / product.originalPrice) * 100)}% off on Category</p>
                     </div>
                     <div className='color flex flex-wrap flex-col mt-6 cursor-pointer gap-1'>
                         <h2 className='text-gray-500'>COLOR: <span className='text-black'>Red</span></h2>

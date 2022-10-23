@@ -44,7 +44,7 @@ router.post("/addProduct",[
 ], async (req, res) => {
     try {
         let date = Date.now();
-        let { name, description, price, categoryName } = req.body;
+        let { name, description, originalPrice, discountedPrice, categoryName } = req.body;
         const isProduct = await Product.findOne({ name });
     //    await sharp(req.file.buffer)
     //    .resize(320, 240)
@@ -60,7 +60,7 @@ router.post("/addProduct",[
         }
         else {
             let product = await Product.create({
-                admin: req.admin._id, name, description, price, categoryName, productImage: path
+                admin: req.admin._id, name, description, originalPrice, discountedPrice, categoryName, productImage: path
             });
 
             // Getting the name and finding the category.
@@ -90,7 +90,7 @@ router.post("/addProduct",[
 
 router.post('/updateProduct/:id', adminAuth, async (req, res) => {
     try {
-        let { name, description, price, categoryName } = req.body;
+        let { name, description, originalPrice, discountedPrice, categoryName } = req.body;
         let product = await Product.findById(req.params.id);
         const newProduct = {};
         if (name) {
@@ -99,8 +99,11 @@ router.post('/updateProduct/:id', adminAuth, async (req, res) => {
         if (description) {
             newProduct.description = description;
         }
-        if (price) {
-            newProduct.price = price;
+        if(originalPrice){
+            newProduct.originalPrice = originalPrice;
+        }
+        if (discountedPrice) {
+            newProduct.discountedPrice = discountedPrice;
         }
         if (categoryName) {
             newProduct.categoryName = categoryName;

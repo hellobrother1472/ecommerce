@@ -52,7 +52,7 @@ const Product = () => {
 
                         </div>
 
-                        <div className='product-price text-gray-500'>₹{pdt.price}/-</div>
+                        <div className='product-price text-gray-500'>₹{pdt.discountedPrice}/-</div>
                       </div>
                       </Link>
                     ))

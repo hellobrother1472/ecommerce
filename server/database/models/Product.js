@@ -18,9 +18,13 @@ const productSchema = mongoose.Schema({
     specifications:{
         type:String,
     },    
-    price:{
+    originalPrice:{
         type:Number,
         required:true
+    },
+    discountedPrice: {
+        type: Number,
+        required: true
     },    
     categoryName:{
         type:String,

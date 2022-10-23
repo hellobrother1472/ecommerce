@@ -4,7 +4,8 @@ const AddProductPage = () => {
   const [name, setName] = useState("");
   const [specification, setSpecification] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+  const [originalPrice, setOriginalPrice] = useState("");
+  const [discountedPrice, setDiscountedPrice] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [image, setImage] = useState(null);
 
@@ -22,8 +23,11 @@ const AddProductPage = () => {
     if (e.target.name === "description") {
       setDescription(e.target.value);
     }
-    if (e.target.name === "price") {
-      setPrice(e.target.value);
+    if (e.target.name === "originalPrice") {
+      setOriginalPrice(e.target.value);
+    }
+    if (e.target.name === "discountedPrice") {
+      setDiscountedPrice(e.target.value);
     }
     if (e.target.name === "categoryName") {
       setCategoryName(e.target.value);
@@ -37,7 +41,8 @@ const AddProductPage = () => {
     formData.append("name", name);
     formData.append("specification", specification);
     formData.append("description", description);
-    formData.append("price", price);
+    formData.append("originalPrice", originalPrice);
+    formData.append("discountedPrice", discountedPrice);
     formData.append("categoryName", categoryName);
     const response = await fetch('http://localhost:5000/admin/addProduct', {
       method: 'POST',
@@ -91,14 +96,27 @@ const AddProductPage = () => {
             />
           </div>
           <div className="flex">
-            <h1 className="inline font-semibold w-40 p-2">Price:</h1>
+            <h1 className="inline font-semibold w-40 p-2">Original Price:</h1>
             <input
               type="number"
               onChange={handleChange}
-              name="price"
+              name="originalPrice"
               min={1}
               className="p-2 w-full border border-gray-400 rounded-lg outline-none"
-              id="price"
+              id="originalPrice"
+              placeholder="Required"
+              required
+            />
+          </div>
+          <div className="flex">
+            <h1 className="inline font-semibold w-40 p-2">Discounted Price:</h1>
+            <input
+              type="number"
+              onChange={handleChange}
+              name="discountedPrice"
+              min={1}
+              className="p-2 w-full border border-gray-400 rounded-lg outline-none"
+              id="discountedPrice"
               placeholder="Required"
               required
             />
