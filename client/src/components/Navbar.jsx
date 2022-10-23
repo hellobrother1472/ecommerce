@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux/es/exports";
 import { useSelector } from "react-redux/es/exports";
 import { userLogout } from "../states/actions/userLoginActions";
+import logo from "../images/logo.webp"
 
 const Navbar = () => {
   const dispatchUserLogout = useDispatch();
@@ -91,12 +92,12 @@ const Navbar = () => {
     setDropDown(false);
   }
 
-  // const dispatch = useDispatch();
+  // const dispatch = useDispatch();  
   return (
     <div className="flex justify-between p-3 shadow-lg">
       {/* This is for logo */}
       <div className="logo self-center ml-8 mdm:ml-3">
-        <h1 className="text-4xl font-extrabold">Logo</h1>
+        <img src={logo} alt="logo" className="h-7 " />
       </div>
 
       {/* This is for navbar options */}
@@ -281,7 +282,7 @@ const Navbar = () => {
 
       <div
         className={
-          sidenav ? "absolute z-10 h-full w-3/4 bg-slate-500 -m-3" : "hidden"
+          sidenav ? "absolute z-10 h-full w-3/4 bg-slate-200 -m-3" : "hidden"
         }
       >
         <div className="float-right p-5 w-full block">
@@ -292,13 +293,13 @@ const Navbar = () => {
         <div className="block mt-20">
           <ul className="">
             <Link to="/">
-              <li className="hover:bg-red-300 p-5 cursor-pointer">Home</li>
+              <li className="hover:bg-red-400 p-5 cursor-pointer">Home</li>
             </Link>
             <Link to="/contact">
-              <li className="hover:bg-red-300 p-5 cursor-pointer">Contact</li>
+              <li className="hover:bg-red-400 p-5 cursor-pointer">Contact</li>
             </Link>
             <li
-              className="hover:bg-red-300 p-5 cursor-pointer"
+              className="hover:bg-red-400 p-5 cursor-pointer"
               onClick={categroryDropdownClick}
             >
               Categories
