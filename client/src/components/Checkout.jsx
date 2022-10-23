@@ -14,17 +14,23 @@ const Checkout = () => {
     const [change, setChange] = useState(false);
     const [products, setProducts] = useState();
     const [total, setTotal] = useState(0);
+    const [disabled, setDisabled] = useState(true);
+    const [discount, setDiscount] = useState(0);
     useEffect(() => {
         if(localStorage.getItem('cartItems')){
             const cartItems = JSON.parse(localStorage.getItem('cartItems'));
             setProducts(cartItems);
-            let tot = 0;
+            let originalTotal = 0;
+            let discountedTotal = 0;
             let count = 0;
             Object.keys(cartItems).map((item) => {
-                tot += cartItems[item].product.price * cartItems[item].qty;
+                discountedTotal += cartItems[item].product.discountedPrice * cartItems[item].qty;
+                originalTotal += cartItems[item].product.originalPrice * cartItems[item].qty;
                 count += cartItems[item].qty;
             })
-            setTotal(tot);
+            setTotal(discountedTotal);
+            setDiscount(Math.round(((originalTotal - discountedTotal) / originalTotal) * 100));
+            if(discountedTotal > 0) setDisabled(false);
             localStorage.setItem('cartCount', JSON.stringify(count));
         }
     }, [qty])
@@ -86,7 +92,8 @@ const Checkout = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch('http://localhost:5000/admin/checkout', {
+        if(total > 0){
+            const response = await fetch('http://localhost:5000/admin/checkout', {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -95,8 +102,17 @@ const Checkout = () => {
             body: JSON.stringify({firstName: user.firstName, lastName: user.lastName, address: user.address, phone: user.phone, pincode: user.pincode, state: user.state, district: user.district, addressType: user.addressType, onChange: change})
         });
 
-        const data = await response.json();
-        console.log(data);
+            const data = await response.json();
+            console.log(data);
+        }
+    }
+
+    const deleteProduct = (productName) => {
+        let quantity = products[productName].qty;
+        dispatch(cartDecrement(quantity));
+        delete products[productName];
+        setQty(qty - 1);
+        localStorage.setItem('cartItems', JSON.stringify(products));
     }
 
     return (
@@ -153,7 +169,7 @@ const Checkout = () => {
                             </div>
                         </div>
                         <div className='pay-btn mt-10'>
-                            <button onClick = {handleSubmit} className='bg-red-500 px-4 py-2 rounded-md h-12 text-lg text-white hover:bg-red-600 font-bold drop-shadow-lg hover:drop-shadow-2xl mdm:p-2 mdm:mx-auto lgm:mx-auto mdm:w-2/3'>Pay Now</button>
+                            <button onClick = {handleSubmit} className={`${disabled ? 'bg-red-200 px-4 py-2 rounded-md h-12 text-lg text-white font-bold mdm:p-2 mdm:mx-auto lgm:mx-auto mdm:w-2/3 cursor-text' : 'bg-red-500 px-4 py-2 rounded-md h-12 text-lg text-white hover:bg-red-600 font-bold drop-shadow-lg hover:drop-shadow-2xl mdm:p-2 mdm:mx-auto lgm:mx-auto mdm:w-2/3' }`}>Pay Now</button>
                         </div>
                     </div>
                 </div>
@@ -175,13 +191,13 @@ const Checkout = () => {
                                             <h3 className='text-gray-400'>Size: <span className='text-black'>XL</span></h3>
                                             <h3 className='text-gray-400'>Color: <span className='text-black'>Red</span></h3>
                                         </div>
-                                        <h1 className='font-semibold text-lg smm:text-sm'>₹{products[pdt].product.price}/-</h1>
+                                        <h1 className='font-semibold text-lg smm:text-sm'>₹{products[pdt].product.discountedPrice}/-</h1>
                                         <div className='flex flex-col'>
                                             <p className='flex items-center md:justify-start gap-1 text-lg smm:text-sm cursor-pointer'><AiFillMinusCircle className='text-red-500' onClick={() => decQty(pdt)} /> {products[pdt].qty} <IoMdAddCircle className='text-red-500' onClick={() => incQty(pdt)} /></p>
                                         </div>
                                     </div>
                                     <div className='edit-pdt w-1/12'>
-                                        <div className='cursor-pointer'><MdDelete className='mdm:text-xl text-2xl text-red-500' /></div>
+                                        <div className='cursor-pointer'><MdDelete className='mdm:text-xl text-2xl text-red-500' onClick={() =>deleteProduct(pdt)}/></div>
                                     </div>
                                 </div>
                             ))
@@ -191,16 +207,24 @@ const Checkout = () => {
                         }
                     </div>
                     <div className='p-2 w-full flex flex-col justify-center'>
-                        <div className='delivery-charges mt-1 flex flex-col justify-center items-center border-t-2 border-gray-300 p-2 pt-4 mr-8 vsmm:mr-2'>
-                            <div className='charge flex justify-between items-center w-full '>
-                                <h2 className='text-gray-400 text-lg smm:text-sm'>Delivery</h2>
-                                <h2 className='text-lg smm:text-sm'>₹120/-</h2>
-                            </div>
-                            <div className='discount flex justify-between items-center w-full'>
-                                <h2 className='text-gray-400 text-lg smm:text-sm'>Discount</h2>
-                                <h2 className='text-lg smm:text-sm'>20%</h2>
-                            </div>
-                        </div>
+                        {
+                            total > 0 ? 
+                            <div className='delivery-charges mt-1 flex flex-col justify-center items-center border-t-2 border-gray-300 p-2 pt-4 mr-8 vsmm:mr-2'>
+                                <div className='charge flex justify-between items-center w-full '>
+                                    <h2 className='text-gray-400 text-lg smm:text-sm'>Delivery</h2>
+                                    <h2 className='text-lg smm:text-sm'>₹120/-</h2>
+                                </div>
+                                {
+                                    discount > 0 ? 
+                                    <div className='discount flex justify-between items-center w-full'>
+                                        <h2 className='text-gray-400 text-lg smm:text-sm'>Discount</h2>
+                                        <h2 className='text-lg smm:text-sm'>{discount}%</h2>
+                                    </div>: 
+                                    <></>
+                                }
+                            </div>: 
+                            <></>
+                        }
                         <div className='total flex flex-col justify-center items-center border-t-2 border-gray-300 p-2 pt-4 mr-8 vsmm:mr-2'>
                             <div className='w-full flex justify-between items-center'>
                                 <h2 className='font-semibold text-xl smm:text-sm'>Total</h2>

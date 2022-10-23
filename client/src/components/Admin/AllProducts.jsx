@@ -69,7 +69,7 @@ const AllProducts = () => {
                     {product.name}
                   </h1>
                   <h2 className="h-fit w-fit text-center px-3">
-                    ₹{product.price}/-
+                    ₹{product.discountedPrice}/-
                   </h2>
                 </div>
 

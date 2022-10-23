@@ -7,7 +7,8 @@ const EditProductPage = () => {
     name: false,
     description: false,
     specification: false,
-    price: false,
+    originalPrice: false,
+    discountedPrice: false,
     categoryName: false,
   });
 
@@ -28,7 +29,8 @@ const EditProductPage = () => {
     name: '',
     description: '',
     specification: '',
-    price: '',
+    originalPrice: '',
+    discountedPrice: '',
     categoryName: ''
   })
 
@@ -136,22 +138,42 @@ const EditProductPage = () => {
               </div>
 
               <div className="flex justify-center items-center space-x-3">
-                <h1 className="inline font-semibold w-40 p-2">Price:</h1>
-                {edit.price ? (
+                <h1 className="inline font-semibold w-40 p-2">Original Price:</h1>
+                {edit.originalPrice ? (
                   <input
                     type="text"
                     className="p-2 w-full border border-gray-400 rounded-lg outline-none"
-                    id="price" onChange={handleChange} value={productDetail.price}
+                    id="originalPrice" onChange={handleChange} value={productDetail.originalPrice}
                   />
                 ) : (
                   <></>
                 )}
                 <button
                   className="bg-green-400 h-fit p-1 rounded-full w-14"
-                  id="price"
+                  id="originalPrice"
                   onClick={handleClick}
                 >
-                  {edit.price ? "❌" : "Edit"}
+                  {edit.originalPrice ? "❌" : "Edit"}
+                </button>
+              </div>
+
+              <div className="flex justify-center items-center space-x-3">
+                <h1 className="inline font-semibold w-40 p-2">Discounted Price:</h1>
+                {edit.discountedPrice ? (
+                  <input
+                    type="text"
+                    className="p-2 w-full border border-gray-400 rounded-lg outline-none"
+                    id="discountedPrice" onChange={handleChange} value={productDetail.discountedPrice}
+                  />
+                ) : (
+                  <></>
+                )}
+                <button
+                  className="bg-green-400 h-fit p-1 rounded-full w-14"
+                  id="discountedPrice"
+                  onClick={handleClick}
+                >
+                  {edit.discountedPrice ? "❌" : "Edit"}
                 </button>
               </div>
 
