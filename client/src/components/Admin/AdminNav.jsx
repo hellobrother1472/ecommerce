@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { adminLogout } from "../../states/actions/adminLoginAction";
+import logo from "../../images/logo.webp"
 const AdminNav = () => {
   const adminLoginStatusDispatch = useDispatch();
   const adminLogoutHandler = async()=>{
@@ -22,7 +23,7 @@ const AdminNav = () => {
     <div className="flex justify-between p-3 px-6 items-center bg-gradient-to-r from-black to-blue-900 shadow-lg">
 
       <div className="">
-        <h1 className="text-2xl font-semibold text-white p-1">Admin Panel</h1>
+        <img src={logo} alt="logo" className="h-7 " />
       </div>
 
       <div>

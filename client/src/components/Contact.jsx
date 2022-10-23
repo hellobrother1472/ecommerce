@@ -33,7 +33,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-gray-300 p-4 h-[92vh]">
+    <div className="bg-gray-100 p-4 h-[92vh]">
         <div className="container mx-auto my-auto justify-between flex w-10/12 smm:w-full p-2 pt-5">
           {/* This is for the contact details */}
           <div className="contactDetail flex justify-between w-full space-x-6 smm:flex-col smm:space-x-0">
@@ -68,7 +68,7 @@ const Contact = () => {
         </div>
 
         {/* This is for the message taken from the user */}
-        <div className="getMessage container w-1/2 flex flex-col mx-auto p-8 pb-10 mt-8 mb-8 space-y-3 shadow-2xl lgm:w-full smm:shadow-none bg-white">
+        <div className="getMessage bg-white container w-1/2 flex flex-col mx-auto p-8 pb-10 mt-8 mb-8 space-y-3 shadow-2xl lgm:w-full smm:shadow-none rounded-md ">
           <div className="p-3 mdm:items-center mdm:justify-center">
             <h1 className="text-3xl font-extrabold mdm:w-fit mdm:mx-auto">
               Get in Touch

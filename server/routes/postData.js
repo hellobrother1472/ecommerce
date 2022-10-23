@@ -7,7 +7,7 @@ const fs = require('fs');
 const multer = require('multer');
 const Product = require('../database/models/Product');
 const Category = require('../database/models/Category');
-const sharp = require('sharp');
+// const sharp = require('sharp');
 const path = require('path')
 
 const multerStorage = multer.diskStorage({
