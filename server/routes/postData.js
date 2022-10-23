@@ -3,13 +3,16 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const adminAuth = require('../middlewares/adminAuthentication');
 const app = express();
+const fs = require('fs');
 const multer = require('multer');
 const Product = require('../database/models/Product');
 const Category = require('../database/models/Category');
+const sharp = require('sharp');
+const path = require('path')
 
 const multerStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/images')
+        cb(null, 'public/images');
     },
     filename: function (req, file, cb) {
         cb(null, Date.now()+file.originalname)
@@ -30,15 +33,27 @@ const upload = multer({
     fileFilter: filter
 })
 
+
+// const upload = multer({
+//     storage: multer.memoryStorage(),
+//     // fileFilter: filter
+// })
 router.post("/addProduct",[   
     adminAuth,
     upload.single('productImage')
 ], async (req, res) => {
     try {
+        let date = Date.now();
         let { name, description, price, categoryName } = req.body;
         const isProduct = await Product.findOne({ name });
-        let path = req.file.path;
-        path = path.slice(7);
+    //    await sharp(req.file.buffer)
+    //    .resize(320, 240)
+    //    .toFile('public/images/' + date + req.file.originalname)
+        
+    //    let path = 'images\\' + date + req.file.originalname;
+
+    let path = req.file.path;
+    path = path.slice(7);
 
         if (isProduct) {
             res.status(404).send({ error: "Product already exists" });
