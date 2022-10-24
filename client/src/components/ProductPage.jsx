@@ -6,7 +6,8 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {cartIncrement} from '../states/actions/cartActions'
-const ProductPage = () => {
+
+const ProductPage = ({setProgress}) => {
     const dispatch = useDispatch();
     const [qty, setQty] = useState(1);
     const [pin, setPin] = useState(null);
@@ -57,10 +58,13 @@ const ProductPage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            setProgress(10);
             const response = await fetch(`http://localhost:5000/admin/getProduct/${id}`);
-
+            setProgress(40);
             const data = await response.json();
+            setProgress(70);
             setProduct(data.product);
+            setProgress(100);
         }
 
         fetchData();

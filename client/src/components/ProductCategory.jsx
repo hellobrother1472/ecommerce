@@ -4,16 +4,20 @@ import { AiFillStar } from 'react-icons/ai';
 import {FaSort} from 'react-icons/fa';
 import { useParams, Link } from 'react-router-dom';
 
-const ProductCategory = () => {
+const ProductCategory = ({setProgress}) => {
     let { id } = useParams();
     const [dropdown, setDropDown] = useState(false);
     const [products, setProducts] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
+            setProgress(10);
             const response = await fetch(`http://localhost:5000/admin/getAllProductsByCategory/${id}`);
+            setProgress(40);
             const data = await response.json();
+            setProgress(70);
             setProducts(data.productList);
+            setProgress(100);
         }
 
         fetchData();

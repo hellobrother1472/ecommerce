@@ -5,13 +5,13 @@ import Arrivals from "./Arrivals";
 import Testimonials from "./Testimonials";
 import Product from "./Product";
 
-const Home = () => {
+const Home = ({setProgress}) => {
   return (
     <>
       <Carousel />
       <ShopUs />
       <Arrivals />
-      <Product />
+      <Product setProgress = {setProgress}/>
       <Testimonials />
     </>
   );
