@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { cartDecrement, cartIncrement } from '../states/actions/cartActions';
 
-const Checkout = () => {
+const Checkout = ({setProgress}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [qty, setQty] = useState(1);
@@ -74,15 +74,19 @@ const Checkout = () => {
     }
 
     const fetchData = async () => {
+        setProgress(10);
         const response = await fetch('http://localhost:5000/admin/userData', {
             method: 'GET',
             credentials: 'include'
         });
+        setProgress(40);
         const data = await response.json();
         if(response.status === 404 ){
             navigate("/signin");
         }
+        setProgress(70);
         if(data.found) setUser(data.user);
+        setProgress(100);
     }
 
     useEffect(() => {

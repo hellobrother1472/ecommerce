@@ -8,17 +8,20 @@ import { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import { useRef } from 'react';
 
-const Product = () => {
+const Product = ({setProgress}) => {
   const [products, setProducts] = useState();
   const refImage = useRef();
   const ref = useRef();
 
   useEffect(() => {
     const fetchData = async () => {
+      setProgress(10);
       const response = await fetch('http://localhost:5000/admin/getAllCategory');
-
+      setProgress(40);
       const data = await response.json();
+      setProgress(70);
       setProducts(data.category);
+      setProgress(100);
     }
     fetchData();
   }, [])

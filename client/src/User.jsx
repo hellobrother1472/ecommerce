@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React,{useEffect, useState} from "react";
 import Navbar from "./components/Navbar";
 import FooterTwo from "./components/FooterTwo";
 import FooterOne from "./components/FooterOne";
@@ -13,8 +13,10 @@ import Checkout from "./components/Checkout";
 import { useDispatch } from "react-redux";
 import { userLogin } from "./states/actions/userLoginActions";
 import { first } from "./states/actions/cartActions";
+import LoadingBar from 'react-top-loading-bar';
 
 const User = () => {
+  const [progress, setProgress] = useState(0);
   const dispatch = useDispatch();
   const authenticate = async()=>{
     try {
@@ -43,14 +45,19 @@ const User = () => {
   return (
     <>
       <Navbar />
+      <LoadingBar
+        height={5}
+        color={'#EF4444'}
+        progress={progress}
+      /> 
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home setProgress = {setProgress}/>} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/product/:id" element={<ProductPage />} />
-          <Route path="/products/:id" element={<ProductCategory />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/product/:id" element={<ProductPage setProgress = {setProgress}/>} />
+          <Route path="/products/:id" element={<ProductCategory setProgress = {setProgress}/>} />
+          <Route path="/checkout" element={<Checkout setProgress = {setProgress}/>} />
         </Routes>
       <FooterOne />
       <FooterTwo />
