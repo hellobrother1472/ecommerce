@@ -23,7 +23,7 @@ const AdminNav = () => {
     <div className="flex justify-between p-3 px-6 items-center bg-gradient-to-r from-black to-blue-900 shadow-lg">
 
       <div className="">
-        <img src={logo} alt="logo" className="h-7 " />
+        <Link to="/"><img src={logo} alt="logo" className="h-7 cursor-pointer" /></Link>
       </div>
 
       <div>

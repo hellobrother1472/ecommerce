@@ -33,14 +33,14 @@ const Product = ({setProgress}) => {
           <div key = {i} className = {(i === products.length-1) ? '':'border-dashed border-b-2 border-gray-400 mb-10'}>
             <div className='product-heading flex flex-col justify-center items-center'>
               <h1 className='mdm:text-2xl md:text-4xl font-semibold text-royal-blue'>{product.name}</h1>
-              <p className='italic text-gray-500'>Details to details is what makes Hexashop different from the other themes.</p>
+              <hr className='border-black'/>
             </div>
             <div className='item flex h-full items-center justify-center mt-6'>
               <div className='info w-[98%] mb-8'>
                 <Slider {...settings}>
                   {
                     product.productIds.map((pdt, i) => (
-                      <Link to = {`/product/${pdt._id}`}>
+                      <Link key={pdt._id} to = {`/product/${pdt._id}`}>
                       <div className='product p-2 flex flex-col md:px-20' key={pdt._id}>
                         <div className='product-image relative' >
                           <img ref = {refImage} src={`http://localhost:5000/${pdt.productImage}`} alt='product' className='w-full h-72 rounded-md' />
