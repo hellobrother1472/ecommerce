@@ -10,7 +10,7 @@ import logo from "../images/logo.webp"
 const Navbar = () => {
   const dispatchUserLogout = useDispatch();
   const loginStatus = useSelector((state) => {
-    return state.userLoginStatusReducer;
+    return state.userLoginStatusReducer.isSignedIn;
   });
   const [search, setSearch] = useState(false);
   const [dropdown, setDropDown] = useState(false);
@@ -97,7 +97,7 @@ const Navbar = () => {
     <div className="flex justify-between p-3 shadow-lg">
       {/* This is for logo */}
       <div className="logo self-center ml-8 mdm:ml-3">
-        <img src={logo} alt="logo" className="h-7 " />
+        <img src={logo} alt="logo" className="h-7 smm:h-7 smm:w-20" />
       </div>
 
       {/* This is for navbar options */}

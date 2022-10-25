@@ -2,14 +2,52 @@ import React, { useState } from "react";
 import { MdEmail } from "react-icons/md";
 import { FaAddressCard } from "react-icons/fa";
 import {BsFillTelephoneFill} from 'react-icons/bs';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from "react-redux";
+import { userLoginStatusReducer } from "../states/reducers/userLoginStatusReducer";
+import { useEffect } from "react";
 
 const Contact = () => {
   let [userData, setUserData] = useState({
     name: "",
     email: "",
-    phone: "",
     message: "",
   });
+
+  const options = {
+    position: "top-right",
+    autoClose: 10000,
+    pauseOnHover: true,
+    draggable: false,
+    theme: 'dark'
+  };
+
+  let userInfo = useSelector((state) => {return state.userLoginStatusReducer.user});
+  useEffect(() => {
+    if(userInfo){
+      setUserData(userInfo);
+    }
+  }, [])
+
+  const handleValidation = () => {
+    const {name, email, message} = userData;
+
+    if (name.length < 3) {
+      toast.error('Name should be of atleast 3 in length', options);
+      return false;
+    }
+    else if(email === ""){
+      toast.error('Email cannot be blank', options);
+      return false;
+    }
+    else if (message.length < 4) {
+      toast.error('Message should be of atleast 4 in length', options);
+      return false;
+    }
+
+    return true;
+  }
 
   const onChangeHandler = (e) => {
     let value = e.target.value;
@@ -19,7 +57,8 @@ const Contact = () => {
 
   const postData = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:5000/admin/contact', {
+    if(handleValidation()){
+      const response = await fetch('http://localhost:5000/admin/contact', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -29,7 +68,8 @@ const Contact = () => {
     })
 
     const data = await response.json();
-    alert(data.message);
+    console.log(data);
+    }
   };
 
   return (
@@ -115,6 +155,7 @@ const Contact = () => {
             </div>
           </form>
         </div>
+        <ToastContainer />
     </div>
   );
 };

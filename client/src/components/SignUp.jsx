@@ -1,36 +1,76 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [  formData,setFormData] = useState({name:"",email:"",number:"",password:"",confirmPassword:""});
-  const handleChange = (e)=>{
+  const [formData, setFormData] = useState({ name: "", email: "", number: "", password: "", confirmPassword: "" });
+  const handleChange = (e) => {
     const event = e.target.id;
     const value = e.target.value;
-    setFormData({...formData,[event]:value});
+    setFormData({ ...formData, [event]: value });
   }
-  const handleClick = async(e)=>{
-    e.preventDefault();
-    const response = await fetch('/api/auth/signup',{
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify({name:formData.name,email:formData.email,number:formData.number,password:formData.password,cpassword:formData.confirmPassword})
-    })
 
-    const data = await response.json();
-    if(response.status === 200){
-      console.log("succesfully signed up");     
-      navigate("/signin");
+  const options = {
+    position: "top-right",
+    autoClose: 10000,
+    pauseOnHover: true,
+    draggable: false,
+    theme: 'dark'
+  };
+
+  const handleValidation = () => {
+    const { name, email, number, password, confirmPassword } = formData;
+
+    if (password !== confirmPassword) {
+      toast.error('Password and confirm password should be same', options);
+      return false;
     }
-    else{
-      console.log(data.result);
+    else if (name.length < 3) {
+      toast.error('Name should be of atleast 3 in length', options);
+      return false;
+    }
+    else if(email === ""){
+      toast.error('Email cannot be blank', options);
+      return false;
+    }
+    else if(number.length < 10 || number.length > 10){
+      toast.error('Number should be of 10 digits', options);
+      return false;
+    }
+    else if (password.length < 8) {
+      toast.error('Password should be of atleast 8 in length', options);
+      return false;
+    }
+
+    return true;
+  }
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    if(handleValidation()){
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({ name: formData.name, email: formData.email, number: formData.number, password: formData.password, cpassword: formData.confirmPassword })
+      })
+  
+      const data = await response.json();
+      if (response.status === 200) {
+        console.log("succesfully signed up");
+        navigate("/signin");
+      }
+      else {
+        console.log(data.result);
+      }
     }
 
   }
@@ -72,7 +112,7 @@ const SignUp = () => {
                   placeholder="Name"
                   onChange={handleChange}
                   id="name"
-                  value={formData.name} 
+                  value={formData.name}
                 />
               </div>
               <div className="flex items-center w-full p-2 space-x-5 border shadow-md border-black border-opacity-30 rounded-3xl smm:space-x-2 ">
@@ -127,6 +167,7 @@ const SignUp = () => {
                 Sign Up
               </button>
             </form>
+            <ToastContainer />
           </div>
         </div>
       </div>
