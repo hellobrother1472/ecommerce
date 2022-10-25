@@ -6,6 +6,9 @@ import { IoMdAddCircle } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { cartDecrement, cartIncrement } from '../states/actions/cartActions';
+import { useSelector } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Checkout = ({setProgress}) => {
     const navigate = useNavigate();
@@ -16,6 +19,7 @@ const Checkout = ({setProgress}) => {
     const [total, setTotal] = useState(0);
     const [disabled, setDisabled] = useState(true);
     const [discount, setDiscount] = useState(0);
+
     useEffect(() => {
         if(localStorage.getItem('cartItems')){
             const cartItems = JSON.parse(localStorage.getItem('cartItems'));
@@ -68,6 +72,53 @@ const Checkout = ({setProgress}) => {
         addressType: ''
     })
 
+    const options = {
+        position: "top-right",
+        autoClose: 10000,
+        pauseOnHover: true,
+        draggable: false,
+        theme: 'dark'
+      };
+    
+      const handleValidation = () => {
+        const {firstName, lastName, address, phone, pincode, state, district, addressType} = user;
+    
+        if (firstName.length < 3) {
+          toast.error('Name should be of atleast 3 in length', options);
+          return false;
+        }
+        else if (lastName.length < 3) {
+            toast.error('Name should be of atleast 3 in length', options);
+            return false;
+        }
+        else if(address === ''){
+            toast.error('Address cannot be blank', options);
+            return false;
+        }
+        else if(phone.length < 10 || phone.length > 10){
+          toast.error('Number should be of 10 digits', options);
+          return false;
+        }
+        else if (pincode === '') {
+            toast.error('Pincode cannot be blank', options);
+            return false;
+          }
+        else if (state === '') {
+          toast.error('State cannot be blank', options);
+          return false;
+        }
+        else if (district === '') {
+            toast.error('District cannot be blank', options);
+            return false;
+        }
+        else if (addressType === '') {
+            toast.error('Address Type cannot be blank', options);
+            return false;
+        }
+    
+        return true;
+      }
+
     const handleChange = (e) => {
         setChange(true);
         setUser({...user, [e.target.id]: e.target.value})
@@ -96,18 +147,20 @@ const Checkout = ({setProgress}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(total > 0){
-            const response = await fetch('http://localhost:5000/admin/checkout', {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({firstName: user.firstName, lastName: user.lastName, address: user.address, phone: user.phone, pincode: user.pincode, state: user.state, district: user.district, addressType: user.addressType, onChange: change})
-        });
-
-            const data = await response.json();
-            console.log(data);
+        if(handleValidation()){
+            if(total > 0){
+                const response = await fetch('http://localhost:5000/admin/checkout', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({firstName: user.firstName, lastName: user.lastName, address: user.address, phone: user.phone, pincode: user.pincode, state: user.state, district: user.district, addressType: user.addressType, onChange: change})
+            });
+    
+                const data = await response.json();
+                console.log(data);
+            }
         }
     }
 

@@ -55,7 +55,8 @@ const FooterOne = () => {
             <ul className="space-y-2">
               <li className="cursor-pointer text-center">Payments</li>
               <li className="cursor-pointer text-center">Shipping</li>
-              <li className="cursor-pointer text-center">FAQ</li>
+              <Link to = '/faq'><li className="cursor-pointer text-center mt-2">FAQ</li></Link>
+              
             </ul>
           </div>
         </div>

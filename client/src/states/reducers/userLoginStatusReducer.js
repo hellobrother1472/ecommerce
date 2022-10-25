@@ -1,11 +1,14 @@
-const initVal = "false";
+const initVal = {
+    isSignedIn: "false",
+    user: null
+};
 
 export const userLoginStatusReducer = (state=initVal,action)=>{
     switch (action.type) {
         case "userLogin":
-            return "true"
+            return {...state, isSignedIn: "true", user: action.payload}
         case "userLogout":
-            return "false"
+            return {...state, isSignedIn: "false", user: null}
         default:
             return state;
     }

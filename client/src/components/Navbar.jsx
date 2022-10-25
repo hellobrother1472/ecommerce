@@ -11,7 +11,7 @@ import shortid from "shortid";
 const Navbar = () => {
   const dispatchUserLogout = useDispatch();
   const loginStatus = useSelector((state) => {
-    return state.userLoginStatusReducer;
+    return state.userLoginStatusReducer.isSignedIn;
   });
   const [search, setSearch] = useState(false);
   const [dropdown, setDropDown] = useState(false);
@@ -98,7 +98,8 @@ const Navbar = () => {
     <div className="flex justify-between p-3 shadow-lg">
       {/* This is for logo */}
       <div className="logo self-center ml-8 mdm:ml-3">
-        <Link to="/"><img src={logo} alt="logo" className="h-7 " /></Link>
+       <Link to="/"><img src={logo} alt="logo" className="h-7 smm:h-7 smm:w-20" /></Link>
+        
       </div>
 
       {/* This is for navbar options */}

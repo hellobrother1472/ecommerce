@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { userLogin } from "./states/actions/userLoginActions";
 import { first } from "./states/actions/cartActions";
 import LoadingBar from 'react-top-loading-bar';
+import Faq from "./components/Faq";
 
 const User = () => {
   const [progress, setProgress] = useState(0);
@@ -55,6 +56,7 @@ const User = () => {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<Faq />} />
           <Route path="/product/:id" element={<ProductPage setProgress = {setProgress}/>} />
           <Route path="/products/:id" element={<ProductCategory setProgress = {setProgress}/>} />
           <Route path="/checkout" element={<Checkout setProgress = {setProgress}/>} />

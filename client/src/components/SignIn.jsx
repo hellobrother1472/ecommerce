@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../states/actions/userLoginActions";
 import { Link } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignIn = () => {
   const dispatchUserLogin = useDispatch();
@@ -15,9 +17,34 @@ const SignIn = () => {
     const value = e.target.value;
     setLogin({ ...login, [event]: value });
   };
+
+  const options = {
+    position: "top-right",
+    autoClose: 10000,
+    pauseOnHover: true,
+    draggable: false,
+    theme: 'dark'
+  };
+
+  const handleValidation = () => {
+    const {email, password} = login;
+
+    if(email === ""){
+      toast.error('Email cannot be blank', options);
+      return false;
+    }
+    else if (password.length < 8) {
+      toast.error('Password should be of atleast 8 in length', options);
+      return false;
+    }
+
+    return true;
+  }
+
   const handleClick = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/auth/login", {
+    if(handleValidation()){
+      const response = await fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -32,11 +59,12 @@ const SignIn = () => {
       if (data.result === "Admin") {
         navigate("/adminlogin");
       } else {
-        dispatchUserLogin(userLogin());
+        dispatchUserLogin(userLogin(data.user));
         navigate("/");
       }
     } else {
       console.log(data.result);
+    }
     }
   };
   return (
@@ -99,6 +127,7 @@ const SignIn = () => {
               </button>
             </form>
           </div>
+          <ToastContainer />
         </div>
       </div>
     </div>
