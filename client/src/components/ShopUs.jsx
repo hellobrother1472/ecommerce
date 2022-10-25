@@ -14,17 +14,17 @@ const ShopUs = () => {
                 <div className='w-full md:w-1/4 box bg-royal-blue text-white px-11 py-12 flex flex-col items-center rounded-md gap-2'>
                     <BsTruck className='text-5xl' />
                     <h2 className='font-semibold text-2xl'>Fast Delivery</h2>
-                    <p>variations of passages of Lorem Ipsum available</p>
+                    <p>Your order will arrive within 2 to 3 working days.</p>
                 </div>
                 <div className='w-full md:w-1/4 box bg-royal-blue text-white px-11 py-12 flex flex-col items-center rounded-md gap-2'>
                     <TbDiscount className='text-5xl' />
                     <h2 className='font-semibold text-2xl'>Free Shipping</h2>
-                    <p>variations of passages of Lorem Ipsum available</p>
+                    <p>Standard Delivery charges are free for orders that cost ₹499 or more</p>
                 </div>
                 <div className='w-full md:w-1/4 box bg-royal-blue text-white px-11 py-12 flex flex-col items-center rounded-md gap-2'>
                     <GiRibbonMedal className='text-5xl' />
                     <h2 className='font-semibold text-2xl'>Best Quality</h2>
-                    <p>variations of passages of Lorem Ipsum available</p>
+                    <p>Details to details is what makes SHOPEX different from the others.</p>
                 </div>
             </div>
         </div>

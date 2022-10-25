@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux/es/exports";
 import { useSelector } from "react-redux/es/exports";
 import { userLogout } from "../states/actions/userLoginActions";
 import logo from "../images/logo.webp"
+import shortid from "shortid";
 
 const Navbar = () => {
   const dispatchUserLogout = useDispatch();
@@ -97,7 +98,8 @@ const Navbar = () => {
     <div className="flex justify-between p-3 shadow-lg">
       {/* This is for logo */}
       <div className="logo self-center ml-8 mdm:ml-3">
-        <img src={logo} alt="logo" className="h-7 smm:h-7 smm:w-20" />
+       <Link to="/"><img src={logo} alt="logo" className="h-7 smm:h-7 smm:w-20" /></Link>
+        
       </div>
 
       {/* This is for navbar options */}
@@ -143,10 +145,10 @@ const Navbar = () => {
                   <ul className="space-y-2">
                     {categories.category.map((category, index) => {
                       return (
-                        <Link to={`/products/${category._id}`}>
+                        <Link key={shortid.generate()} to={`/products/${category._id}`}>
                           <li
                             className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer"
-                            key={index}
+                            key={shortid.generate()}
                           >
                             {category.name}
                           </li>
@@ -188,7 +190,6 @@ const Navbar = () => {
                   ? "transition duration-700 border rounded-lg px-2 border-black lgm:w-24"
                   : "w-0"
               }
-              translate
               placeholder="Search" onChange={handleChange}
             />
             {
@@ -205,9 +206,9 @@ const Navbar = () => {
                     })
                       .slice(0,7)
                       .map((item, i) => (
-                        <Link to = {`/product/${item._id}`}><div key={i} className={'item flex items-center justify-between p-1 border-b-2 hover:bg-gray-100 rounded-sm duration-100'}>
+                        <Link key={shortid.generate()}  to = {`/product/${item._id}`}><div key={shortid.generate()} className={'item flex items-center justify-between p-1 border-b-2 hover:bg-gray-100 rounded-sm duration-100'}>
                           <h1 className="text-lg smm:text-sm">{item.name}</h1>
-                          <img className="h-10 w-10" src={`http://localhost:5000/${item.productImage}`} alt='product' />
+                          <img loading="lazy" className="h-10 w-10" src={`http://localhost:5000/${item.productImage}`} alt='product' />
                         </div></Link>
                       ))
                   }
@@ -247,6 +248,7 @@ const Navbar = () => {
                 className=" rounded-full h-10 w-10"
                 src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                 alt="img"
+                loading="lazy"
               />
             </div>
             <div
@@ -312,7 +314,7 @@ const Navbar = () => {
                       return (
                         <li
                           className=" p-1 px-8 py-2 hover:bg-red-300 cursor-pointer"
-                          key={index}
+                          key={shortid.generate()}
                         >
                           {category.name}
                         </li>

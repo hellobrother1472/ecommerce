@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import logo from "../images/logo.webp"
 
 const FooterOne = () => {
   return (
@@ -10,20 +11,20 @@ const FooterOne = () => {
         {/* First */}
         <div className="space-y-6 p-2 px-3 w-4/12 mdm:w-full">
           <div>
-            <h1 className="text-4xl font-extrabold  mdm:text-center">Logo</h1>
+            <Link to="/"><img src={logo} alt="logo" className="h-7 " /></Link>
+            {/* <h1 className="text-4xl font-extrabold  mdm:text-center">Logo</h1> */}
           </div>
           <div>
             <ul className="space-y-3  smm:ml-0 smtmd:ml-10">
               <li>
-                <span className="font-semibold">ADDRESS:</span> 28 White tower,
-                Street Name New York City, USA
+                <span className="font-semibold">ADDRESS:</span> Delhi,
+                India
               </li>
               <li>
-                <span className="font-semibold">TELEPHONE:</span> +91 987 654
-                3210
+                <span className="font-semibold">TELEPHONE:</span> +91 123 456 7890
               </li>
               <li>
-                <span className="font-semibold">EMAIL:</span> yourmain@gmail.com
+                <span className="font-semibold">EMAIL:</span> combpro1@gmail.com
               </li>
             </ul>
           </div>
@@ -55,6 +56,7 @@ const FooterOne = () => {
               <li className="cursor-pointer text-center">Payments</li>
               <li className="cursor-pointer text-center">Shipping</li>
               <Link to = '/faq'><li className="cursor-pointer text-center mt-2">FAQ</li></Link>
+              
             </ul>
           </div>
         </div>
@@ -65,9 +67,7 @@ const FooterOne = () => {
           </div>
           <div>
             <ul className="space-y-2">
-              <li className="cursor-pointer text-center">Facebook</li>
-              <li className="cursor-pointer text-center">Instagram</li>
-              <li className="cursor-pointer text-center">LinkedIn</li>
+              <a href="https://github.com/Combpro/ecommerce"><li className="cursor-pointer text-center">Github</li></a>
             </ul>
           </div>
         </div>
