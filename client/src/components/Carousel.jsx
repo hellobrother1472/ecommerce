@@ -10,8 +10,7 @@ const Carousel = () => {
     const ref = useRef();
     
     const handleLeft = () => {
-        setData(Math.abs((data - 1) % information.length));
-        
+        setData(Math.abs((data - 1) % information.length));        
     }
 
     const handleRight = () => {

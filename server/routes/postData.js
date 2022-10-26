@@ -9,18 +9,19 @@ const Product = require('../database/models/Product');
 const Category = require('../database/models/Category');
 // const sharp = require('sharp');
 const path = require('path')
+const cloudinary = require("cloudinary").v2;
 
 const multerStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/images');
+        cb(null, 'uploads');
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now()+file.originalname)
+        cb(null, Date.now() + file.originalname)
     }
 });
 
 const filter = function (req, file, cb) {
-    if (file.mimetype ==='image/jpeg' || file.mimetype ==='image/jpg' || file.mimetype ==='image/png') {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png' || file.mimetype === 'image/webp') {
         cb(null, true);
     }
     else {
@@ -33,12 +34,37 @@ const upload = multer({
     fileFilter: filter
 })
 
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_NAME,
+    api_secret: process.env.API_SECRET,
+});
 
 // const upload = multer({
 //     storage: multer.memoryStorage(),
 //     // fileFilter: filter
 // })
-router.post("/addProduct",[   
+
+const uploadToCloudinary = async (localFilePath) => {
+    console.log("local file path in fuction " + localFilePath);
+    var fileNameOnCloudinary = localFilePath.substring(14, localFilePath.length - 5);
+    return cloudinary.uploader
+        .upload(localFilePath, { public_id: fileNameOnCloudinary, folder: 'combpro/productImages', format: 'webp', fetch_format: 'auto', quality: 'auto', crop: 'scale' })
+        .then((result) => {
+            fs.unlinkSync(localFilePath);
+            return {
+                message: "Success",
+                url: result.url,
+            };
+        })
+        .catch((error) => {
+            console.log(error);
+            fs.unlinkSync(localFilePath);
+            return { message: "Fail" };
+        });
+}
+
+router.post("/addProduct", [
     adminAuth,
     upload.single('productImage')
 ], async (req, res) => {
@@ -46,14 +72,18 @@ router.post("/addProduct",[
         let date = Date.now();
         let { name, description, originalPrice, discountedPrice, categoryName } = req.body;
         const isProduct = await Product.findOne({ name });
-    //    await sharp(req.file.buffer)
-    //    .resize(320, 240)
-    //    .toFile('public/images/' + date + req.file.originalname)
-        
-    //    let path = 'images\\' + date + req.file.originalname;
+        //    await sharp(req.file.buffer)
+        //    .resize(320, 240)
+        //    .toFile('public/images/' + date + req.file.originalname)
 
-    let path = req.file.path;
-    path = path.slice(7);
+        //    let path = 'images\\' + date + req.file.originalname;
+
+        let path = req.file.path;
+        var result = await uploadToCloudinary(path);
+        if (result) {
+            console.log(result.url);
+            path = result.url;
+        }
 
         if (isProduct) {
             res.status(404).send({ error: "Product already exists" });
@@ -99,7 +129,7 @@ router.post('/updateProduct/:id', adminAuth, async (req, res) => {
         if (description) {
             newProduct.description = description;
         }
-        if(originalPrice){
+        if (originalPrice) {
             newProduct.originalPrice = originalPrice;
         }
         if (discountedPrice) {
@@ -179,7 +209,7 @@ router.post('/deleteProduct/:id', adminAuth, async (req, res) => {
             const updatedCategory = await Category.findByIdAndUpdate(findCategory._id, { $set: { productIds: array } }, { new: true })
         }
 
-        if(findCategory.productIds.length === 0){
+        if (findCategory.productIds.length === 0) {
             await Category.findOneAndDelete(catName);
         }
 

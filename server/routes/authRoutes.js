@@ -106,7 +106,7 @@ router.post('/login', [
 })
 
 router.get("/authenticate",authentication,(req,res)=>{
-    res.status(200).send("User Successfully authenticated");
+    res.status(200).send({message:"User Successfully authenticated",user: req.user});
 })
 
 router.get("/logout", (req, res) => {

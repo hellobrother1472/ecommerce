@@ -6,7 +6,6 @@ import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { adminLogin } from "../../states/actions/adminLoginAction";
 import { useDispatch } from "react-redux";
-import background from '../../images/adminBackground.webp';
 
 const AdminLogin = () => {
   const dispatchAdminLogin = useDispatch();
@@ -61,7 +60,7 @@ const AdminLogin = () => {
     <div
       className="mt-0 0 h-[100vh] pt-14 bg-cover"
       style={{
-        backgroundImage: `url(${background})`,
+        backgroundImage: `url(${'https://res.cloudinary.com/dysuxhyd3/image/upload/v1666791864/combpro/images/adminBackground_nod6nv.webp'})`,
       }}
     >
       <div className="mx-auto mdm:w-3/4 mdtlg:w-1/2 lg:w-[30%] ">

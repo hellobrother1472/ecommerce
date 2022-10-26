@@ -1,5 +1,4 @@
 import React from 'react';
-import arrival from '../images/arrival-bg.webp';
 import AnchorLink from "react-anchor-link-smooth-scroll";
 
 const Arrivals = () => {
@@ -7,7 +6,7 @@ const Arrivals = () => {
     <div className='w-full bg-gray-200'>
         <div className='main-arrival flex flex-wrap justify-center items-center gap-20'>
             <div className='md:w-1/3 person-image hidden md:block mt-5'>
-                <img src = {arrival} alt='person' className='h-[50vh] mx-auto'/>
+                <img src = {'https://res.cloudinary.com/dysuxhyd3/image/upload/v1666791864/combpro/images/arrival-bg_ld021r.webp'} alt='person' className='h-[50vh] mx-auto'/>
             </div>
             <div className='md:w-1/2 content flex flex-col gap-8 items-center md:items-start p-6'>
                 <h1 className='font-semibold text-2xl md:text-5xl text-royal-blue'>#New Arrivals</h1>
