@@ -62,8 +62,9 @@ const AllProducts = () => {
                 <div className="flex items-center p-2 space-x-10">
                   <img
                     className="w-20 h-20 rounded-md"
-                    src={`http://localhost:5000/${product.productImage}`}
+                    src={product.productImage}
                     alt="img"
+                    loading='lazy'
                   />
                   <h1 className="h-fit w-80 text-center px-3 text-[1.2rem] font-[600]">
                     {product.name}

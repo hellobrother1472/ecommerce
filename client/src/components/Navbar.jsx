@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux/es/exports";
 import { useSelector } from "react-redux/es/exports";
 import { userLogout } from "../states/actions/userLoginActions";
-import logo from "../images/logo.webp"
 import shortid from "shortid";
 
 const Navbar = () => {
@@ -98,7 +97,7 @@ const Navbar = () => {
     <div className="flex justify-between p-3 shadow-lg">
       {/* This is for logo */}
       <div className="logo self-center ml-8 mdm:ml-3">
-       <Link to="/"><img src={logo} alt="logo" className="h-7 smm:h-7 smm:w-20" /></Link>
+       <Link to="/"><img src={'https://res.cloudinary.com/dysuxhyd3/image/upload/v1666791864/combpro/images/logo_kwd8c3.webp'} alt="logo" className="h-7 smm:h-7 smm:w-20" /></Link>
         
       </div>
 

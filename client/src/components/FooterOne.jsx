@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AnchorLink from "react-anchor-link-smooth-scroll";
-import logo from "../images/logo.webp"
 
 const FooterOne = () => {
   return (
@@ -11,7 +10,7 @@ const FooterOne = () => {
         {/* First */}
         <div className="space-y-6 p-2 px-3 w-4/12 mdm:w-full">
           <div>
-            <Link to="/"><img src={logo} alt="logo" className="h-7 " /></Link>
+            <Link to="/"><img src={'https://res.cloudinary.com/dysuxhyd3/image/upload/v1666791864/combpro/images/logo_kwd8c3.webp'} alt="logo" className="h-7 " /></Link>
             {/* <h1 className="text-4xl font-extrabold  mdm:text-center">Logo</h1> */}
           </div>
           <div>

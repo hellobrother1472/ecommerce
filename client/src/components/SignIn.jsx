@@ -54,17 +54,17 @@ const SignIn = () => {
     });
 
     const data = await response.json();
-    if (response.status === 200) {
-      console.log("succesfully loggedin");
-      if (data.result === "Admin") {
-        navigate("/adminlogin");
+      if (response.status === 200) {
+        console.log("succesfully loggedin");
+        if (data.result === "Admin") {
+          navigate("/adminlogin");
+        } else {
+          dispatchUserLogin(userLogin(data.user));
+          navigate("/");
+        }
       } else {
-        dispatchUserLogin(userLogin(data.user));
-        navigate("/");
+        console.log(data.result);
       }
-    } else {
-      console.log(data.result);
-    }
     }
   };
   return (

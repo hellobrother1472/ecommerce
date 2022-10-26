@@ -74,7 +74,7 @@ const ProductCategory = ({setProgress}) => {
                         <div key={product._id} className='product bg-white flex flex-col justify-center items-center p-2 mx-6 my-4 cursor-pointer relative hover:scale-110 hover:shadow-2xl duration-200'>
                             <h4 className='flex justify-center items-center text-white bg-red-500 px-1 text-sm rounded-md gap-1 absolute top-2 right-2'>4.5 <AiFillStar /></h4>
                             <div className='image bg-gray-200'>
-                                <img className='h-72 w-64' src={`http://localhost:5000/${product.productImage}`} alt='shirt' />
+                                <img className='h-72 w-64' src={product.productImage} loading='lazy' alt='shirt' />
                             </div>
                             <div className='product-detail flex flex-col justify-center items-center mt-3'>
                                 <h3 className='text-xl text-red-500'>{product.name}</h3>

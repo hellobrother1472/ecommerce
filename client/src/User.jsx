@@ -25,8 +25,10 @@ const User = () => {
         method: 'GET',
         credentials: 'include'
       })
-      if(res.status === 200){
-        dispatch(userLogin());
+      const data = await res.json();
+      if(res.status === 200 && data){
+        console.log(data.user);
+        dispatch(userLogin(data.user));
       }
     } catch (error) {
       console.log(error);

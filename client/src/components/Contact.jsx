@@ -22,13 +22,12 @@ const Contact = () => {
     draggable: false,
     theme: 'dark'
   };
-
-  let userInfo = useSelector((state) => {return state.userLoginStatusReducer.user});
+  let userInfo = useSelector((state) => {return state.userLoginStatusReducer.user});  
   useEffect(() => {
     if(userInfo){
       setUserData(userInfo);
     }
-  }, [])
+  }, [userInfo])
 
   const handleValidation = () => {
     const {name, email, message} = userData;

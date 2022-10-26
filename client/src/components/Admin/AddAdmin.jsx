@@ -7,9 +7,9 @@ import { RiAdminFill } from "react-icons/ri";
 const AddAdmin = () => {
   return (
       <div
-        className="mt-0 0 h-[90.8vh] pt-14 bg-cover"
+        className="mt-0 0 h-[91vh] pt-14 bg-cover"
         style={{
-          backgroundImage: `url("http://www.cgpbrasil.com/viverbem/wp-content/plugins/admin-custom-login/images/3d-background.jpg")`,
+          backgroundImage: `url('https://res.cloudinary.com/dysuxhyd3/image/upload/v1666791864/combpro/images/adminBackground_nod6nv.webp')`,
         }}
       >
         <div className="mx-auto mdm:w-3/4 mdtlg:w-1/2 lg:w-[30%] ">

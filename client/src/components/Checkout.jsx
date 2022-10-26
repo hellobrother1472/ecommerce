@@ -240,7 +240,7 @@ const Checkout = ({setProgress}) => {
                             Object.keys(products).map((pdt, i) => (
                                 <div className='flex justify-between items-center mdm:gap-4 gap-10 mt-6 border-t-2 border-gray-300 p-2 pt-4 mr-8 mdm:mr-2' key={i}>
                                     <div className='product-image w-2/5'>
-                                        <img src={`http://localhost:5000/${products[pdt].product.productImage}`} alt='product' className='h-28 w-28 rounded-lg' />
+                                        <img src={products[pdt].product.productImage} loading='lazy' alt='product' className='h-28 w-28 rounded-lg' />
                                     </div>
                                     <div className='pdt-detail w-1/2'>
                                         <h1 className='font-semibold text-lg smm:text-sm'>{`${products[pdt].product.name} X ${products[pdt].qty}`}</h1>
