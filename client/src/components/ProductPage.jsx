@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {cartIncrement} from '../states/actions/cartActions'
+import Loading from './Loading';
 
 const ProductPage = ({setProgress}) => {
     const dispatch = useDispatch();
@@ -73,7 +74,7 @@ const ProductPage = ({setProgress}) => {
     return (
         <div className='px-4 py-8'>
             {
-                product && <div className='w-5/6 flex flex-wrap mx-auto justify-between mdm:w-full lgt:w-full mdtlg:w-full mdm:items-center mdm:px-0 mdm:justify-center mdm:space-y-10 smm:px-4 lgm:pr-0'>
+                product ? <div className='w-5/6 flex flex-wrap mx-auto justify-between mdm:w-full lgt:w-full mdtlg:w-full mdm:items-center mdm:px-0 mdm:justify-center mdm:space-y-10 smm:px-4 lgm:pr-0'>
                 <div className='product-img flex justify-start items-start mdtlg:w-1/2 h-[82vh] shadow-xl shadow-gray-400 hover:shadow-gray-600'>
                     <img src={product.productImage} alt='Product' className='h-full rounded-lg' />
                 </div>
@@ -159,7 +160,7 @@ const ProductPage = ({setProgress}) => {
 
                 </div>
             </div>
-            }
+            : <Loading/>}
         </div>
     )
 }

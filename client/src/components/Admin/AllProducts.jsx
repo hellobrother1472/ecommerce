@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
+import Loading from "../Loading";
 
 const AllProducts = () => {
   const [products, setProducts] = useState();
@@ -45,7 +46,7 @@ const AllProducts = () => {
   return (
     
     <div className="py-10 px-8 text-center space-y-7">
-      {products &&
+      {products ?
       <>
         <div>
         <h1 className="text-4xl font-bold">Product List</h1>
@@ -94,7 +95,7 @@ const AllProducts = () => {
           })}
         </ul>
       </div>
-      </>}
+      </> : <Loading/>}
       
     </div>
   );
