@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React,{useState,useEffect} from "react";
 import AdminNav from "./components/Admin/AdminNav";
 import AdminPanel from "./components/Admin/AllProducts";
 import EditProductPage from "./components/Admin/EditProductPage";
@@ -6,7 +6,9 @@ import AddProductPage from "./components/Admin/AddProductPage";
 import AddAdmin from "./components/Admin/AddAdmin";
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Loading from "./components/Loading";
 const Admin = () => {
+  const [adminVerification,setAdminVerification] = useState(false);
   const navigate = useNavigate();
   const verifyAdmin = async () => {
     try {
@@ -17,6 +19,9 @@ const Admin = () => {
       if (res.status !== 200) {
         navigate("/adminlogin");
       }
+      else{
+        setAdminVerification(true);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -25,6 +30,10 @@ const Admin = () => {
   useEffect(() => {
     verifyAdmin()
   }, []);
+
+  if(adminVerification===false){
+    return(<Loading/>)
+  }
 
   return (
     <>

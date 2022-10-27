@@ -9,6 +9,7 @@ import { cartDecrement, cartIncrement } from '../states/actions/cartActions';
 import { useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loading from './Loading';
 
 const Checkout = ({setProgress}) => {
     const navigate = useNavigate();
@@ -19,7 +20,9 @@ const Checkout = ({setProgress}) => {
     const [total, setTotal] = useState(0);
     const [disabled, setDisabled] = useState(true);
     const [discount, setDiscount] = useState(0);
-
+    const loginStatus = useSelector((state) => {
+        return state.userLoginStatusReducer.isSignedIn;
+    });
     useEffect(() => {
         if(localStorage.getItem('cartItems')){
             const cartItems = JSON.parse(localStorage.getItem('cartItems'));
@@ -170,6 +173,10 @@ const Checkout = ({setProgress}) => {
         delete products[productName];
         setQty(qty - 1);
         localStorage.setItem('cartItems', JSON.stringify(products));
+    }
+
+    if(loginStatus==="false"){
+        return(<Loading/>)
     }
 
     return (

@@ -6,8 +6,10 @@ import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { adminLogin } from "../../states/actions/adminLoginAction";
 import { useDispatch } from "react-redux";
+import Loading from "../Loading";
 
 const AdminLogin = () => {
+  const [acessVerification,setAcessVerification] = useState(false);
   const dispatchAdminLogin = useDispatch();
   const navigate = useNavigate();
   const [admin, setAdmin] = useState({
@@ -24,6 +26,9 @@ const AdminLogin = () => {
       });
       if (res.status !== 200) {
         navigate("/");
+      }
+      else{
+        setAcessVerification(true);
       }
     } catch (error) {
       console.log(error);
@@ -54,6 +59,9 @@ const AdminLogin = () => {
       dispatchAdminLogin(adminLogin());
       navigate("/admin");
     }
+  }
+  if(acessVerification === false){
+    return(<Loading/>)
   }
 
   return (

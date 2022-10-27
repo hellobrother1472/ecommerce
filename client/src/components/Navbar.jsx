@@ -283,7 +283,7 @@ const Navbar = () => {
 
       <div
         className={
-          sidenav ? "absolute z-10 h-full w-3/4 bg-slate-200 -m-3" : "hidden"
+          sidenav ? "absolute z-10 h-full w-3/4 bg-slate-200 -m-3 animate-fade-in transition duration-100" : "hidden"
         }
       >
         <div className="float-right p-5 w-full block">

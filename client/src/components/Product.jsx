@@ -7,6 +7,7 @@ import { settings } from '../config/settings';
 import { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import { useRef } from 'react';
+import SkeletonLoading from './SkeletonLoading';
 
 const Product = ({setProgress}) => {
   const [products, setProducts] = useState();
@@ -64,7 +65,7 @@ const Product = ({setProgress}) => {
               </div>
             </div >
           </div>
-       )) : <h1>Loding</h1>
+       )) : <SkeletonLoading/>
       }
     </div >
   )
