@@ -1,12 +1,13 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import AdminNav from "./components/Admin/AdminNav";
-import AdminPanel from "./components/Admin/AllProducts";
-import EditProductPage from "./components/Admin/EditProductPage";
-import AddProductPage from "./components/Admin/AddProductPage";
-import AddAdmin from "./components/Admin/AddAdmin";
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 import Loading from "./components/Loading";
+const AdminPanel = lazy(() => import('./components/Admin/AllProducts'));
+const AddAdmin = lazy(() => import('./components/Admin/AddAdmin'));
+const AddProductPage = lazy(() => import('./components/Admin/AddProductPage'));
+const EditProductPage = lazy(() => import('./components/Admin/EditProductPage'));
 const Admin = () => {
   const [adminVerification,setAdminVerification] = useState(false);
   const navigate = useNavigate();
@@ -38,12 +39,14 @@ const Admin = () => {
   return (
     <>
       <AdminNav />
-      <Routes>
-        <Route path="/" element={<AdminPanel />} />
-        <Route path="/addadmin" element={<AddAdmin />} />
-        <Route path="/addproduct" element={<AddProductPage />} />
-        <Route path="/editproduct/:id" element={<EditProductPage />} />
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<AdminPanel />} />
+          <Route path="/addadmin" element={<AddAdmin />} />
+          <Route path="/addproduct" element={<AddProductPage />} />
+          <Route path="/editproduct/:id" element={<EditProductPage />} />
+        </Routes>
+      </Suspense>
     </>
   );
 };

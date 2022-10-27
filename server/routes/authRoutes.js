@@ -70,8 +70,8 @@ router.post('/login', [
         return res.status(400).json({ error: errors.array() });
     }
 
-    const { email, password } = req.body;
     try {
+        const { email, password } = req.body;
         let user = await User.findOne({ email }); // Finding User
         if (!user) {
             return res.status(400).json({ error: 'Please try to login with correct credentials' });
@@ -89,6 +89,8 @@ router.post('/login', [
             }
         }
 
+        user  = await User.findOne({email}).select("-password -cpassword")
+
         // Creating the authToken and sending the cookies.
         const authToken = jwt.sign(data, JWT_SECRET);
         res.cookie("jwt", authToken);
@@ -96,7 +98,7 @@ router.post('/login', [
             res.status(200).send({ result: "Admin" });
         }
         else{
-            res.status(200).send({ result: "Login Successful" });
+            res.status(200).send({ result: "Login Successful", user: user });
         }
     }
     catch (err) {

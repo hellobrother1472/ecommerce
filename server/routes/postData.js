@@ -8,8 +8,11 @@ const multer = require('multer');
 const Product = require('../database/models/Product');
 const Category = require('../database/models/Category');
 // const sharp = require('sharp');
-const path = require('path')
 const cloudinary = require("cloudinary").v2;
+const path = require('path');
+const authentication = require('../middlewares/authentication');
+const User = require('../database/models/User');
+
 
 const multerStorage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -216,6 +219,38 @@ router.post('/deleteProduct/:id', adminAuth, async (req, res) => {
         const products = await Product.find({});
 
         res.json({ message: "Product has been deleted successfully", product, products });
+    }
+    catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+router.post('/updateuser/:id', authentication, async (req, res) => {
+    try {
+        let { name, email, number } = req.body;
+        let user = await User.findById(req.params.id);
+        const newUser = {};
+        if (name) {
+            newUser.name = name;
+        }
+        if (email) {
+            newUser.email = email;
+        }
+        if(number){
+            newUser.number = number;
+        }
+
+        if (!user) {
+            return res.status(404).send("User is not found!");
+        }
+
+        if (user._id.toString() !== req.user.id) {
+            return res.status(401).send("Not Allowed");
+        }
+        user = await User.findByIdAndUpdate(req.params.id, { $set: newUser }, { new: true });
+        console.log(user);
+        res.json({ user: user, message: "User has been updated successfully!" });
     }
     catch (error) {
         console.error(error.message);

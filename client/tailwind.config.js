@@ -20,6 +20,7 @@ module.exports = {
       '2xl': '1536px',
       // => @media (min-width: 1536px) { ... }
       'vsmm': { 'max': '312px' },
+      'vsmmm': {'max': '400px'},
       // max value for very small. Matlb uss takk kaisa karega vo define kiya
       'smm': { 'max': '639px' },
       // max value for small. Matlb uss takk kaisa karega vo define kiya
@@ -55,7 +56,8 @@ module.exports = {
       animation: {
         'fade-in': 'fadeIn 0.7s linear 1',
         'fade-out': 'fadeOut 0.7s linear 1',
-      }
+      },
+      
     },
   },
   plugins: [],
