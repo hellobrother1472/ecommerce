@@ -31,7 +31,7 @@ const ProductCategory = ({setProgress}) => {
     const sortPriceAsc = () => {
         if(products){
             products.sort(function(pdtA, pdtB){
-                return pdtA.price - pdtB.price;
+                return pdtA.discountedPrice - pdtB.discountedPrice;
             })
             setProducts([...products]);
         }
@@ -40,7 +40,7 @@ const ProductCategory = ({setProgress}) => {
     const sortPriceDesc = () => {
         if(products){
             products.sort(function(pdtA, pdtB){
-                return pdtB.price - pdtA.price;
+                return pdtB.discountedPrice - pdtA.discountedPrice;
             })
             setProducts([...products]);
         }
@@ -49,14 +49,14 @@ const ProductCategory = ({setProgress}) => {
 
     return (
         <div className='flex flex-col justify-center items-center p-6 md:p-8 bg-gray-100'>
-            <div className='heading-category flex items-center justify-between vsmm:justify-between w-1/2 ml-auto vsmm:ml-0 vsmm:w-full'>
+            <div className='heading-category flex items-center justify-between smm:justify-between w-1/2 ml-auto smm:ml-0 smm:w-full'>
                 <div className='heading'>
                     <h1 className='text-3xl mdm:text-2xl text-royal-blue'>Shirts</h1>
                     <p className='border-b-4 border-red-500 w-10 mx-auto mt-1'></p>
                 </div>
                 <div className='filter-option flex flex-col'>
                     <div className='filter text-lg mdm:text-sm text-gray-500 border-2 border-gray-300 py-1 px-2 rounded-md cursor-pointer hover:bg-red-500 hover:text-white' onClick={handleDropdown}>
-                        <h4 className='flex items-center justify-center gap-1'><FaSort /> Sort By: Default</h4>
+                        <h4 className='flex items-center justify-center gap-1'><FaSort />Sort By: Default</h4>
                     </div>
                     {
                         dropdown && <div className='dropdown p-2 shadow-xl mt-2 bg-white w-40 rounded-md'>
@@ -83,7 +83,7 @@ const ProductCategory = ({setProgress}) => {
                                     <h4>₹{product.discountedPrice}/-</h4>
                                     <h4 className='text-gray-500 line-through text-sm'>₹{product.originalPrice}/-</h4>
                                 </div>
-                                <h4 className='text-gray-500 text-center break-words'>{product.description}</h4>
+                                <h4 className='text-gray-500 w-full text-center break-words'>{product.description.slice(0 ,60)}...</h4>
                             </div>
                         </div>
                         </Link>
