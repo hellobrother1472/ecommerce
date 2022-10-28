@@ -42,13 +42,6 @@ const AdminNav = () => {
           <li className="p-2 text-white cursor-pointer hover:text-red-500 hover:scale-110 transition delay-75" onClick={adminLogoutHandler}>
             <Link to="/adminlogin">Logout</Link>
           </li>
-          <li className="p-1">
-            <input
-              type="text"
-              className="border border-gray-400 rounded-lg p-1 outline-none"
-              placeholder="Search"
-            />
-          </li>
         </ul>
       </div>
 

@@ -14,7 +14,7 @@ router.post('/contact', [
         return res.status(400).json({ error: errors.array() });
     }
     try {
-        const { name, email, message } = req.body;
+        const { name, email, message,from } = req.body;
 
         const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -28,8 +28,8 @@ router.post('/contact', [
 
         const info = await transporter.sendMail({
             from: `"CombPro App 👻" <${process.env.ACCOUNT}>`,
-            to: "", // list of receivers
-            subject: `Message from ${name} (${email})`,
+            to: "rishujain.rj08@gmail.com", // list of receivers
+            subject: `Message from ${name} (${email}) from ${from}`,
             html: `<b>${message}</b>`, // html body
         }, (err) => {
             if (err) {
@@ -41,6 +41,7 @@ router.post('/contact', [
                 res.json({ message: "Message has been sent successfully" });
             }
         });
+        res.status(200).send({message:"Message Sent Succesfully."})
     }
     catch (error) {
         console.error(error.message);

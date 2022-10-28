@@ -18,7 +18,7 @@ const Navbar = () => {
   const [categoryDropdown, setCategoryDropdown] = useState(false);
   const [circleDropdown, setCircleDropdown] = useState(false);
   const [sidenav, setSidenav] = useState(false);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
   const [product, setProduct] = useState();
   const searchClick = () => {
     setSearch((prev) => {
@@ -42,15 +42,17 @@ const Navbar = () => {
   };
 
   const fetchProductData = async (req, res) => {
-    const response = await fetch('http://localhost:5000/admin/getAllProductNames');
+    const response = await fetch(
+      "http://localhost:5000/admin/getAllProductNames"
+    );
     const data = await response.json();
     console.log(data.products);
     setProduct(data.products);
-  }
+  };
 
   useEffect(() => {
     fetchProductData();
-  }, [])
+  }, []);
 
   const logoutClickHandler = async () => {
     try {
@@ -58,10 +60,9 @@ const Navbar = () => {
         method: "GET",
         credentials: "include",
       });
-      if(res.status === 200){
+      if (res.status === 200) {
         dispatchUserLogout(userLogout());
       }
-
     } catch (error) {
       console.log(error);
     }
@@ -87,19 +88,26 @@ const Navbar = () => {
   const handleChange = (e) => {
     setDropDown(true);
     setValue(e.target.value);
-  }
+  };
 
   const handleDropdown = () => {
     setDropDown(false);
-  }
+  };
 
-  // const dispatch = useDispatch();  
+  // const dispatch = useDispatch();
   return (
     <div className="flex justify-between p-3 shadow-lg">
       {/* This is for logo */}
       <div className="logo self-center ml-8 mdm:ml-3">
-       <Link to="/"><img src={'https://res.cloudinary.com/dysuxhyd3/image/upload/v1666791864/combpro/images/logo_kwd8c3.webp'} alt="logo" className="h-7 smm:h-7 smm:w-20" /></Link>
-        
+        <Link to="/">
+          <img
+            src={
+              "https://res.cloudinary.com/dysuxhyd3/image/upload/v1666791864/combpro/images/logo_kwd8c3.webp"
+            }
+            alt="logo"
+            className="h-7 smm:h-7 smm:w-20"
+          />
+        </Link>
       </div>
 
       {/* This is for navbar options */}
@@ -137,15 +145,18 @@ const Navbar = () => {
                   ? "absolute z-10 mt-5 bg-red-400 w-48 rounded"
                   : "hidden"
               }
-
-              onMouseEnter={() => setCategoryDropdown(true)} onMouseLeave={() => setCategoryDropdown(false)}
+              onMouseEnter={() => setCategoryDropdown(true)}
+              onMouseLeave={() => setCategoryDropdown(false)}
             >
               {categories && (
                 <>
                   <ul className="space-y-2">
                     {categories.category.map((category, index) => {
                       return (
-                        <Link key={shortid.generate()} to={`/products/${category._id}`}>
+                        <Link
+                          key={shortid.generate()}
+                          to={`/products/${category._id}`}
+                        >
                           <li
                             className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer"
                             key={shortid.generate()}
@@ -161,12 +172,19 @@ const Navbar = () => {
             </div>
           </li>
           {loginStatus === "true" ? (
-            <li
-              onClick={logoutClickHandler}
-              className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110"
-            >
-              <Link to="/signin">Logout</Link>
-            </li>
+            <>
+              <li
+                onClick={logoutClickHandler}
+                className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110"
+              >
+                <Link to="/signin">Logout</Link>
+              </li>
+              <li
+                className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110"
+              >
+                <Link to="/myprofile">My Profile</Link>
+              </li>
+            </>
           ) : (
             <>
               <li className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110">
@@ -184,37 +202,58 @@ const Navbar = () => {
           <li>
             <input
               type="text"
-              name='value'
+              name="value"
               className={
                 search
                   ? "transition duration-700 border rounded-lg px-2 border-black lgm:w-24"
                   : "w-0"
               }
-              placeholder="Search" onChange={handleChange}
+              placeholder="Search"
+              onChange={handleChange}
             />
-            {
-              dropdown && product && value && <div className="dropdown p-2 shadow-xl mt-2 absolute z-10 bg-white w-72 rounded-md" onMouseOver={() => setDropDown(true)} onMouseOut={handleDropdown}>
+            {dropdown && product && value && (
+              <div
+                className="dropdown p-2 shadow-xl mt-2 absolute z-10 bg-white w-72 rounded-md"
+                onMouseOver={() => setDropDown(true)}
+                onMouseOut={handleDropdown}
+              >
                 <div className="items cursor-pointer">
-                  {
-                    product.filter((item) => {
+                  {product
+                    .filter((item) => {
                       let searchTerm = value.toLowerCase();
                       let fullName = item.name.toLowerCase();
 
                       return (
-                        searchTerm && fullName.includes(searchTerm) && fullName !== searchTerm
+                        searchTerm &&
+                        fullName.includes(searchTerm) &&
+                        fullName !== searchTerm
                       );
                     })
-                      .slice(0,7)
-                      .map((item, i) => (
-                        <Link key={shortid.generate()}  to = {`/product/${item._id}`}><div key={shortid.generate()} className={'item flex items-center justify-between p-1 border-b-2 hover:bg-gray-100 rounded-sm duration-100'}>
+                    .slice(0, 7)
+                    .map((item, i) => (
+                      <Link
+                        key={shortid.generate()}
+                        to={`/product/${item._id}`}
+                      >
+                        <div
+                          key={shortid.generate()}
+                          className={
+                            "item flex items-center justify-between p-1 border-b-2 hover:bg-gray-100 rounded-sm duration-100"
+                          }
+                        >
                           <h1 className="text-lg smm:text-sm">{item.name}</h1>
-                          <img loading="lazy" className="h-10 w-10" src={item.productImage} alt='product' />
-                        </div></Link>
-                      ))
-                  }
+                          <img
+                            loading="lazy"
+                            className="h-10 w-10"
+                            src={item.productImage}
+                            alt="product"
+                          />
+                        </div>
+                      </Link>
+                    ))}
                 </div>
               </div>
-            }
+            )}
           </li>
           <li
             className="transition duration-200 my-1 hover:text-red-600 hover:cursor-pointer hover:scale-110"
@@ -283,7 +322,9 @@ const Navbar = () => {
 
       <div
         className={
-          sidenav ? "absolute z-10 h-full w-3/4 bg-slate-200 -m-3 animate-fade-in transition duration-100" : "hidden"
+          sidenav
+            ? "absolute z-10 h-full w-3/4 bg-slate-200 -m-3 animate-fade-in transition duration-100"
+            : "hidden"
         }
       >
         <div className="float-right p-5 w-full block">
