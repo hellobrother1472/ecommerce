@@ -299,12 +299,11 @@ const Navbar = () => {
             >
               <ul className="space-y-2">
                 {loginStatus === "true" ? (
-                  <li
-                    onClick={logoutClickHandler}
-                    className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer"
-                  >
-                    <Link to="/signin">Logout</Link>
-                  </li>
+                  <>
+                  <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer"><Link to="/myprofile">My Profile</Link></li>
+                  <li onClick={logoutClickHandler} className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer"><Link to="/signin">Logout</Link></li>
+                  </>
+                  
                 ) : (
                   <>
                     <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
