@@ -31,7 +31,7 @@ const ProductCategory = ({setProgress}) => {
     const sortPriceAsc = () => {
         if(products){
             products.sort(function(pdtA, pdtB){
-                return pdtA.price - pdtB.price;
+                return pdtA.discountedPrice - pdtB.discountedPrice;
             })
             setProducts([...products]);
         }
@@ -40,7 +40,7 @@ const ProductCategory = ({setProgress}) => {
     const sortPriceDesc = () => {
         if(products){
             products.sort(function(pdtA, pdtB){
-                return pdtB.price - pdtA.price;
+                return pdtB.discountedPrice - pdtA.discountedPrice;
             })
             setProducts([...products]);
         }
@@ -49,7 +49,7 @@ const ProductCategory = ({setProgress}) => {
 
     return (
         <div className='flex flex-col justify-center items-center p-6 md:p-8 bg-gray-100'>
-            <div className='heading-category flex items-center justify-between vsmm:justify-between w-1/2 ml-auto vsmm:ml-0 vsmm:w-full'>
+            <div className='heading-category flex items-center justify-between vsmm:justify-between w-1/2 ml-auto smm:ml-0 vsmm:w-full'>
                 <div className='heading'>
                     <h1 className='text-3xl mdm:text-2xl text-royal-blue'>Shirts</h1>
                     <p className='border-b-4 border-red-500 w-10 mx-auto mt-1'></p>
@@ -68,22 +68,22 @@ const ProductCategory = ({setProgress}) => {
                     }
                 </div>
             </div>
-            <div className='products flex flex-wrap justify-center items-center mt-4'>
+            <div className='products flex flex-wrap items-center mt-4 mdm:justify-center mdm:items-center'>
                 {
                     products ? products.map((product) => (
-                        <Link to = {`/product/${product._id}`}>
-                        <div key={product._id} className='product bg-white flex flex-col justify-center items-center p-2 mx-6 my-4 cursor-pointer relative hover:scale-110 hover:shadow-2xl duration-200'>
+                        <Link className='md:w-1/3' to = {`/product/${product._id}`}>
+                        <div key={product._id} className='product bg-white flex flex-col justify-center items-center p-2 mx-6 my-4 cursor-pointer relative hover:scale-110 hover:shadow-2xl duration-200 rounded-lg'>
                             <h4 className='flex justify-center items-center text-white bg-red-500 px-1 text-sm rounded-md gap-1 absolute top-2 right-2'>4.5 <AiFillStar /></h4>
                             <div className='image bg-gray-200'>
                                 <img className='h-72 w-64' src={product.productImage} loading='lazy' alt='shirt' />
                             </div>
                             <div className='product-detail flex flex-col justify-center items-center mt-3'>
-                                <h3 className='text-xl text-red-500'>{product.name}</h3>
+                                <h3 className='text-xl text-center text-red-500'>{product.name}</h3>
                                 <div className='price flex gap-2 items-center justify-center'>
                                     <h4>₹{product.discountedPrice}/-</h4>
                                     <h4 className='text-gray-500 line-through text-sm'>₹{product.originalPrice}/-</h4>
                                 </div>
-                                <h4 className='text-gray-500 text-center break-words'>{product.description}</h4>
+                                <h4 className='text-gray-500 text-center w-full break-words'>{product.description.slice(0,60)}...</h4>
                             </div>
                         </div>
                         </Link>
