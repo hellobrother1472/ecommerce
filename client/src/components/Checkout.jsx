@@ -174,10 +174,11 @@ const Checkout = ({setProgress}) => {
     }
 
     const deleteProduct = (productName) => {
+        setQty(qty - 1);
         let quantity = products[productName].qty;
         dispatch(cartDecrement(quantity));
         delete products[productName];
-        setQty(qty - 1);
+        setDisabled(true);
         localStorage.setItem('cartItems', JSON.stringify(products));
     }
 
