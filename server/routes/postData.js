@@ -84,7 +84,6 @@ router.post("/addProduct", [
         let path = req.file.path;
         var result = await uploadToCloudinary(path);
         if (result) {
-            console.log(result.url);
             path = result.url;
         }
 

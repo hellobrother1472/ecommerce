@@ -6,6 +6,7 @@ import { IoMdAddCircle } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { cartDecrement, cartIncrement } from '../states/actions/cartActions';
+import { checkoutUserDataFetchAction } from '../states/actions/checkoutUserDataFetchAction';
 import { useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,6 +24,7 @@ const Checkout = ({setProgress}) => {
     const loginStatus = useSelector((state) => {
         return state.userLoginStatusReducer.isSignedIn;
     });
+    const userCheckoutData = useSelector((state)=>{return state.checkoutUserDataFetchCache})
     useEffect(() => {
         if(localStorage.getItem('cartItems')){
             const cartItems = JSON.parse(localStorage.getItem('cartItems'));
@@ -64,7 +66,7 @@ const Checkout = ({setProgress}) => {
         localStorage.setItem('cartItems', JSON.stringify(products));
     }
 
-    const [user, setUser] = useState({
+    const [user, setUser] = useState(userCheckoutData ? userCheckoutData :{
         firstName: '',
         lastName: '',
         address: '',
@@ -139,13 +141,17 @@ const Checkout = ({setProgress}) => {
             navigate("/signin");
         }
         setProgress(70);
-        if(data.found) setUser(data.user);
+        if(data.found) {
+            setUser(data.user);
+            dispatch(checkoutUserDataFetchAction(data.user));
+        }
         setProgress(100);
     }
 
     useEffect(() => {
-        
-        fetchData();
+        if(userCheckoutData === null){
+            fetchData();
+        }
     }, [])
 
     const handleSubmit = async (e) => {

@@ -8,30 +8,40 @@ import { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import { useRef } from 'react';
 import SkeletonLoading from './SkeletonLoading';
+import { useDispatch,useSelector } from "react-redux";
+import { allCategoryFetchAction } from '../states/actions/allCategoryFetchAction';
 
 const Product = ({setProgress}) => {
-  const [products, setProducts] = useState();
+  const allCategoryFetchDataDispatch = useDispatch();
+  const allCategoryFetchDataState = useSelector((state)=>{return state.allCategoryFetchCache});
+  const [products, setProducts] = useState(allCategoryFetchDataState);
   const refImage = useRef();
   const ref = useRef();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setProgress(10);
-      const response = await fetch('http://localhost:5000/admin/getAllCategory');
-      setProgress(40);
-      const data = await response.json();
-      setProgress(70);
+  const fetchData = async () => {
+    setProgress(10);
+    const response = await fetch('http://localhost:5000/admin/getAllCategory');
+    setProgress(40);
+    const data = await response.json();
+    setProgress(70);
+    if(data){
       setProducts(data.category);
-      setProgress(100);
+      allCategoryFetchDataDispatch(allCategoryFetchAction(data.category));
     }
-    fetchData();
+    setProgress(100);
+  }
+
+  useEffect(() => {   
+    if(allCategoryFetchDataState === null){
+      fetchData();
+    } 
   }, [])
 
   return (
     <div className='w-full p-8' id='allProducts'>
       {
        products ? products.map((product, i) => (
-          <div key = {i} className = {(i === products.length-1) ? '':'border-dashed border-b-2 border-gray-400 mb-10'}>
+          <div key = {i} className = {(i === products.length-1) ? '':'border-solid border-b-2 border-gray-400 mb-10'}>
             <div className='product-heading flex flex-col justify-center items-center'>
               <h1 className='mdm:text-2xl md:text-4xl font-semibold text-royal-blue'>{product.name}</h1>
               <hr className='border-black'/>

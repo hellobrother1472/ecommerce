@@ -26,6 +26,16 @@ router.get('/getAllProduct', async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 })
+router.get('/getAllProductNames', async (req, res) => {
+    try{
+        let products = await Product.find({}).select('name _id productImage');
+        res.json({products});
+    }
+    catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+})
 
 router.get('/getAllCategoryNames', async (req, res) => {
     try{

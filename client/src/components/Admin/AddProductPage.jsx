@@ -52,7 +52,7 @@ const AddProductPage = () => {
 
 
     const data = await response.json();
-    console.log(data);
+    alert(data.message);
   };
   return (
     <div className="h-[90vh] p-2">

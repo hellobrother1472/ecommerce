@@ -42,8 +42,9 @@ const Navbar = () => {
   };
 
   const fetchProductData = async (req, res) => {
-    const response = await fetch('http://localhost:5000/admin/getAllProduct');
+    const response = await fetch('http://localhost:5000/admin/getAllProductNames');
     const data = await response.json();
+    console.log(data.products);
     setProduct(data.products);
   }
 
@@ -207,7 +208,7 @@ const Navbar = () => {
                       .map((item, i) => (
                         <Link key={shortid.generate()}  to = {`/product/${item._id}`}><div key={shortid.generate()} className={'item flex items-center justify-between p-1 border-b-2 hover:bg-gray-100 rounded-sm duration-100'}>
                           <h1 className="text-lg smm:text-sm">{item.name}</h1>
-                          <img loading="lazy" className="h-10 w-10" src={`http://localhost:5000/${item.productImage}`} alt='product' />
+                          <img loading="lazy" className="h-10 w-10" src={item.productImage} alt='product' />
                         </div></Link>
                       ))
                   }
