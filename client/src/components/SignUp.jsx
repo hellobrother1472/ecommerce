@@ -65,11 +65,10 @@ const SignUp = () => {
   
       const data = await response.json();
       if (response.status === 200) {
-        console.log("succesfully signed up");
         navigate("/signin");
       }
       else {
-        console.log(data.result);
+        toast.success(data.result);
       }
     }
 

@@ -28,16 +28,15 @@ router.post('/contact', [
 
         const info = await transporter.sendMail({
             from: `"CombPro App 👻" <${process.env.ACCOUNT}>`,
-            to: "rishujain.rj08@gmail.com", // list of receivers
+            to: "rishujain.rj08@gmail.com,hellobrother859@gmail.com", // list of receivers
             subject: `Message from ${name} (${email}) from ${from}`,
             html: `<b>${message}</b>`, // html body
         }, (err) => {
             if (err) {
-                console.log(err);
+                console.log(err.msg);
                 res.json({ message: "Internal Server Error." });
             }
             else {
-                console.log("Email sent");
                 res.json({ message: "Message has been sent successfully" });
             }
         });

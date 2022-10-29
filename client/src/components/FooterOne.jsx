@@ -1,8 +1,39 @@
-import React from "react";
+import React,{useState} from "react";
 import { Link } from "react-router-dom";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FooterOne = () => {
+  
+  let [subscribe, setSubscribe] = useState({
+    email: "",
+    from: "Subscribe"
+  });
+
+  const onChangeHandler = (e) => {
+    let value = e.target.value;
+    let name = e.target.id;
+    setSubscribe({ ...subscribe, [name]: value });
+  };
+
+  const postData = async (e) => {
+    e.preventDefault();
+      const sendData = {...subscribe,from:"Subscribe",name:"User",message:"Subscribe Request"}
+      const response = await fetch("http://localhost:5000/admin/contact", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(sendData),
+      });
+      if(response.status === 200){
+        toast.success("Subscribe request sent.")
+        setSubscribe({ ...subscribe, email: "" });
+      }
+      // const data = await response.json();
+  };
   return (
     <div className="md:px-12">
       {/* Second box */}
@@ -80,12 +111,13 @@ const FooterOne = () => {
           <div className="space-y-10">
             <h1 className=" mdm:text-center">Subscribe by our newsletter and get update protidin.</h1>
             <div className="flex w-full">
-                <input className="border border-black text-sm h-10 w-2/3 p-2 lgm:w-1/2" placeholder="Enter the Mail" type="text" />
-                <button className="bg-red-500 h-10 w-1/3 p-2 text-xs text-white lgm:w-1/2 ">SUBSCRIBE</button>
+                <input className="border border-black text-sm h-10 w-2/3 p-2 lgm:w-1/2" placeholder="Enter the Mail" type="email" id="email" onChange={onChangeHandler} />
+                <button onClick={postData} className="bg-red-500 h-10 w-1/3 p-2 text-xs text-white lgm:w-1/2 ">SUBSCRIBE</button>
             </div>
           </div>
         </div>
       </div>
+      <ToastContainer/>
     </div>
   );
 };

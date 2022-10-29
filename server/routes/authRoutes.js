@@ -44,7 +44,7 @@ router.post('/signup', [
 
                     })
                     .catch((err) => {
-                        console.log(err);
+                        console.log(err.msg);
                         res.status(500).send({ error: "Internal Server Error" });
                     })
             }
@@ -113,7 +113,6 @@ router.get("/authenticate",authentication,(req,res)=>{
 
 router.get("/logout", (req, res) => {
     res.clearCookie('jwt');
-    console.log("cookies removed");
     res.status(200).send({ message: 'Succesfully logged out.' });
 })
 

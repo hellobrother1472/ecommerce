@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import { useParams } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from "react-toastify";
 
 const EditProductPage = () => {
   const [edit, setEdit] = useState({
@@ -37,6 +38,7 @@ const EditProductPage = () => {
   const handleChange = (e) => {
     setChange(true);
     setProduct({ ...product, [e.target.id]: e.target.value })
+    setProductDetail({...productDetail,[e.target.id]: e.target.value})
   }
 
   let { id } = useParams();
@@ -66,6 +68,12 @@ const EditProductPage = () => {
       })
 
       const data = await response.json();
+      if(response.status === 200 && data){
+        toast.success(data.message)
+      }
+      if(response.status !== 200 && data){
+        toast.error(data.message)
+      }
     }
   }
 
@@ -206,6 +214,7 @@ const EditProductPage = () => {
           </div>
         </div>
       }
+      <ToastContainer/>
     </>
   );
 };

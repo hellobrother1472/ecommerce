@@ -11,7 +11,8 @@ const authentication = async (req, res, next) => {
 
         if (!user) {
             res.status(401).send({ result: "User not found" })
-            throw new Error("User not found");
+            console.log("User not found");
+            return;
         }
 
         req.user = user;

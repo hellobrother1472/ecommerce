@@ -46,7 +46,6 @@ const Navbar = () => {
       "http://localhost:5000/admin/getAllProductNames"
     );
     const data = await response.json();
-    console.log(data.products);
     setProduct(data.products);
   };
 
@@ -64,7 +63,7 @@ const Navbar = () => {
         dispatchUserLogout(userLogout());
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 
@@ -78,7 +77,7 @@ const Navbar = () => {
         setCategories(data);
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
   useEffect(() => {
@@ -179,9 +178,7 @@ const Navbar = () => {
               >
                 <Link to="/signin">Logout</Link>
               </li>
-              <li
-                className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110"
-              >
+              <li className="transition duration-200 font-semibold hover:text-red-600 hover:cursor-pointer hover:scale-110">
                 <Link to="/myprofile">My Profile</Link>
               </li>
             </>
@@ -271,7 +268,7 @@ const Navbar = () => {
 
       {/* Hidden info which shows itself after login */}
       <div className="info self-center md:hidden">
-        <div className="flex mdm:space-x-9">
+        <div className="flex mdm:space-x-6">
           <div
             onClick={sideNavClick}
             className="space-y-1 py-2.5 w-5 cursor-pointer md:hidden"
@@ -279,6 +276,11 @@ const Navbar = () => {
             <div className="p-0.5 bg-slate-500"></div>
             <div className="p-0.5 bg-slate-500"></div>
             <div className="p-0.5 bg-slate-500"></div>
+          </div>
+          <div className="flex items-center mb-4 ">
+            <Link to="/checkout">
+              <Cart />
+            </Link>
           </div>
 
           <div className="">
@@ -300,18 +302,32 @@ const Navbar = () => {
               <ul className="space-y-2">
                 {loginStatus === "true" ? (
                   <>
-                  <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer"><Link to="/myprofile">My Profile</Link></li>
-                  <li onClick={logoutClickHandler} className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer"><Link to="/signin">Logout</Link></li>
+                    <Link to="/myprofile">
+                      <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
+                        My Profile
+                      </li>
+                    </Link>
+                    <Link to="/signin">
+                      <li
+                        onClick={logoutClickHandler}
+                        className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer"
+                      >
+                        Logout
+                      </li>
+                    </Link>
                   </>
-                  
                 ) : (
                   <>
-                    <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
-                      <Link to="/signin">Sign In</Link>
-                    </li>
-                    <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
-                      <Link to="/signup">Sign Up</Link>
-                    </li>
+                    <Link to="/signin">
+                      <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
+                        Sign In
+                      </li>
+                    </Link>
+                    <Link to="/signup">
+                      <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
+                        Sign Up
+                      </li>
+                    </Link>
                   </>
                 )}
               </ul>
@@ -352,12 +368,17 @@ const Navbar = () => {
                   <ul className="space-y-2">
                     {categories.category.map((category, index) => {
                       return (
-                        <li
-                          className=" p-1 px-8 py-2 hover:bg-red-300 cursor-pointer"
+                        <Link
                           key={shortid.generate()}
+                          to={`/products/${category._id}`}
                         >
-                          {category.name}
-                        </li>
+                          <li
+                            className=" p-1 px-8 py-2 hover:bg-red-300 cursor-pointer"
+                            key={shortid.generate()}
+                          >
+                            {category.name}
+                          </li>
+                        </Link>
                       );
                     })}
                   </ul>

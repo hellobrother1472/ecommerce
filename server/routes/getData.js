@@ -11,7 +11,7 @@ router.get('/getProduct/:id', async (req, res) => {
         res.json({product});
     }
     catch (error) {
-        console.error(error.message);
+        console.log(error.message);
         res.status(500).send("Internal Server Error");
     }
 })
@@ -22,7 +22,7 @@ router.get('/getAllProduct', async (req, res) => {
         res.json({products});
     }
     catch (error) {
-        console.error(error.message);
+        console.log(error.message);
         res.status(500).send("Internal Server Error");
     }
 })
@@ -32,7 +32,7 @@ router.get('/getAllProductNames', async (req, res) => {
         res.json({products});
     }
     catch (error) {
-        console.error(error.message);
+        console.log(error.message);
         res.status(500).send("Internal Server Error");
     }
 })
@@ -43,7 +43,7 @@ router.get('/getAllCategoryNames', async (req, res) => {
         res.json({category});
     }
     catch (error) {
-        console.error(error.message);
+        console.log(error.message);
         res.status(500).send("Internal Server Error");
     }
 })
@@ -54,7 +54,7 @@ router.get('/getAllCategory', async (req, res) => {
         res.json({category});
     }
     catch (error) {
-        console.error(error.message);
+        console.log(error.message);
         res.status(500).send("Internal Server Error");
     }
 })
@@ -66,7 +66,7 @@ router.get("/getAllProductsByCategory/:id", async (req, res) => {
         res.json({productList});
     }
     catch (error) {
-        console.error(error.message);
+        console.log(error.message);
         res.status(500).send("Internal Server Error");
     }
 })

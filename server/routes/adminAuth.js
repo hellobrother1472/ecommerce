@@ -53,7 +53,7 @@ router.post('/login', [
             res.status(200).send({ result: "Login Successful" });
 
         } catch (error) {
-            console.log(error);
+            console.log(error.message);
         }
     }
 })
@@ -84,7 +84,6 @@ router.post("/addAdmin", [
 
             // checking if the hashed version of both is present or not
             if (!hashPassword || !hashSecret) {
-                console.log("This error");
                 res.status(500).send({ error: "Internal Server Error" });
             }
 
@@ -96,7 +95,7 @@ router.post("/addAdmin", [
             res.status(200).send({ result: "Registered succesfully" });
 
         } catch (error) {
-            console.log(error);
+            console.log(error.message);
             res.status(500).send({ result: "Internal server error occured" });
         }
 
@@ -112,7 +111,6 @@ router.get("/acessAuth",adminAcessAuthentication,(req,res)=>{
 
 router.get("/adminLogout", (req, res) => {
     res.clearCookie('adminjwt');
-    console.log("cookies removed");
     res.status(200).send({ message: 'Admin succesfully logged out.' });
 })
 

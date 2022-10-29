@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddProductPage = () => {
   const [name, setName] = useState("");
@@ -50,9 +52,10 @@ const AddProductPage = () => {
       body: formData
     })
 
-
     const data = await response.json();
-    alert(data.message);
+    if(data){
+      toast.success(data.message)
+    }
   };
   return (
     <div className="h-[90vh] p-2">
@@ -147,6 +150,7 @@ const AddProductPage = () => {
           </div>
         </form>
       </div>
+      <ToastContainer/>
     </div>
   );
 };

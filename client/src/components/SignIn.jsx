@@ -55,7 +55,7 @@ const SignIn = () => {
 
     const data = await response.json();
       if (response.status === 200) {
-        console.log("succesfully loggedin");
+        toast.success("succesfully loggedin");
         if (data.result === "Admin") {
           navigate("/adminlogin");
         } else {
@@ -63,7 +63,7 @@ const SignIn = () => {
           navigate("/");
         }
       } else {
-        console.log(data.result);
+        toast.error(data.result);
       }
     }
   };

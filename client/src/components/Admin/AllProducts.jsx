@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../Loading";
+import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from "react-toastify";
 
 const AllProducts = () => {
   const [products, setProducts] = useState();
@@ -18,7 +20,7 @@ const AllProducts = () => {
           setProducts(data);
         }
       } catch (error) {
-        console.log(error);
+        console.log(error.message);
       }
     };
     fetchData();
@@ -33,8 +35,14 @@ const AllProducts = () => {
         'Content-type': 'application/json'
       }
     })
-
+    
     const data = await response.json();
+    if(response.status === 200 && data){
+      toast.success(data.message)
+    }
+    if(response.status !== 200 && data){
+      toast.error(data.message)
+    }
     setProducts(data);
   };
 
@@ -96,7 +104,7 @@ const AllProducts = () => {
         </ul>
       </div>
       </> : <Loading/>}
-      
+      <ToastContainer/>
     </div>
   );
 };

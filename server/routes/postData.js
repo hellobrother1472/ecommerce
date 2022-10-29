@@ -49,7 +49,6 @@ cloudinary.config({
 // })
 
 const uploadToCloudinary = async (localFilePath) => {
-    console.log("local file path in fuction " + localFilePath);
     var fileNameOnCloudinary = localFilePath.substring(14, localFilePath.length - 5);
     return cloudinary.uploader
         .upload(localFilePath, { public_id: fileNameOnCloudinary, folder: 'combpro/productImages', format: 'webp', fetch_format: 'auto', quality: 'auto', crop: 'scale' })
@@ -61,7 +60,7 @@ const uploadToCloudinary = async (localFilePath) => {
             };
         })
         .catch((error) => {
-            console.log(error);
+            console.log(error.message);
             fs.unlinkSync(localFilePath);
             return { message: "Fail" };
         });
@@ -115,7 +114,7 @@ router.post("/addProduct", [
 
     }
     catch (error) {
-        console.error(error.message);
+        console.log(error.message);
         res.status(500).send("Internal Server Error");
     }
 })
@@ -166,11 +165,11 @@ router.post('/updateProduct/:id', adminAuth, async (req, res) => {
             return res.status(401).send("Not Allowed");
         }
         product = await Product.findByIdAndUpdate(req.params.id, { $set: newProduct }, { new: true })
-        res.json({ product, message: "Product has been added successfully!" });
+        res.json({ product, message: "Product has been updated successfully!" });
     }
     catch (error) {
-        console.error(error.message);
-        res.status(500).send("Internal Server Error");
+        console.log(error.message);
+        res.status(500).send({message:"Internal Server Error"});
     }
 })
 
@@ -190,7 +189,7 @@ router.post("/updateCategoryName/:id", adminAuth, async (req, res) => {
         res.json({ message: "Category name has been updated successfully!" });
 
     } catch (error) {
-        console.error(error.message);
+        console.log(error.message);
         res.status(500).send("Internal Server Error");
     }
 })
@@ -220,7 +219,7 @@ router.post('/deleteProduct/:id', adminAuth, async (req, res) => {
         res.json({ message: "Product has been deleted successfully", product, products });
     }
     catch (error) {
-        console.error(error.message);
+        console.log(error.message);
         res.status(500).send("Internal Server Error");
     }
 })
@@ -248,11 +247,10 @@ router.post('/updateuser/:id', authentication, async (req, res) => {
             return res.status(401).send("Not Allowed");
         }
         user = await User.findByIdAndUpdate(req.params.id, { $set: newUser }, { new: true });
-        console.log(user);
         res.json({ user: user, message: "User has been updated successfully!" });
     }
     catch (error) {
-        console.error(error.message);
+        console.log(error.message);
         res.status(500).send("Internal Server Error");
     }
 })
