@@ -14,7 +14,7 @@ const AdminNav = () => {
         adminLoginStatusDispatch(adminLogout());
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
   return (

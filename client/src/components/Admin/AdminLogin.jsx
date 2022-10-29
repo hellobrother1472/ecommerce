@@ -3,7 +3,7 @@ import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUserSecret } from "react-icons/fa";
 import { useState,useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { adminLogin } from "../../states/actions/adminLoginAction";
 import { useDispatch } from "react-redux";
 import Loading from "../Loading";
@@ -31,7 +31,7 @@ const AdminLogin = () => {
         setAcessVerification(true);
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 
@@ -78,6 +78,7 @@ const AdminLogin = () => {
           {/* Top Sentence */}
           <div className="text-center px-5 py-2 pt-8 space-y-3">
             <h1 className="font-extrabold text-3xl text-white">Admin's Login</h1>
+            <Link to="/"><h1 className="font-extrabold cursor-pointer text-white">Home</h1></Link>
           </div>
           <div className="mx-auto rounded-lg h-1 bg-red-500 w-1/2"></div>
           {/* Form */}

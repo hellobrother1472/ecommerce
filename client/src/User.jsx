@@ -34,13 +34,15 @@ const User = () => {
         dispatch(userLogin(data.user));
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
 
   const setCartCount = ()=>{
     const cartCount = JSON.parse(localStorage.getItem('cartCount'));
-    dispatch(first(cartCount));
+    if(cartCount !== null){
+      dispatch(first(cartCount));
+    }
   }
 
   useEffect(()=>{
