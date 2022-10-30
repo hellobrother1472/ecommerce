@@ -8,15 +8,29 @@ const MyProfile = () => {
     let navigate = useNavigate();
     const orders = [];
     const [edit, setEdit] = useState(false);
-
+    const api = 'https://api.multiavatar.com/48686942/1';
+    
     const [user, setUser] = useState({
         name: '',
         email: '',
         number: ''
     })
 
+    const [image, setImage] = useState();
+
     const loggedIn = useSelector((state) => {return state.userLoginStatusReducer.isSignedIn})
     const userInfo = useSelector((state) => { return state.userLoginStatusReducer.user });
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await fetch('https://api.multiavatar.com/48686942/1');
+            const data = await res.json();
+            console.log(data);
+            setImage(data);
+        }
+        fetchData();
+    })
+
     useEffect(() => {
         if (userInfo) {
             setUser(userInfo);
@@ -63,7 +77,9 @@ const MyProfile = () => {
                 <div className='proflie-user-content flex mdm:flex-col justify-center items-start gap-8'>
                     <div className='profile-left w-[35%] mdm:w-full flex justify-center'>
                         <div className='profile-pic'>
-                            <img className='h-80 w-80 smm:h-48 smm:w-48 rounded-md' src='https://technext.github.io/hexashop/assets/images/men-02.jpg' alt='Profile Pic' />
+                            {/* <img className='h-80 w-80 smm:h-48 smm:w-48 rounded-md' src='https://api.multiavatar.com/48686942/5' alt='Profile Pic' />
+                             */}
+                             {image}
                         </div>
                     </div>
                     <div className='profile-right w-3/5 mdm:w-full ml-auto flex flex-col mdm:justify-center mdm:items-center'>

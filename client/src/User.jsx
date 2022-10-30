@@ -17,6 +17,7 @@ const Checkout = lazy(() => import('./components/Checkout'));
 const Faq = lazy(() => import('./components/Faq'));
 const MyProfile = lazy(() => import('./components/MyProfile'));
 const Contact = lazy(() => import('./components/Contact'));
+const Review = lazy(() => import('./components/Review'));
 
 const User = () => {
   const [progress, setProgress] = useState(0);
@@ -66,6 +67,7 @@ const User = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/myprofile" element={<MyProfile />} />
+          <Route path="/review/:id" element={<Review />} />
           <Route path="/product/:id" element={<ProductPage setProgress = {setProgress}/>} />
           <Route path="/products/:id" element={<ProductCategory setProgress = {setProgress}/>} />
           <Route path="/checkout" element={<Checkout setProgress = {setProgress}/>} />

@@ -86,9 +86,13 @@ const ProductPage = ({setProgress}) => {
                     <h2 className='text-lg text-gray-500'>{product.description}</h2>
                     <h2 className='text-gray-400'>Product Id: {product._id}</h2>
                     <div className='flex smm:flex-col gap-4 items-center smm:text-sm mt-6 cursor-pointer justify-center'>
-                        <p className='flex justify-center items-center'><AiFillStar /> <AiFillStar /> <AiFillStar /> <AiFillStar /> <AiFillStar /> </p>
+                        <p className='flex justify-center items-center'>{
+                            Array(Math.round(product.avgRating)).fill(0).map((_, index) => (
+                                <AiFillStar key = {index}/>
+                              ))
+                        } </p>
                         <p className='review text-blue-500 text-center'>820 Reviews(1000) | </p>
-                        <p className='text-blue-400 text-center'>Write a Review</p>
+                        <p className='text-blue-400 text-center'><Link to = {`/review/${product._id}`}>Write a Review</Link></p>
                     </div>
                     <div className='flex gap-2 price mt-4 items-center'>
                         <p className='text-lg text-red-500'>₹{product.discountedPrice}/-</p>
