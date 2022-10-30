@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux/es/exports";
 import { useSelector } from "react-redux/es/exports";
 import { userLogout } from "../states/actions/userLoginActions";
 import shortid from "shortid";
+import axios from 'axios';
+import { Buffer } from "buffer";
 
 const Navbar = () => {
   const dispatchUserLogout = useDispatch();
@@ -20,6 +22,9 @@ const Navbar = () => {
   const [sidenav, setSidenav] = useState(false);
   const [value, setValue] = useState("");
   const [product, setProduct] = useState();
+  const [user, setUser] = useState();
+
+const [avatar, setAvatar] = useState();
   const searchClick = () => {
     setSearch((prev) => {
       return !prev;
@@ -40,6 +45,21 @@ const Navbar = () => {
       return !prev;
     });
   };
+
+  const userInfo = useSelector((state) => { return state.userLoginStatusReducer.user });
+
+    useEffect(() => {
+        if (userInfo) {
+            setUser(userInfo);
+            const fetchData = async () => {
+              const image = await axios.get(`https://api.multiavatar.com/48686942/${userInfo.avatar}`);
+              const buffer = new Buffer(image.data);
+              const bufferData = buffer.toString("base64");
+              setAvatar(bufferData);
+          }
+          fetchData();
+        }
+    }, [userInfo])
 
   const fetchProductData = async (req, res) => {
     const response = await fetch(
@@ -287,7 +307,7 @@ const Navbar = () => {
             <div onClick={circleDropdownClick} className="img cursor-pointer">
               <img
                 className=" rounded-full h-10 w-10"
-                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                src={`data:image/svg+xml;base64,${avatar}`}
                 alt="img"
                 loading="lazy"
               />

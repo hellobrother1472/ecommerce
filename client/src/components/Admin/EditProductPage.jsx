@@ -64,7 +64,7 @@ const EditProductPage = () => {
         headers: {
           'Content-type': 'application/json'
         },
-        body: JSON.stringify({ name: product.name, description: product.description, specification: product.specification, price: product.price, categoryName: product.categoryName })
+        body: JSON.stringify({ name: product.name, description: product.description, specification: product.specification, originalPrice: product.originalPrice, discountedPrice: product.discountedPrice, categoryName: product.categoryName })
       })
 
       const data = await response.json();

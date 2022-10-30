@@ -38,7 +38,7 @@ router.post('/signup', [
                 bcrypt.hash(password, saltRounds)
                     .then((hash) => {
                         const user = User.create({
-                            name, email, password: hash,cpassword:hash, number
+                            name, email, password: hash,cpassword:hash, number, avatar: Math.round(Math.random() * 1000)
                         })
                         res.status(200).send({ result: "Registered succesfully" });
 
