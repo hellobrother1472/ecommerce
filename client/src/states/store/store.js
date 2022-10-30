@@ -4,6 +4,7 @@ import { userLoginStatusReducer } from "../reducers/userLoginStatusReducer";
 import { adminAuthStateReducer } from "../reducers/adminAuthStateReducer";
 import { allCategoryFetchCache } from "../reducers/allCategoryFetchCache";
 import { checkoutUserDataFetchCache } from "../reducers/checkoutUserDataFetchCache";
+import { reviewClickedReducers } from "../reducers/reviewClickedReducers";
 
 const store = configureStore(({
     reducer:{
@@ -11,7 +12,8 @@ const store = configureStore(({
         userLoginStatusReducer,
         adminAuthStateReducer,
         allCategoryFetchCache,
-        checkoutUserDataFetchCache
+        checkoutUserDataFetchCache,
+        reviewClickedReducers
     }
 }))
 
