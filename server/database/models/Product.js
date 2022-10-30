@@ -34,6 +34,18 @@ const productSchema = mongoose.Schema({
         type:String,
         default:'../product.jpg'
     },
+    rating: {
+        type: Number,
+        default: 0
+    },
+    avgRating: {
+        type: Number,
+        default: 0
+    },
+    totalPeople: {
+        type: Number,
+        default: 0
+    }
     
 })  
 

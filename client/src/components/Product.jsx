@@ -25,6 +25,7 @@ const Product = ({setProgress}) => {
     const data = await response.json();
     setProgress(70);
     if(data){
+      console.log(data);
       setProducts(data.category);
       allCategoryFetchDataDispatch(allCategoryFetchAction(data.category));
     }
@@ -34,7 +35,7 @@ const Product = ({setProgress}) => {
   useEffect(() => {   
     if(allCategoryFetchDataState === null){
       fetchData();
-    } 
+    }
   }, [])
 
   return (
@@ -62,7 +63,11 @@ const Product = ({setProgress}) => {
                         </div>
                         <div className='product-desc pt-6 flex items-center gap-20 smm:gap-10'>
                           <h1 className='text-xl smm:text-sm font-semibold'>{pdt.name}</h1>
-                          <p className='flex smm:text-sm'><AiFillStar /> <AiFillStar /> <AiFillStar /> <AiFillStar /> <AiFillStar /> </p>
+                          <p className='flex smm:text-sm'>{
+                            Array(Math.round(pdt.avgRating)).fill(0).map((_, index) => (
+                              <AiFillStar key = {index}/>
+                            ))
+                          } </p>
 
                         </div>
 

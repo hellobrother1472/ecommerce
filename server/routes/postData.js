@@ -12,6 +12,7 @@ const cloudinary = require("cloudinary").v2;
 const path = require('path');
 const authentication = require('../middlewares/authentication');
 const User = require('../database/models/User');
+const Review = require('../database/models/Review');
 
 
 const multerStorage = multer.diskStorage({
@@ -255,6 +256,47 @@ router.post('/updateuser/:id', authentication, async (req, res) => {
     }
 })
 
+router.post('/rating/:id', authentication, async(req, res) => {
+    try{
+        const {rating} = req.body;
+        let product = await Product.findById(req.params.id);
+
+        if(!product){
+            return res.status(404).send("Product is not found!");
+        }
+
+       let newRating = {};
+       if(rating){
+            newRating.rating = product.rating + rating;
+       }
+       newRating.avgRating = (product.rating + rating)/(product.totalPeople + 1);
+       newRating.totalPeople = product.totalPeople + 1;
+
+
+       product = await Product.findByIdAndUpdate(req.params.id, { $set :newRating }, {new: true});
+        res.json({product: product, message: "Rating has been added"});
+    }
+    catch (error) {
+        console.log(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+router.post('/review/:id', authentication, async(req, res) => {
+    try{
+        const {review} = req.body;
+
+        let reviews = await Review.create({
+            userId: req.user.id, productId: req.params.id, review: review
+        });
+
+        res.json({reviews, message: "Review has been added successfully"});
+    }
+    catch (error) {
+        console.log(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+})
 
 
 // const updateProductImage = (req, res) => {

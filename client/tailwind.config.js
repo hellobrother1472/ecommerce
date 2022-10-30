@@ -49,7 +49,7 @@ module.exports = {
           '100%': { transform: 'translateX(0%)' },
         },
         fadeOut: {
-          '0%': { transform: 'translateX(140%)' },
+          '0%': { transform: 'translateX(120%)' },
           '100%': { transform: 'translateX(0%)' },
         },
       },
