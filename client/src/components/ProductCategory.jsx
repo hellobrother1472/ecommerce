@@ -73,7 +73,7 @@ const ProductCategory = ({setProgress}) => {
                     products ? products.map((product) => (
                         <Link className='md:w-1/3' to = {`/product/${product._id}`} key={product._id}>
                         <div key={product._id} className='product bg-white flex flex-col justify-center items-center p-2 mx-6 my-4 cursor-pointer relative hover:scale-110 hover:shadow-2xl duration-200 rounded-lg'>
-                            <h4 className='flex justify-center items-center text-white bg-red-500 px-1 text-sm rounded-md gap-1 absolute top-2 right-2'>{product.avgRating} <AiFillStar /></h4>
+                            <h4 className='flex justify-center items-center text-white bg-red-500 px-1 text-sm rounded-md gap-1 absolute top-2 right-2'>{Math.round(product.avgRating)} <AiFillStar /></h4>
                             <div className='image bg-gray-200'>
                                 <img className='h-72 w-64' src={product.productImage} loading='lazy' alt='shirt' />
                             </div>

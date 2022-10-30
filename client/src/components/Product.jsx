@@ -10,10 +10,13 @@ import { useRef } from 'react';
 import SkeletonLoading from './SkeletonLoading';
 import { useDispatch,useSelector } from "react-redux";
 import { allCategoryFetchAction } from '../states/actions/allCategoryFetchAction';
+import { reviewClickedFalse } from '../states/actions/reviewClicked';
 
 const Product = ({setProgress}) => {
   const allCategoryFetchDataDispatch = useDispatch();
+  const reviewClickedDispatch = useDispatch();
   const allCategoryFetchDataState = useSelector((state)=>{return state.allCategoryFetchCache});
+  const reviewClickedState = useSelector((state)=>{return state.reviewClickedReducers});
   const [products, setProducts] = useState(allCategoryFetchDataState);
   const refImage = useRef();
   const ref = useRef();
@@ -25,7 +28,6 @@ const Product = ({setProgress}) => {
     const data = await response.json();
     setProgress(70);
     if(data){
-      console.log(data);
       setProducts(data.category);
       allCategoryFetchDataDispatch(allCategoryFetchAction(data.category));
     }
@@ -33,8 +35,9 @@ const Product = ({setProgress}) => {
   }
 
   useEffect(() => {   
-    if(allCategoryFetchDataState === null){
+    if(allCategoryFetchDataState === null || reviewClickedState){
       fetchData();
+      reviewClickedDispatch(reviewClickedFalse());
     }
   }, [])
 

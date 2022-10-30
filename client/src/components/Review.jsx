@@ -1,13 +1,16 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useAsyncError, useParams } from 'react-router-dom';
 import { GiEarthAmerica } from 'react-icons/gi';
 import Loading from './Loading';
 import {AiFillStar} from 'react-icons/ai';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from 'react-redux';
+import { reviewClickedTrue } from '../states/actions/reviewClicked';
 
 const Review = () => {
+    const reviewClickedDispatch = useDispatch();
     const [reviewDetail, setReviewDetail] = useState({
         review: ''
     })
@@ -68,9 +71,10 @@ const Review = () => {
                 },
                 body: JSON.stringify({rating: currentValue})
             })
-
+            if(response.status === 200){
+                reviewClickedDispatch(reviewClickedTrue());
+            }
             const data = await response.json();
-            console.log(data);
 
             if(change){
                 const res = await fetch(`http://localhost:5000/admin/review/${id}`, {
@@ -83,8 +87,9 @@ const Review = () => {
                 })
 
                 const dta = await res.json();
-                console.log(dta);
             }
+            setCurrentValue(0);
+            toast.success("Rating has been submited successfully");
         }
     }
 
@@ -110,7 +115,7 @@ const Review = () => {
                 product ? <div className='product-detail mt-4 bg-gray-100 p-4 rounded-xl'>
                 <div className='product-desc flex flex-col justify-center py-2 px-3'>
                     <div className='product flex gap-4 items-center'>
-                        <img className='h-10 w-10 rounded-md' src={product.productImage} alt='product-image' />
+                        <img className='h-10 w-10 rounded-md' src={product.productImage} alt='productImg' />
                         <h1 className='text-2xl smm:text-lg'>{product.name}</h1>
                     </div>
                     <div className='product-public flex items-center mt-2 text-gray-500 gap-2'>
