@@ -145,7 +145,7 @@ router.post('/updateProduct/:id', adminAuth, async (req, res) => {
             const newFindCategory = await Category.findOne({ name: categoryName });
 
             // if found update it
-            if (findCategory && newFindCategory) {
+            if (findCategory || newFindCategory) {
                 // Deleting the product from previous category
                 const array = findCategory.productIds;
                 const index = array.indexOf(product._id);

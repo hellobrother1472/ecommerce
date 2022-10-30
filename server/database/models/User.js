@@ -24,7 +24,8 @@ const userSchema = mongoose.Schema({
         unique:true
     },
     avatar: {
-        type: Number
+        type: Number,
+        default: 1
     }
 
 })  
