@@ -1,8 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Buffer } from 'buffer';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 
@@ -15,8 +13,6 @@ const MyProfile = () => {
         email: '',
         number: ''
     })
-
-    const [avatar, setAvatar] = useState();
 
     const loggedIn = useSelector((state) => {return state.userLoginStatusReducer.isSignedIn})
     const userInfo = useSelector((state) => { return state.userLoginStatusReducer.user });
@@ -32,16 +28,6 @@ const MyProfile = () => {
             navigate("/signin");
         }
     }, [])
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const image = await axios.get(`https://api.multiavatar.com/48686942/${user.avatar}`);
-            const buffer = new Buffer(image.data);
-            const bufferData = await buffer.toString("base64");
-            setAvatar(bufferData);
-        }
-        fetchData();
-    }, [user])
 
     const handleEdit = (e) => {
         e.preventDefault();
@@ -79,7 +65,7 @@ const MyProfile = () => {
                         <div className='profile-pic'>
                             {/* <img className='h-80 w-80 smm:h-48 smm:w-48 rounded-md' src='https://api.multiavatar.com/48686942/5' alt='Profile Pic' />
                              */}
-                             <img className='h-80 w-80 smm:h-48 smm:w-48 rounded-md' src={`data:image/svg+xml;base64,${avatar}`} alt="avatar" />
+                             <img className='h-80 w-80 smm:h-48 smm:w-48 rounded-md' src={`https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png`} alt="avatar" />
                         </div>
                     </div>
                     <div className='profile-right w-3/5 mdm:w-full ml-auto flex flex-col mdm:justify-center mdm:items-center'>
