@@ -307,7 +307,7 @@ const [avatar, setAvatar] = useState();
             <div onClick={circleDropdownClick} className="img cursor-pointer">
               <img
                 className=" rounded-full h-10 w-10"
-                src={`data:image/svg+xml;base64,${avatar}`}
+                src={(avatar) ? `$data:image/svg+xml;base64,${avatar}`: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}
                 alt="img"
                 loading="lazy"
               />
