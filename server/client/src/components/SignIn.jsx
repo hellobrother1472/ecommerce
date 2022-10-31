@@ -69,15 +69,21 @@ const SignIn = () => {
   };
   return (
     <div
-      className="mt-0 0 h-[91vh] pt-14 bg-cover"
+      className="mt-0 0 h-[91vh] pt-14 bg-cover bg-top"
       style={{
-        backgroundImage: `url("https://img.freepik.com/premium-photo/fashion-industry-clothing-design-new-apparel-collection-selection-bright-clothes-hanging-rack_279525-6727.jpg?w=1060")`,
+        backgroundImage: `url("https://res.cloudinary.com/dysuxhyd3/image/upload/v1667226415/combpro/images/fashion-industry-clothing-design-new-apparel-collection-selection-bright-clothes-hanging-rack_279525-6727_swqoig.webp")`,
       }}
     >
       <div className="mx-auto mdm:w-full mdtlg:w-1/2 lg:w-[30%]">
         {/* Logo */}
-        <div className="logo">
-          <h1 className="font-extrabold text-5xl text-center">Logo</h1>
+        <div className="logo flex justify-center">
+          <img
+              src={
+                "https://res.cloudinary.com/dysuxhyd3/image/upload/v1666791864/combpro/images/logo_kwd8c3.webp"
+              }
+              alt="logo"
+              className="h-7 smm:h-7 smm:w-20"
+            />
         </div>
 
         {/* Box */}

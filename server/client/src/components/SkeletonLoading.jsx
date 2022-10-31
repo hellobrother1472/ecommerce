@@ -4,13 +4,13 @@ const SkeletonLoading = () => {
   return (
     <div className="w-full" id="allProducts">
       <div className="product-heading flex flex-col justify-center items-center">
-        <div className="bg-gray-500 mdm:text-2xl md:text-4xl font-semibold w-20 h-8 text-royal-blue animate-pulse">
+        <div className="bg-gray-500 mdm:text-2xl md:text-4xl font-semibold w-20 h-8 text-royal-blue animate-pulse rounded-md">
         </div>
         <hr className="border-black" />
       </div>
 
       <div className="item flex h-full items-center justify-center mt-6">
-        <div className="info w-[98%] mb-8 animate-pulse">
+        <div className="info w-[98%] mb-8 animate-pulse rounded-md">
           <div className="product p-2 flex flex-col md:px-20">
             <div className="product-image relative">
               <div className="w-full h-72 rounded-md bg-gray-500" ></div>
@@ -26,7 +26,7 @@ const SkeletonLoading = () => {
             </div>
           </div>
         </div>
-        <div className="info w-[98%] mb-8 animate-pulse smm:hidden">
+        <div className="info w-[98%] mb-8 animate-pulse rounded-md smm:hidden">
           <div className="product p-2 flex flex-col md:px-20">
             <div className="product-image relative">
               <div className="w-full h-72 rounded-md bg-gray-500" ></div>
@@ -42,7 +42,7 @@ const SkeletonLoading = () => {
             </div>
           </div>
         </div>
-        <div className="info w-[98%] mb-8 animate-pulse mdm:hidden">
+        <div className="info w-[98%] mb-8 animate-pulse rounded-md mdm:hidden">
           <div className="product p-2 flex flex-col md:px-20">
             <div className="product-image relative">
               <div className="w-full h-72 rounded-md bg-gray-500" ></div>
