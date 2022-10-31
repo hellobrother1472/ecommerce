@@ -22,10 +22,6 @@ const userSchema = mongoose.Schema({
         type: Number,
         required:true,
         unique:true
-    },
-    avatar: {
-        type: Number,
-        default: 1
     }
 
 })  
