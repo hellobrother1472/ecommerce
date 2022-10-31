@@ -314,7 +314,7 @@ const Navbar = () => {
                 {loginStatus === "true" ? (
                   <>
                     <Link to="/myprofile">
-                      <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
+                      <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer" onClick={circleDropdownClick}>
                         My Profile
                       </li>
                     </Link>
@@ -330,12 +330,12 @@ const Navbar = () => {
                 ) : (
                   <>
                     <Link to="/signin">
-                      <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
+                      <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer" onClick={circleDropdownClick}>
                         Sign In
                       </li>
                     </Link>
                     <Link to="/signup">
-                      <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer">
+                      <li className=" p-1 px-3 py-2 hover:bg-red-300 cursor-pointer" onClick={circleDropdownClick}>
                         Sign Up
                       </li>
                     </Link>
@@ -362,10 +362,10 @@ const Navbar = () => {
         <div className="block mt-20">
           <ul className="">
             <Link to="/">
-              <li className="hover:bg-red-400 p-5 cursor-pointer">Home</li>
+              <li className="hover:bg-red-400 p-5 cursor-pointer" onClick={sideNavClick}>Home</li>
             </Link>
             <Link to="/contact">
-              <li className="hover:bg-red-400 p-5 cursor-pointer">Contact</li>
+              <li className="hover:bg-red-400 p-5 cursor-pointer" onClick={sideNavClick}>Contact</li>
             </Link>
             <li
               className="hover:bg-red-400 p-5 cursor-pointer"
@@ -382,10 +382,12 @@ const Navbar = () => {
                         <Link
                           key={shortid.generate()}
                           to={`/products/${category._id}`}
+                          onClick={sideNavClick}
                         >
                           <li
                             className=" p-1 px-8 py-2 hover:bg-red-300 cursor-pointer"
                             key={shortid.generate()}
+                            
                           >
                             {category.name}
                           </li>
