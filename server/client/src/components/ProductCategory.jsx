@@ -48,8 +48,11 @@ const ProductCategory = ({setProgress}) => {
     }
 
     return (
+        
         <div className='flex flex-col justify-center items-center p-6 md:p-8 bg-gray-100'>
-            <div className='heading-category flex items-center justify-between smm:justify-between w-1/2 ml-auto smm:ml-0 smm:w-full'>
+            {products ? 
+            <>
+                 <div className='heading-category flex items-center justify-between smm:justify-between w-1/2 ml-auto smm:ml-0 smm:w-full'>
                 <div className='heading'>
                     <h1 className='text-3xl mdm:text-2xl text-royal-blue'>{products[0].categoryName}</h1>
                     <p className='border-b-4 border-red-500 w-10 mx-auto mt-1'></p>
@@ -70,7 +73,7 @@ const ProductCategory = ({setProgress}) => {
             </div>
             <div className='products flex flex-wrap items-center mt-4 mdm:justify-center mdm:items-center'>
                 {
-                    products ? products.map((product) => (
+                    products.map((product) => (
                         <Link className='md:w-1/3' to = {`/product/${product._id}`} key={product._id}>
                         <div key={product._id} className='product bg-white flex flex-col justify-center items-center p-2 mx-6 my-4 cursor-pointer relative hover:scale-110 hover:shadow-2xl duration-200 rounded-lg'>
                             <h4 className='flex justify-center items-center text-white bg-red-500 px-1 text-sm rounded-md gap-1 absolute top-2 right-2'>{Math.round(product.avgRating)} <AiFillStar /></h4>
@@ -88,10 +91,12 @@ const ProductCategory = ({setProgress}) => {
                             </div>
                         </div>
                         </Link>
-                    )) : <Loading/>
+                    ))
                 }
 
             </div>
+            </> : <Loading/>}
+           
         </div>
     )
 }
