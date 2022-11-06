@@ -24,7 +24,7 @@ const MyProfile = () => {
     }, [userInfo])
 
     useEffect(() => {
-        if(!loggedIn){
+        if(loggedIn === "false"){
             navigate("/signin");
         }
     }, [])
