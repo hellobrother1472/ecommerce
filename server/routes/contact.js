@@ -20,6 +20,7 @@ router.post('/contact', [
             service: "gmail",
             port: 465,
             host: 'smtp.gmail.com',
+            secure:true,
             auth: {
                 user: process.env.ACCOUNT,
                 pass: process.env.ACCOUNT_PASS,

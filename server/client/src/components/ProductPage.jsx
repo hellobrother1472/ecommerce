@@ -69,7 +69,7 @@ const ProductPage = ({setProgress}) => {
         }
 
         fetchData();
-    }, [])
+    }, [id])
 
     return (
         <div className='px-4 py-8'>

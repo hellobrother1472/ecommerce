@@ -69,7 +69,7 @@ const SignIn = () => {
   };
   return (
     <div
-      className="mt-0 0 h-[91vh] pt-14 bg-cover bg-top"
+      className="mt-0 h-[92vh] pt-14 bg-cover bg-top overflow-auto mdm:pb-4"
       style={{
         backgroundImage: `url("https://res.cloudinary.com/dysuxhyd3/image/upload/v1667226415/combpro/images/fashion-industry-clothing-design-new-apparel-collection-selection-bright-clothes-hanging-rack_279525-6727_swqoig.webp")`,
       }}

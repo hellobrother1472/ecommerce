@@ -51,7 +51,7 @@ const ProductCategory = ({setProgress}) => {
         <div className='flex flex-col justify-center items-center p-6 md:p-8 bg-gray-100'>
             <div className='heading-category flex items-center justify-between smm:justify-between w-1/2 ml-auto smm:ml-0 smm:w-full'>
                 <div className='heading'>
-                    <h1 className='text-3xl mdm:text-2xl text-royal-blue'>Shirts</h1>
+                    <h1 className='text-3xl mdm:text-2xl text-royal-blue'>{products[0].categoryName}</h1>
                     <p className='border-b-4 border-red-500 w-10 mx-auto mt-1'></p>
                 </div>
                 <div className='filter-option flex flex-col'>
