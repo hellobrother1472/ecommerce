@@ -8,7 +8,7 @@ const Offer = () => {
 
   const handleLeft = () => {
     setClickBtn('left');
-    setIdx(Math.abs(idx - 1)%testimonials.length);
+    setIdx(Math.abs((idx - 1 + testimonials.length)%testimonials.length));
   }
 
   const handleRight = () => {

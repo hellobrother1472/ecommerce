@@ -68,7 +68,7 @@ const FooterOne = () => {
           <div>
             <ul className="space-y-2">
               <Link to = '/'><li className="cursor-pointer text-center">Home</li></Link>
-              <Link to = '/contact'><li className="cursor-pointer text-center mt-2">About</li></Link>
+              <Link to = '/contact' preventScrollReset={false}><li className="cursor-pointer text-center mt-2">About</li></Link>
               <AnchorLink href='#carousel'><li className="cursor-pointer text-center mt-2">Service</li></AnchorLink>
               <AnchorLink href='#testimonial'><li className="cursor-pointer text-center mt-2">Testimonial</li></AnchorLink>
               <Link to = '/contact'><li className="cursor-pointer text-center mt-2">Contact</li></Link>

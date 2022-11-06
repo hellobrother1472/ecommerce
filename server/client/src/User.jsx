@@ -8,6 +8,7 @@ import { userLogin } from "./states/actions/userLoginActions";
 import { first } from "./states/actions/cartActions";
 import LoadingBar from 'react-top-loading-bar';
 import Loading from "./components/Loading";
+import ScrollToTop from "./components/ScrollToTop";
 const Home = lazy(() => import('./components/Home'));
 const SignIn = lazy(() => import('./components/SignIn'));
 const SignUp = lazy(() => import('./components/SignUp'));
@@ -60,6 +61,7 @@ const User = () => {
         progress={progress}
       /> 
       <Suspense fallback={<Loading/>}>
+        <ScrollToTop/>
         <Routes>
           <Route path="/" element={<Home setProgress = {setProgress}/>} />
           <Route path="/signin" element={<SignIn />} />
